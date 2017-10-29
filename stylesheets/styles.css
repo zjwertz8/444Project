@@ -8,7 +8,7 @@
         padding: 0;
 }
 /* Optional: Makes the sample page fill the window. */
-html, body, #map
+html, body
 {
         height: 100%;
         margin: 0;
@@ -25,4 +25,21 @@ html, body, #map
 
 h1 {
     text-align: center;
+}
+
+.stations, .stations svg {
+    position: absolute;
+}
+
+.stations svg {
+    width: 60px;
+    height: 20px;
+    padding-right: 100px;
+    font: 10px sans-serif;
+}
+
+.stations circle {
+    fill: brown;
+    stroke: black;
+    stroke-width: 1.5px;
 }
