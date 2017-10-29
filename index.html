@@ -4,9 +4,75 @@
     <meta charset="utf-8">
     <title>Heatmaps</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
-  </head>
+    <script src="http://maps.google.com/maps/api/js?sensor=True"></script>
 
-  <body>
+  </head>
+<body>
+<h1>Ole Miss Parking Citation Visualization</h1>
+<script type="text/javascript" src="d3.min.js"></script>
+<div id="map-container">
+<div id="map"></div>
+<script>
+
+var map = new google.maps.Map(d3.select("#map").node(), {
+               zoom: 15,
+               center: new google.maps.LatLng(34.364732, -89.538443),
+               mapTypeId: google.maps.MapTypeId.ROADMAP
+             });
+
+d3.csv("FullDataRaw.csv", function(data) {
+  var lotCount = d3.nest()
+     .key(function(d) { return d.CLM_DESCRIPTION; })
+     .rollup(function(v) { return v.length;})
+     .entries(data)
+
+  console.log(lotCount)
+})
+
+d3.csv("FullDataRaw.csv", function(data) {
+  console.log(data[0])
+
+
+  var overlay = new google.maps.OverlayView();
+
+// Add the container when the overlay is added to the map.
+  overlay.onAdd = function() {
+    var layer = d3.select(this.getPanes().overlayLayer).append("div")
+        .attr("class", "stations");
+
+    // Draw each marker as a separate SVG element.
+    // We could use a single SVG, but what size would it have?
+    overlay.draw = function() {
+      var projection = this.getProjection(),
+          padding = 10;
+
+      var marker = layer.selectAll("svg")
+          .data(d3.entries(data))
+          // .each(transform) // update existing markers
+        .enter().append("svg")
+          .each(transform)
+          .attr("class", "marker");
+
+      // Add a circle.
+      marker.append("circle")
+          .attr("r", 4.5)
+          .attr("cx", padding)
+          .attr("cy", padding);
+
+      function transform(d) {
+        d = new google.maps.LatLng(34.370005, -89.548021);
+        d = projection.fromLatLngToDivPixel(d);
+        return d3.select(this)
+            .style("left", (d.x - padding) + "px")
+            .style("top", (d.y - padding) + "px");
+      };
+  };
+};
+overlay.setMap(map);
+});
+</script>
+</div>
+ <!--  <body>
   <h1>Ole Miss Parking Citation Visualization</h1>
   <div id="map-container">
     <div id="map"></div>
@@ -15,6 +81,7 @@
   <script src="scripts/main.js"></script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfLu_0pTl3laZd8iJdcaAmWjJJUZBhUnQ&libraries=visualization&callback=initMap" async defer></script>
     
+  </body> -->
   </body>
 </html>
       
