@@ -21,80 +21,72 @@ var map = new google.maps.Map(d3.select("#map").node(), {
                mapTypeId: google.maps.MapTypeId.ROADMAP
              });
 
-d3.csv("FullDataRaw.csv", function(data) {
+
+d3.csv("Demo1.csv", function(data) {
   var lotCount = d3.nest()
-     .key(function(d) { return d.CLM_DESCRIPTION; })
+     .key(function(d) {return d.CLM_DESCRIPTION;})
      .rollup(function(v) { return v.length;})
      .entries(data)
 
   console.log(lotCount)
-})
-
-d3.csv("FullDataRaw.csv", function(data) {
-  console.log(data[0]);
-});
-
-
-
-
-
-
-
-
-
-
- var overlay = new google.maps.OverlayView();
-
-
-parkingLotCoords = [
-{"lat": 34.370761,"lng":-89.546331},
-{
-  "lat": 34.370132,
-  "lng": -89.545687
-},
-{
-  "lat": 34.369149,
-  "lng": -89.547865
-},
-{
-  "lat": 34.369716,
-  "lng": -89.548177
-}
-];
-
-parkingLotCoords2 = [
-{
-  "lat": 34.369858,
-  "lng": -89.544057
-},
-{
-  "lat": 34.368981,
-  "lng": -89.544947
-},
-{
-  "lat": 34.368193,
-  "lng": -89.544121
-},
-{
-  "lat": 34.368131,
-  "lng": -89.545097
-}
-];
-
-
+  // console.log(lotCount[0])
+  console.log(lotCount[0].key)
+ 
 
 var gradient = d3.scaleLinear().domain([0,10]).range(["green", "red"]);
 
 
+//function to find key in array, give correct fill color
+function fillColor(lotCount, param)
+{ 
+  for(i = 0; i < lotCount.length; i++)
+  {
 
- jacksonAve = new google.maps.Polygon({
-  paths: parkingLotCoords,
+  if(lotCount[i].key == param) 
+    {
+      return lotCount[i].value;
+    }
+  }
+}
+
+//Jackson Avenue 
+jacksonAveLatLong = 
+[
+{"lat": 34.36998163682145, "lng":-89.54804563509242},
+{"lat": 34.370610387879836, "lng": -89.54699420915858},
+{"lat": 34.37082735017804, "lng": -89.54631829248683},
+{"lat": 34.37082292238164, "lng": -89.54574966417567},
+{"lat": 34.37081406678818, "lng": -89.54507374750392},
+{"lat": 34.370495264799516, "lng": -89.54488062845485},
+{"lat": 34.37042441974841, "lng": -89.54491817938106},
+{"lat": 34.37037128592073, "lng": -89.54498791681544},
+{"lat": 34.36889680875947, "lng": -89.54835677133815},
+{"lat": 34.368914520350835, "lng": -89.54849624620692},
+{"lat": 34.36898979457238, "lng": -89.54860353456752},
+{"lat": 34.36945029421982, "lng": -89.54886102663295},
+{"lat": 34.369746960921255, "lng": -89.54881811128871},
+{"lat": 34.36955213514621, "lng": -89.54840505110042},
+{"lat": 34.36998075126676, "lng": -89.5480477809906}
+];
+
+
+jacksonAvePoly = new google.maps.Polygon({
+  paths: jacksonAveLatLong,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  fillColor: gradient(8),
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
   fillOpacity: 0.35
  })
+
+parkingLotCoords2 = [
+{"lat": 34.369858, "lng": -89.544057},
+{"lat": 34.368981, "lng": -89.544947},
+{"lat": 34.368193, "lng": -89.544121},
+{"lat": 34.368131, "lng": -89.545097}
+];
+ 
 
  jacksonAve2 = new google.maps.Polygon({
   paths: parkingLotCoords2,
@@ -105,51 +97,10 @@ var gradient = d3.scaleLinear().domain([0,10]).range(["green", "red"]);
   fillOpacity: 0.35
  })
 
-
-  
-  jacksonAve.setMap(map);
+  jacksonAvePoly.setMap(map);
   jacksonAve2.setMap(map);
 
-
-
-//   var overlay = new google.maps.OverlayView();
-
-// // Add the container when the overlay is added to the map.
-//   overlay.onAdd = function() {
-//     var layer = d3.select(this.getPanes().overlayLayer).append("div")
-//         .attr("class", "stations");
-
-//     // Draw each marker as a separate SVG element.
-//     // We could use a single SVG, but what size would it have?
-//   //   overlay.draw = function() {
-//   //     var projection = this.getProjection(),
-//   //         padding = 10;
-
-//   //     var marker = layer.selectAll("svg")
-//   //         .data(d3.entries(data))
-//   //         // .each(transform) // update existing markers
-//   //       .enter().append("svg")
-//   //         .each(transform)
-//   //         .attr("class", "marker");
-
-//   //     // Add a circle.
-//   //     marker.append("circle")
-//   //         .attr("r", 4.5)
-//   //         .attr("cx", padding)
-//   //         .attr("cy", padding);
-
-//   //     function transform(d) {
-//   //       d = new google.maps.LatLng(34.370005, -89.548021);
-//   //       d = projection.fromLatLngToDivPixel(d);
-//   //       return d3.select(this)
-//   //           .style("left", (d.x - padding) + "px")
-//   //           .style("top", (d.y - padding) + "px");
-//   //     };
-//   // };
-// };
-// overlay.setMap(map);
-// });
-
+});
 </script>
 </div>
   </body>
