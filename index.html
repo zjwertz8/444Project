@@ -11,6 +11,7 @@
 <h1>Ole Miss Parking Citation Visualization</h1>
 <script type="text/javascript" src="d3.min.js"></script>
 <script type="text/javascript" src="d3/d3.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <div id="map-container">
 <div id="map"></div>
 <script>
@@ -33,9 +34,13 @@ d3.csv("FullDataRaw.csv", function(data) {
   console.log(lotCount[0].key)
 
 
-var gradient = d3.scaleLinear().domain([0,10]).range(["green", "red"]);
+// var gradient = d3.scaleSequential().domain([0,10]).interpolator(d3.interpolatePlasma);
 
+<<<<<<< HEAD
+var gradient = d3.scaleLinear().domain([0,10]).range(["orange", "red"]);
+=======
 // var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
+>>>>>>> e0e762a71a1462607518fbba01ae7fd379f16dd8
 
 //function to find key in array, give correct fill color
 function fillColor(lotCount, param)
@@ -94,7 +99,7 @@ jacksonAvePoly = new google.maps.Polygon({
 });
 
 
-
+//Sorority
 sororityLatLong = 
 [
 {"lat": 34.36913392239193, "lng": -89.53253991901875},
@@ -136,6 +141,7 @@ sororityPoly = new google.maps.Polygon({
   fillOpacity: 0.35
  });
 
+//Coliseum East 
 coliseumEastLatLong = 
 [
 {"lat": 34.363540651798374, "lng": -89.53974527114042},
@@ -430,15 +436,69 @@ stockardRearPoly = new google.maps.Polygon({
 });
 
 
+//Manning Center East
+manningCenterLatLong = 
+[
+{"lat": 34.35957910706344, "lng": -89.5358718931675},
+{"lat": 34.360630843262136, "lng": -89.53505381941795},
+{"lat": 34.36068841159937, "lng": -89.53474536538124},
+{"lat": 34.36065298493497, "lng": -89.53473463654518},
+{"lat": 34.36065298493497, "lng": -89.53473329544067},
+{"lat": 34.36064855660088, "lng": -89.53468099236488},
+{"lat": 34.360668484102504, "lng": -89.53457102179527},
+{"lat": 34.36065741326886, "lng": -89.53451737761497},
+{"lat": 34.360635271597175, "lng": -89.53447178006172},
+{"lat": 34.3605976307419, "lng": -89.53445836901665},
+{"lat": 34.3605976307419, "lng": -89.53445702791214},
+{"lat": 34.360564418208504, "lng": -89.53447714447975},
+{"lat": 34.36053563400226, "lng": -89.53443959355354},
+{"lat": 34.36017029514065, "lng": -89.534702450037},
+{"lat": 34.36019022275599, "lng": -89.53476145863533},
+{"lat": 34.36019022275599, "lng": -89.53476011753082},
+{"lat": 34.36019022275599, "lng": -89.53476011753082},
+{"lat": 34.36019022275599, "lng": -89.53476011753082},
+{"lat": 34.36019022275599, "lng": -89.53476011753082},
+{"lat": 34.36019022275599, "lng": -89.53476011753082},
+{"lat": 34.36019022275599, "lng": -89.53476011753082},
+{"lat": 34.36016586678104, "lng": -89.53478090465069},
+{"lat": 34.36005515771482, "lng": -89.53486807644367},
+{"lat": 34.36005515771482, "lng": -89.53486740589142},
+{"lat": 34.36005515771482, "lng": -89.53486740589142},
+{"lat": 34.3600308017006, "lng": -89.5348734408617},
+{"lat": 34.36001419532324, "lng": -89.53482650220394},
+{"lat": 34.35989795058945, "lng": -89.53492172062397},
+{"lat": 34.35991455698987, "lng": -89.53496865928173},
+{"lat": 34.35985255974488, "lng": -89.53502900898457},
+{"lat": 34.359880237092064, "lng": -89.53508533537388},
+{"lat": 34.35991898536277, "lng": -89.53513897955418},
+{"lat": 34.35955253671487, "lng": -89.53542731702328},
+{"lat": 34.35957357157485, "lng": -89.5354675501585},
+{"lat": 34.35954257283196, "lng": -89.53551985323429},
+{"lat": 34.359499395992394, "lng": -89.53550107777119},
+{"lat": 34.359457326229894, "lng": -89.53564055263996},
+{"lat": 34.359447362335686, "lng": -89.53577734529972},
+{"lat": 34.3594971817949, "lng": -89.53579343855381},
+{"lat": 34.359556965106876, "lng": -89.53582964837551},
+{"lat": 34.35957910706344, "lng": -89.5358718931675}
+];
 
- 
-
+manningCenterPoly = new google.maps.Polygon({
+  paths: manningCenterLatLong,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillOpacity: 0.35
+});
 
 jacksonAvePoly.setMap(map);
 sororityPoly.setMap(map);
 coliseumEastPoly.setMap(map);
 crosbyRearPoly.setMap(map);
 stockardRearPoly.setMap(map);
+manningCenterPoly.setMap(map);
+
 });
 </script>
 </div>
