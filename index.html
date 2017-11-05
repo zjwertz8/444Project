@@ -33,16 +33,30 @@ d3.csv("FullDataRaw.csv", function(data) {
   // console.log(lotCount[0])
   console.log(lotCount[0].key)
 
+<<<<<<< HEAD
 
 // var gradient = d3.scaleSequential().domain([0,10]).interpolator(d3.interpolatePlasma);
 
+<<<<<<< HEAD
 
+=======
+//var gradient = d3.scaleLinear().domain([0,10542]).range(["orange", "red"]);
+>>>>>>> 1973605a10be28ea400bfd63eed30e974cb3f661
 var gradient = d3.scaleLinear().domain([0,10]).range(["orange", "red"]);
 
 // var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1973605a10be28ea400bfd63eed30e974cb3f661
 
+=======
+var gradient = d3.scaleLinear().domain([0,10542]).range(["orange", "red"]);
+
+// var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
+
+>>>>>>> 5de1b275d4b0c1d18ab67c2fd7d5f69e19e01b96
 //function to find key in array, give correct fill color
 function fillColor(lotCount, param)
 {
@@ -899,7 +913,29 @@ kincannonPoly = new google.maps.Polygon({
   strokeOpacity: 0.8,
   strokeWeight: 0,
   // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillColor: gradient(fillColor(lotCount, "KINCANNON HALL PARKING LOT")),
+  fillOpacity: 0.35
+});
+
+womensTerraceLatLng =[
+{"lat": 34.368187, "lng": -89.534568},
+{"lat": 34.368187, "lng": -89.534021},
+{"lat": 34.368833, "lng": -89.534147},
+{"lat": 34.368999, "lng": -89.53444},
+{"lat": 34.36901, "lng": -89.534767},
+{"lat": 34.36897, "lng": -89.535078},
+{"lat": 34.368835, "lng": -89.535311},
+{"lat": 34.368625, "lng": -89.535343},
+{"lat": 34.368251, "lng": -89.535314},
+{"lat": 34.368169, "lng": -89.535303}];
+
+womensTerracePoly = new google.maps.Polygon({
+  paths: womensTerraceLatLng,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "WOMENS TERRACE-LOWER LOT")),
   fillOpacity: 0.35
 });
 
@@ -914,7 +950,12 @@ meekPoly.setMap(map);
 magnoliaPoly.setMap(map);
 residentialCollegePoly.setMap(map);
 kincannonPoly.setMap(map);
+<<<<<<< HEAD
 circlePoly.setMap(map);
+=======
+womensTerracePoly.setMap(map);
+
+>>>>>>> 1973605a10be28ea400bfd63eed30e974cb3f661
 });
 </script>
 </div>
