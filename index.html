@@ -36,14 +36,11 @@ d3.csv("FullDataRaw.csv", function(data) {
 
 // var gradient = d3.scaleSequential().domain([0,10]).interpolator(d3.interpolatePlasma);
 
-<<<<<<< HEAD
-var gradient = d3.scaleLinear().domain([0,10542]).range(["orange", "red"]);
-=======
+//var gradient = d3.scaleLinear().domain([0,10542]).range(["orange", "red"]);
 var gradient = d3.scaleLinear().domain([0,10]).range(["orange", "red"]);
 
 // var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
 
->>>>>>> 73337cc0c43eba14fe05874f1a4bf43bd11f0bd3
 
 //function to find key in array, give correct fill color
 function fillColor(lotCount, param)
