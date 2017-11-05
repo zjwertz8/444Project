@@ -42,10 +42,10 @@ var gradient = d3.scaleLinear().domain([0,10]).range(["orange", "red"]);
 
 //function to find key in array, give correct fill color
 function fillColor(lotCount, param)
-{ 
+{
   for(i = 0; i < lotCount.length; i++)
   {
-  if(lotCount[i].key == param) 
+  if(lotCount[i].key == param)
     {
       return lotCount[i].value;
     }
@@ -98,7 +98,7 @@ jacksonAvePoly = new google.maps.Polygon({
 
 
 //Sorority
-sororityLatLong = 
+sororityLatLong =
 [
 {"lat": 34.36913392239193, "lng": -89.53253991901875},
 {"lat": 34.36918927094585, "lng": -89.53243933618069},
@@ -139,8 +139,8 @@ sororityPoly = new google.maps.Polygon({
   fillOpacity: 0.35
  });
 
-//Coliseum East 
-coliseumEastLatLong = 
+//Coliseum East
+coliseumEastLatLong =
 [
 {"lat": 34.363540651798374, "lng": -89.53974527114042},
 {"lat": 34.36371777886659, "lng": -89.53922760480054},
@@ -278,7 +278,7 @@ MeekPoly = new google.maps.Polygon({
 
 
 //Manning Center East
-manningCenterLatLong = 
+manningCenterLatLong =
 [
 {"lat": 34.35957910706344, "lng": -89.5358718931675},
 {"lat": 34.360630843262136, "lng": -89.53505381941795},
@@ -334,7 +334,7 @@ manningCenterPoly = new google.maps.Polygon({
 });
 
 
-magnoliaLatLong = 
+magnoliaLatLong =
 [
 {"lat": 34.366137297100316, "lng": -89.54212814569473},
 {"lat": 34.365949105012334, "lng": -89.54017549753189},
@@ -354,7 +354,7 @@ magnoliaPoly = new google.maps.Polygon({
 });
 
 
-residentialCollegeLatLng = 
+residentialCollegeLatLng =
 [
 {"lat": 34.36742806202902, "lng": -89.53018963336945},
 {"lat": 34.36748341170995, "lng": -89.53014738857746},
@@ -400,6 +400,36 @@ residentialCollegePoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
+kincannonLatLong =[
+{"lat": 34.369766, "lng": -89.534701},
+{"lat": 34.369225, "lng": -89.53769},
+{"lat": 34.36938, "lng": -89.537613},
+{"lat": 34.369608, "lng": -89.53827},
+{"lat": 34.369557, "lng": -89.53916},
+{"lat": 34.368705, "lng": -89.5393},
+{"lat": 34.368543, "lng": -89.539214},
+{"lat": 34.368499, "lng": -89.53919},
+{"lat": 34.368499, "lng": -89.538903},
+{"lat": 34.368512, "lng": -89.538452},
+{"lat": 34.36853, "lng": -89.538205},
+{"lat": 34.368541, "lng": -89.537994},
+{"lat": 34.368559, "lng": -89.537926},
+{"lat": 34.368674, "lng": -89.537953},
+{"lat": 34.368875, "lng": -89.538055},
+{"lat": 34.369021, "lng": -89.538181},
+{"lat": 34.369207, "lng": -89.538227},
+{"lat": 34.369382, "lng": -89.538136}];
+
+kincannonPoly = new google.maps.Polygon({
+  paths: residentialCollegeatLong,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillOpacity: 0.35
+});
+
 
 jacksonAvePoly.setMap(map);
 sororityPoly.setMap(map);
@@ -410,6 +440,7 @@ manningCenterPoly.setMap(map);
 MeekPoly.setMap(map);
 magnoliaPoly.setMap(map);
 residentialCollegePoly.setMap(map);
+kincannonPoly.setMap(map);
 
 });
 </script>
