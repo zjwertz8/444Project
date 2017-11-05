@@ -83,39 +83,6 @@ jacksonAveLatLong =
 ];
 
 
-//Crosby Rear
-crosyRearLatLong = [
-  {"lat": 34.369766, "lng": -89.534701},
-  {"lat": 34.370179, "lng": -89.534662},
-  {"lat": 34.370126, "lng": -89.535075},
-  {"lat": 34.370226, "lng": -89.535105},
-  {"lat": 34.370354, "lng": -89.535094},
-  {"lat": 34.371093, "lng": -89.534949},
-  {"lat": 34.371634, "lng": -89.534853},
-  {"lat": 34.371532, "lng": -89.534051},
-  {"lat": 34.371321, "lng": -89.534088},
-  {"lat": 34.371271, "lng": -89.533756},
-  {"lat": 34.37075, "lng": -89.533866},
-  {"lat": 34.370788, "lng": -89.534193},
-  {"lat": 34.370206, "lng": -89.534273},
-  {"lat": 34.37018, "lng": -89.534661}
-];
-
-//Stockard Rear
-stockardRearLatLong = [
-  {"lat": 34.370356, "lng": -89.53791},
-  {"lat": 34.370093, "lng": -89.537935},
-  {"lat": 34.369789, "lng": -89.538047},
-  {"lat": 34.369513, "lng": -89.537318},
-  {"lat": 34.369475, "lng": -89.537076},
-  {"lat": 34.369471, "lng": -89.53676},
-  {"lat": 34.369648, "lng": -89.536148},
-  {"lat": 34.370084, "lng": -89.536052},
-  {"lat": 34.370432, "lng": -89.535987},
-  {"lat": 34.370456, "lng": -89.536559},
-  {"lat": 34.370432, "lng": -89.537739}
-];
-
 
 jacksonAvePoly = new google.maps.Polygon({
   paths: jacksonAveLatLong,
@@ -126,25 +93,48 @@ jacksonAvePoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
-crosbyRearPoly = new google.maps.Polygon({
-  paths: crosyRearLatLong,
-  strokeColor: '#FF0000',
-  strokeOpacity: 0.8,
-  strokeWeight: 0,
-  // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
-  fillOpacity: 0.35
-});
 
-stockardRearPoly = new google.maps.Polygon({
-  paths: stockardRearLatLong,
+
+sororityLatLong = 
+[
+{"lat": 34.36913392239193, "lng": -89.53253991901875},
+{"lat": 34.36918927094585, "lng": -89.53243933618069},
+{"lat": 34.36917266638351, "lng": -89.53238435089588},
+{"lat": 34.36918152215051, "lng": -89.53230522572994},
+{"lat": 34.369236870672985, "lng": -89.5322073251009},
+{"lat": 34.369286684311966, "lng": -89.53211076557636},
+{"lat": 34.36928889825079, "lng": -89.53206785023212},
+{"lat": 34.36927561461696, "lng": -89.53191764652729},
+{"lat": 34.36874426753734, "lng": -89.53197129070759},
+{"lat": 34.368470843872664, "lng": -89.53200213611126},
+{"lat": 34.36849851837325, "lng": -89.53212954103947},
+{"lat": 34.36850183931271, "lng": -89.53215904533863},
+{"lat": 34.36852397890571, "lng": -89.5321885496378},
+{"lat": 34.36856161620037, "lng": -89.53222341835499},
+{"lat": 34.36859039764961, "lng": -89.5322623103857},
+{"lat": 34.36860368139206, "lng": -89.5323521643877},
+{"lat": 34.36859593254255, "lng": -89.5323870331049},
+{"lat": 34.36858154182012, "lng": -89.53241921961308},
+{"lat": 34.36855386734699, "lng": -89.53246749937534},
+{"lat": 34.368526192864685, "lng": -89.53249834477901},
+{"lat": 34.368526192864685, "lng": -89.53249767422676},
+{"lat": 34.36851069515059, "lng": -89.53252114355564},
+{"lat": 34.36850958817092, "lng": -89.53254528343678},
+{"lat": 34.36851180213028, "lng": -89.53260160982609},
+{"lat": 34.36852840682361, "lng": -89.53265525400639},
+{"lat": 34.36858154182012, "lng": -89.53265525400639},
+{"lat": 34.3691372433062, "lng": -89.53261904418468},
+{"lat": 34.36913392239193, "lng": -89.53253924846649}
+];
+
+sororityPoly = new google.maps.Polygon({
+  paths: sororityLatLong,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillColor: gradient(fillColor(lotCount, "15 MIN TIMED PAK MAIL CROSBY")),
   fillOpacity: 0.35
-});
+ });
 
 coliseumEastLatLong = 
 [
@@ -190,55 +180,72 @@ coliseumEastPoly = new google.maps.Polygon({
   fillOpacity: 0.35
  });
 
-sororityLatLong = 
-[
-{"lat": 34.36913392239193, "lng": -89.53253991901875},
-{"lat": 34.36918927094585, "lng": -89.53243933618069},
-{"lat": 34.36917266638351, "lng": -89.53238435089588},
-{"lat": 34.36918152215051, "lng": -89.53230522572994},
-{"lat": 34.369236870672985, "lng": -89.5322073251009},
-{"lat": 34.369286684311966, "lng": -89.53211076557636},
-{"lat": 34.36928889825079, "lng": -89.53206785023212},
-{"lat": 34.36927561461696, "lng": -89.53191764652729},
-{"lat": 34.36874426753734, "lng": -89.53197129070759},
-{"lat": 34.368470843872664, "lng": -89.53200213611126},
-{"lat": 34.36849851837325, "lng": -89.53212954103947},
-{"lat": 34.36850183931271, "lng": -89.53215904533863},
-{"lat": 34.36852397890571, "lng": -89.5321885496378},
-{"lat": 34.36856161620037, "lng": -89.53222341835499},
-{"lat": 34.36859039764961, "lng": -89.5322623103857},
-{"lat": 34.36860368139206, "lng": -89.5323521643877},
-{"lat": 34.36859593254255, "lng": -89.5323870331049},
-{"lat": 34.36858154182012, "lng": -89.53241921961308},
-{"lat": 34.36855386734699, "lng": -89.53246749937534},
-{"lat": 34.368526192864685, "lng": -89.53249834477901},
-{"lat": 34.368526192864685, "lng": -89.53249767422676},
-{"lat": 34.36851069515059, "lng": -89.53252114355564},
-{"lat": 34.36850958817092, "lng": -89.53254528343678},
-{"lat": 34.36851180213028, "lng": -89.53260160982609},
-{"lat": 34.36852840682361, "lng": -89.53265525400639},
-{"lat": 34.36858154182012, "lng": -89.53265525400639},
-{"lat": 34.3691372433062, "lng": -89.53261904418468},
-{"lat": 34.36913392239193, "lng": -89.53253924846649}
+
+//Crosby Rear
+crosyRearLatLong = [
+  {"lat": 34.369766, "lng": -89.534701},
+  {"lat": 34.370179, "lng": -89.534662},
+  {"lat": 34.370126, "lng": -89.535075},
+  {"lat": 34.370226, "lng": -89.535105},
+  {"lat": 34.370354, "lng": -89.535094},
+  {"lat": 34.371093, "lng": -89.534949},
+  {"lat": 34.371634, "lng": -89.534853},
+  {"lat": 34.371532, "lng": -89.534051},
+  {"lat": 34.371321, "lng": -89.534088},
+  {"lat": 34.371271, "lng": -89.533756},
+  {"lat": 34.37075, "lng": -89.533866},
+  {"lat": 34.370788, "lng": -89.534193},
+  {"lat": 34.370206, "lng": -89.534273},
+  {"lat": 34.37018, "lng": -89.534661}
 ];
 
-sororityPoly = new google.maps.Polygon({
-  paths: sororityLatLong,
+
+crosbyRearPoly = new google.maps.Polygon({
+  paths: crosyRearLatLong,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  fillColor: gradient(fillColor(lotCount, "15 MIN TIMED PAK MAIL CROSBY")),
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
   fillOpacity: 0.35
- });
+});
 
 
-  crosbyRearPoly.setMap(map);
-  stockardRearPoly.setMap(map);
+//Stockard Rear
+stockardRearLatLong = [
+  {"lat": 34.370356, "lng": -89.53791},
+  {"lat": 34.370093, "lng": -89.537935},
+  {"lat": 34.369789, "lng": -89.538047},
+  {"lat": 34.369513, "lng": -89.537318},
+  {"lat": 34.369475, "lng": -89.537076},
+  {"lat": 34.369471, "lng": -89.53676},
+  {"lat": 34.369648, "lng": -89.536148},
+  {"lat": 34.370084, "lng": -89.536052},
+  {"lat": 34.370432, "lng": -89.535987},
+  {"lat": 34.370456, "lng": -89.536559},
+  {"lat": 34.370432, "lng": -89.537739}
+];
+
+stockardRearPoly = new google.maps.Polygon({
+  paths: stockardRearLatLong,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillOpacity: 0.35
+});
+
+
+
+ 
 
 
 jacksonAvePoly.setMap(map);
-coliseumEastPoly.setMap(map);
 sororityPoly.setMap(map);
+coliseumEastPoly.setMap(map);
+crosbyRearPoly.setMap(map);
+stockardRearPoly.setMap(map);
 });
 </script>
 </div>
