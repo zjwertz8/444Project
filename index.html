@@ -87,6 +87,21 @@ crosyRearLatLong = [
   {"lat": 34.37018, "lng": -89.534661}
 ];
 
+//Stockard Rear
+stockardRearLatLong = [
+  {"lat": 34.370356, "lng": -89.53791},
+  {"lat": 34.370093, "lng": -89.537935},
+  {"lat": 34.369789, "lng": -89.538047},
+  {"lat": 34.369513, "lng": -89.537318},
+  {"lat": 34.369475, "lng": -89.537076},
+  {"lat": 34.369471, "lng": -89.53676},
+  {"lat": 34.369648, "lng": -89.536148},
+  {"lat": 34.370084, "lng": -89.536052},
+  {"lat": 34.370432, "lng": -89.535987},
+  {"lat": 34.370456, "lng": -89.536559},
+  {"lat": 34.370432, "lng": -89.537739}
+];
+
 jacksonAvePoly = new google.maps.Polygon({
   paths: jacksonAveLatLong,
   strokeColor: '#FF0000',
@@ -95,7 +110,7 @@ jacksonAvePoly = new google.maps.Polygon({
   // fillColor: gradient(10),
   fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
   fillOpacity: 0.35
-})
+});
 
 crosbyRearPoly = new google.maps.Polygon({
   paths: crosyRearLatLong,
@@ -105,7 +120,17 @@ crosbyRearPoly = new google.maps.Polygon({
   // fillColor: gradient(10),
   fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
   fillOpacity: 0.35
- })
+});
+
+stockardRearPoly = new google.maps.Polygon({
+  paths: stockardRearLatLong,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillOpacity: 0.35
+});
 
 parkingLotCoords2 = [
 {"lat": 34.369858, "lng": -89.544057},
@@ -127,6 +152,7 @@ parkingLotCoords2 = [
   jacksonAvePoly.setMap(map);
   jacksonAve2.setMap(map);
   crosbyRearPoly.setMap(map);
+  stockardRearPoly.setMap(map);
 
 });
 </script>
