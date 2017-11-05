@@ -294,12 +294,34 @@ manningCenterPoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
+
+magnoliaLatLong = 
+[
+{"lat": 34.366137297100316, "lng": -89.54212814569473},
+{"lat": 34.365949105012334, "lng": -89.54017549753189},
+{"lat": 34.36573434411314, "lng": -89.54019159078598},
+{"lat": 34.365969031253414, "lng": -89.54215966165066},
+{"lat": 34.366125119977994, "lng": -89.54212948679924}
+]
+
+magnoliaPoly = new google.maps.Polygon({
+  paths: magnoliaLatLong,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillOpacity: 0.35
+});
+
+
 jacksonAvePoly.setMap(map);
 sororityPoly.setMap(map);
 coliseumEastPoly.setMap(map);
 crosbyRearPoly.setMap(map);
 stockardRearPoly.setMap(map);
 manningCenterPoly.setMap(map);
+magnoliaPoly.setMap(map);
 
 });
 </script>
