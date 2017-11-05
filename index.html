@@ -36,9 +36,7 @@ d3.csv("FullDataRaw.csv", function(data) {
 
 // var gradient = d3.scaleSequential().domain([0,10]).interpolator(d3.interpolatePlasma);
 
-var gradient = d3.scaleLinear().domain([0,10]).range(["orange", "red"]);
-// var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
-
+var gradient = d3.scaleLinear().domain([0,10542]).range(["orange", "red"]);
 
 //function to find key in array, give correct fill color
 function fillColor(lotCount, param)
@@ -92,7 +90,7 @@ jacksonAvePoly = new google.maps.Polygon({
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  fillColor: gradient(fillColor(lotCount, "15 MIN TIMED PAK MAIL CROSBY")),
+  fillColor: gradient(fillColor(lotCount, "JACKSON AVENUE CENTER")),
   fillOpacity: 0.35
 });
 
@@ -135,7 +133,7 @@ sororityPoly = new google.maps.Polygon({
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  fillColor: gradient(fillColor(lotCount, "15 MIN TIMED PAK MAIL CROSBY")),
+  fillColor: gradient(fillColor(lotCount, "SORORITY LOT")),
   fillOpacity: 0.35
  });
 
@@ -180,7 +178,7 @@ coliseumEastPoly = new google.maps.Polygon({
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  fillColor: gradient(fillColor(lotCount, "15 MIN TIMED PAK MAIL CROSBY")),
+  fillColor: gradient(fillColor(lotCount, "COLISEUM EAST LOT")),
   fillOpacity: 0.35
  });
 
@@ -210,7 +208,7 @@ crosbyRearPoly = new google.maps.Polygon({
   strokeOpacity: 0.8,
   strokeWeight: 0,
   // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillColor: gradient(fillColor(lotCount, "CROSBY REAR LOT")),
   fillOpacity: 0.35
 });
 
@@ -236,12 +234,12 @@ stockardRearPoly = new google.maps.Polygon({
   strokeOpacity: 0.8,
   strokeWeight: 0,
   // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillColor: gradient(fillColor(lotCount, "STOCKARD REAR LOT")),
   fillOpacity: 0.35
 });
 
-//Stockard Rear
-MeekLatLong = [
+//Meek Lot
+meekLatLong = [
   {"lat": 34.367382, "lng": -89.537515},
   {"lat": 34.367322, "lng": -89.537552},
   {"lat": 34.367258, "lng": -89.537576},
@@ -266,8 +264,8 @@ MeekLatLong = [
 
 ];
 
-MeekPoly = new google.maps.Polygon({
-  paths: MeekLatLong,
+meekPoly = new google.maps.Polygon({
+  paths: meekLatLong,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -329,7 +327,7 @@ manningCenterPoly = new google.maps.Polygon({
   strokeOpacity: 0.8,
   strokeWeight: 0,
   // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillColor: gradient(fillColor(lotCount, "MANNING CENTER EAST")),
   fillOpacity: 0.35
 });
 
@@ -349,11 +347,11 @@ magnoliaPoly = new google.maps.Polygon({
   strokeOpacity: 0.8,
   strokeWeight: 0,
   // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillColor: gradient(fillColor(lotCount, "MAGNOLIA DRIVE")),
   fillOpacity: 0.35
 });
 
-
+//Redidential College/Alumni Dr Lot
 residentialCollegeLatLng = 
 [
 {"lat": 34.36742806202902, "lng": -89.53018963336945},
@@ -396,7 +394,7 @@ residentialCollegePoly = new google.maps.Polygon({
   strokeOpacity: 0.8,
   strokeWeight: 0,
   // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillColor: gradient(fillColor(lotCount, "RESIDENTIAL COLLEGE/ALUMN DR LOT")),
   fillOpacity: 0.35
 });
 
@@ -407,7 +405,7 @@ coliseumEastPoly.setMap(map);
 crosbyRearPoly.setMap(map);
 stockardRearPoly.setMap(map);
 manningCenterPoly.setMap(map);
-MeekPoly.setMap(map);
+meekPoly.setMap(map);
 magnoliaPoly.setMap(map);
 residentialCollegePoly.setMap(map);
 
