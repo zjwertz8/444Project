@@ -35,6 +35,8 @@ d3.csv("FullDataRaw.csv", function(data) {
 
 var gradient = d3.scaleLinear().domain([0,10542]).range(["orange", "red"]);
 
+// var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
+
 //function to find key in array, give correct fill color
 function fillColor(lotCount, param)
 {
@@ -670,28 +672,6 @@ circlePoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
-
-jacksonAvePoly = new google.maps.Polygon({
-  paths: jacksonAveLatLong,
-  strokeColor: '#FF0000',
-  strokeOpacity: 0.8,
-  strokeWeight: 0,
-  // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
-  fillOpacity: 0.35
-});
-
-crosbyRearPoly = new google.maps.Polygon({
-  paths: crosyRearLatLong,
-  strokeColor: '#FF0000',
-  strokeOpacity: 0.8,
-  strokeWeight: 0,
-  // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
-  fillOpacity: 0.35
-});
-
-
 stockardRearPoly = new google.maps.Polygon({
   paths: stockardRearLatLong,
   strokeColor: '#FF0000',
@@ -861,9 +841,8 @@ residentialCollegePoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
-kincannonLatLng = 
+kincannonLatLng =
 [
-{"lat": 34.369766, "lng": -89.534701},
 {"lat": 34.369225, "lng": -89.53769},
 {"lat": 34.36938, "lng": -89.537613},
 {"lat": 34.369608, "lng": -89.53827},
@@ -893,7 +872,7 @@ kincannonPoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
-womensTerraceLatLng =[
+womensTerraceLatLng=[
 {"lat": 34.368187, "lng": -89.534568},
 {"lat": 34.368187, "lng": -89.534021},
 {"lat": 34.368833, "lng": -89.534147},
