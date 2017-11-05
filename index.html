@@ -31,26 +31,26 @@ d3.csv("Demo1.csv", function(data) {
   console.log(lotCount)
   // console.log(lotCount[0])
   console.log(lotCount[0].key)
- 
+
 
 var gradient = d3.scaleLinear().domain([0,10]).range(["green", "red"]);
 
 
 //function to find key in array, give correct fill color
 function fillColor(lotCount, param)
-{ 
+{
   for(i = 0; i < lotCount.length; i++)
   {
 
-  if(lotCount[i].key == param) 
+  if(lotCount[i].key == param)
     {
       return lotCount[i].value;
     }
   }
 }
 
-//Jackson Avenue 
-jacksonAveLatLong = 
+//Jackson Avenue
+jacksonAveLatLong =
 [
 {"lat": 34.36998163682145, "lng":-89.54804563509242},
 {"lat": 34.370610387879836, "lng": -89.54699420915858},
@@ -69,9 +69,36 @@ jacksonAveLatLong =
 {"lat": 34.36998075126676, "lng": -89.5480477809906}
 ];
 
+//Crosby Rear
+crosyRearLatLong = [
+  {"lat": 34.369766, "lng": -89.534701},
+  {"lat": 34.370179, "lng": -89.534662},
+  {"lat": 34.370126, "lng": -89.535075},
+  {"lat": 34.370226, "lng": -89.535105},
+  {"lat": 34.370354, "lng": -89.535094},
+  {"lat": 34.371093, "lng": -89.534949},
+  {"lat": 34.371634, "lng": -89.534853},
+  {"lat": 34.371532, "lng": -89.534051},
+  {"lat": 34.371321, "lng": -89.534088},
+  {"lat": 34.371271, "lng": -89.533756},
+  {"lat": 34.37075, "lng": -89.533866},
+  {"lat": 34.370788, "lng": -89.534193},
+  {"lat": 34.370206, "lng": -89.534273},
+  {"lat": 34.37018, "lng": -89.534661}
+];
 
 jacksonAvePoly = new google.maps.Polygon({
   paths: jacksonAveLatLong,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillOpacity: 0.35
+})
+
+crosbyRearPoly = new google.maps.Polygon({
+  paths: crosyRearLatLong,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -86,7 +113,7 @@ parkingLotCoords2 = [
 {"lat": 34.368193, "lng": -89.544121},
 {"lat": 34.368131, "lng": -89.545097}
 ];
- 
+
 
  jacksonAve2 = new google.maps.Polygon({
   paths: parkingLotCoords2,
@@ -99,6 +126,7 @@ parkingLotCoords2 = [
 
   jacksonAvePoly.setMap(map);
   jacksonAve2.setMap(map);
+  crosbyRearPoly.setMap(map);
 
 });
 </script>
