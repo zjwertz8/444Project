@@ -36,11 +36,9 @@ d3.csv("FullDataRaw.csv", function(data) {
 
 // var gradient = d3.scaleSequential().domain([0,10]).interpolator(d3.interpolatePlasma);
 
-<<<<<<< HEAD
 var gradient = d3.scaleLinear().domain([0,10]).range(["orange", "red"]);
-=======
 // var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
->>>>>>> e0e762a71a1462607518fbba01ae7fd379f16dd8
+
 
 //function to find key in array, give correct fill color
 function fillColor(lotCount, param)
@@ -335,6 +333,74 @@ manningCenterPoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
+
+magnoliaLatLong = 
+[
+{"lat": 34.366137297100316, "lng": -89.54212814569473},
+{"lat": 34.365949105012334, "lng": -89.54017549753189},
+{"lat": 34.36573434411314, "lng": -89.54019159078598},
+{"lat": 34.365969031253414, "lng": -89.54215966165066},
+{"lat": 34.366125119977994, "lng": -89.54212948679924}
+]
+
+magnoliaPoly = new google.maps.Polygon({
+  paths: magnoliaLatLong,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillOpacity: 0.35
+});
+
+
+residentialCollegeLatLng = 
+[
+{"lat": 34.36742806202902, "lng": -89.53018963336945},
+{"lat": 34.36748341170995, "lng": -89.53014738857746},
+{"lat": 34.36753101240631, "lng": -89.53016884624958},
+{"lat": 34.36765720947041, "lng": -89.52986977994442},
+{"lat": 34.367746875689924, "lng": -89.52988587319851},
+{"lat": 34.36776790849295, "lng": -89.52981613576412},
+{"lat": 34.36780001118212, "lng": -89.52986307442188},
+{"lat": 34.36784318374471, "lng": -89.52983357012272},
+{"lat": 34.36780443913829, "lng": -89.52976651489735},
+{"lat": 34.36785978857055, "lng": -89.52977992594242},
+{"lat": 34.367905175077766, "lng": -89.52952243387699},
+{"lat": 34.36791956591637, "lng": -89.52920861542225},
+{"lat": 34.36787307242887, "lng": -89.52920861542225},
+{"lat": 34.367858681582284, "lng": -89.52918045222759},
+{"lat": 34.3678409697677, "lng": -89.52915631234646},
+{"lat": 34.367815509027665, "lng": -89.5291469246149},
+{"lat": 34.36779004827989, "lng": -89.5291455835104},
+{"lat": 34.36779004827989, "lng": -89.52914491295815},
+{"lat": 34.367778978387165, "lng": -89.52908255159855},
+{"lat": 34.36760850185416, "lng": -89.52909596264362},
+{"lat": 34.3676151438035, "lng": -89.52923946082592},
+{"lat": 34.36764613956012, "lng": -89.52926896512508},
+{"lat": 34.367625106726514, "lng":-89.52928639948368},
+{"lat": 34.36759411096212, "lng": -89.52928639948368},
+{"lat": 34.367581934051536, "lng": -89.52949024736881},
+{"lat": 34.367540975339324, "lng": -89.52971287071705},
+{"lat": 34.36742806202902, "lng": -89.53001193702221},
+{"lat": 34.3674668068095, "lng": -89.5300454646349},
+{"lat": 34.367463485829035, "lng": -89.53006826341152},
+{"lat": 34.36743913196813, "lng": -89.53007496893406},
+{"lat": 34.36740702914067, "lng": -89.5301366597414},
+{"lat": 34.36742806202902, "lng": -89.53018963336945}
+]
+
+residentialCollegePoly = new google.maps.Polygon({
+  paths: residentialCollegeatLong,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillOpacity: 0.35
+});
+
+
 jacksonAvePoly.setMap(map);
 sororityPoly.setMap(map);
 coliseumEastPoly.setMap(map);
@@ -342,6 +408,8 @@ crosbyRearPoly.setMap(map);
 stockardRearPoly.setMap(map);
 manningCenterPoly.setMap(map);
 MeekPoly.setMap(map);
+magnoliaPoly.setMap(map);
+residentialCollegePoly.setMap(map);
 
 });
 </script>
