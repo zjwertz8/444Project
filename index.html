@@ -953,6 +953,26 @@ womensTerracePoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
+bishopLatLng =[
+{"lat": 34.36558, "lng": -89.540006},
+{"lat": 34.365551, "lng": -89.539676},
+{"lat": 34.365505, "lng": -89.539315},
+{"lat": 34.365416, "lng": -89.539258},
+{"lat": 34.36536, "lng": -89.539311},
+{"lat": 34.365305, "lng": -89.539337},
+{"lat": 34.365139, "lng": -89.539357},
+{"lat": 34.365193, "lng": -89.540003}];
+
+bishopPoly = new google.maps.Polygon({
+  paths: bishopLatLng,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "WOMENS TERRACE-LOWER LOT")),
+  fillOpacity: 0.35
+});
+
 
 jacksonAvePoly.setMap(map);
 sororityPoly.setMap(map);
@@ -969,6 +989,7 @@ womensTerracePoly.setMap(map);
 fordCenterPoly.setMap(map);
 pooleDrivePoly.setMap(map);
 oldAthleticsPoly.setMap(map);
+bishopPoly.setMap(map);
 
 });
 </script>
