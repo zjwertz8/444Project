@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Heatmaps</title>
+    <title>Ole Miss Parking Citation Visualization</title>
     <link rel="stylesheet" href="stylesheets/styles.css">
     <script src="http://maps.google.com/maps/api/js?sensor=True"></script>
 
@@ -22,7 +22,7 @@ var map = new google.maps.Map(d3.select("#map").node(), {
              });
 
 
-d3.csv("Demo1.csv", function(data) {
+d3.csv("FullDataRaw.csv", function(data) {
   var lotCount = d3.nest()
      .key(function(d) {return d.CLM_DESCRIPTION;})
      .rollup(function(v) { return v.length;})
@@ -35,14 +35,15 @@ d3.csv("Demo1.csv", function(data) {
 
 var gradient = d3.scaleLinear().domain([0,10]).range(["green", "red"]);
 
+// var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
 
 //function to find key in array, give correct fill color
-function fillColor(lotCount, param)
+function fillColor(lotCount, lotTitle)
 { 
   for(i = 0; i < lotCount.length; i++)
   {
 
-  if(lotCount[i].key == param) 
+  if(lotCount[i].key == lotTitle) 
     {
       return lotCount[i].value;
     }
@@ -52,54 +53,92 @@ function fillColor(lotCount, param)
 //Jackson Avenue 
 jacksonAveLatLong = 
 [
-{"lat": 34.36998163682145, "lng":-89.54804563509242},
-{"lat": 34.370610387879836, "lng": -89.54699420915858},
-{"lat": 34.37082735017804, "lng": -89.54631829248683},
-{"lat": 34.37082292238164, "lng": -89.54574966417567},
-{"lat": 34.37081406678818, "lng": -89.54507374750392},
-{"lat": 34.370495264799516, "lng": -89.54488062845485},
-{"lat": 34.37042441974841, "lng": -89.54491817938106},
-{"lat": 34.37037128592073, "lng": -89.54498791681544},
-{"lat": 34.36889680875947, "lng": -89.54835677133815},
-{"lat": 34.368914520350835, "lng": -89.54849624620692},
-{"lat": 34.36898979457238, "lng": -89.54860353456752},
-{"lat": 34.36945029421982, "lng": -89.54886102663295},
-{"lat": 34.369746960921255, "lng": -89.54881811128871},
-{"lat": 34.36955213514621, "lng": -89.54840505110042},
-{"lat": 34.36998075126676, "lng": -89.5480477809906}
+{"lat": 34.368872307822194, "lng": -89.54835623502731},
+{"lat": 34.36886566597249, "lng": -89.54841256141663},
+{"lat": 34.36891880075512, "lng": -89.54855471849442},
+{"lat": 34.36902064232761, "lng": -89.54865127801895},
+{"lat": 34.36945014672778, "lng": -89.54886049032211},
+{"lat": 34.36976895269373, "lng": -89.54888463020325},
+{"lat": 34.369534276197754, "lng": -89.54839915037155},
+{"lat": 34.36985308184354, "lng": -89.54814702272415},
+{"lat": 34.36995713620141, "lng": -89.54807192087173},
+{"lat": 34.370096613116694, "lng": -89.54787880182266},
+{"lat": 34.37042427225808, "lng":-89.54734236001968},
+{"lat": 34.37067222967534, "lng": -89.54681396484375},
+{"lat": 34.3708050637041, "lng": -89.54634189605713},
+{"lat": 34.370798422007674, "lng": -89.54625874757767},
+{"lat": 34.37073643281554, "lng": -89.54615145921707},
+{"lat": 34.37072757721292, "lng": -89.5460495352745},
+{"lat": 34.370732005014354, "lng": -89.54593151807785},
+{"lat": 34.370758571818, "lng": -89.54582959413528},
+{"lat": 34.37080949150144, "lng": -89.54575449228287},
+{"lat": 34.37082056099375, "lng": -89.54564183950424},
+{"lat": 34.370816133196996, "lng": -89.54518854618073},
+{"lat": 34.37085376946189, "lng": -89.5450946688652},
+{"lat": 34.37052832590648, "lng": -89.54488545656204},
+{"lat": 34.37047519214473, "lng": -89.54488277435303},
+{"lat": 34.370435341801304, "lng": -89.54489082098007},
+{"lat": 34.37037778016064, "lng": -89.5449498295784},
+{"lat": 34.37034678541467, "lng": -89.5450222492218},
+{"lat": 34.368871569748826, "lng": -89.54835623502731}
 ];
-
 
 jacksonAvePoly = new google.maps.Polygon({
   paths: jacksonAveLatLong,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillColor: gradient(fillColor(lotCount, "15 MIN TIMED PAK MAIL CROSBY")),
   fillOpacity: 0.35
  })
 
-parkingLotCoords2 = [
-{"lat": 34.369858, "lng": -89.544057},
-{"lat": 34.368981, "lng": -89.544947},
-{"lat": 34.368193, "lng": -89.544121},
-{"lat": 34.368131, "lng": -89.545097}
+coliseumEastLatLong = 
+[
+{"lat": 34.363540651798374, "lng": -89.53974527114042},
+{"lat": 34.36371777886659, "lng": -89.53922760480054},
+{"lat": 34.36372353546975, "lng": -89.53920091695181},
+{"lat": 34.36371357208278, "lng": -89.53919018811575},
+{"lat": 34.363699734043365, "lng": -89.53918348259322},
+{"lat": 34.363360424601915, "lng": -89.53901718555244},
+{"lat": 34.36329234113901, "lng": -89.53898499904426},
+{"lat": 34.36322149001383, "lng": -89.53896220026763},
+{"lat": 34.36313015837512, "lng": -89.53894744811805},
+{"lat": 34.36308919745286, "lng": -89.53894275425228},
+{"lat": 34.36299177688088, "lng": -89.53894744811805},
+{"lat": 34.36292867486747, "lng": -89.53895482419284},
+{"lat": 34.36290542674218, "lng": -89.53896152971538},
+{"lat": 34.362893802677135, "lng": -89.53897829352172},
+{"lat": 34.362870554537956, "lng": -89.5390366315678},
+{"lat": 34.36285062756, "lng": -89.53911709783824},
+{"lat": 34.362859483995216, "lng": -89.53913117943557},
+{"lat": 34.362859373295706, "lng": -89.53913144767284},
+{"lat": 34.36285893046804, "lng": -89.53914459048065},
+{"lat": 34.36285284166889, "lng": -89.53915800152572},
+{"lat": 34.36284177112382, "lng": -89.53916805980953},
+{"lat": 34.362810220062364, "lng": -89.5392002463177},
+{"lat": 34.36280247067702, "lng": -89.53921164570602},
+{"lat": 34.362805238314735, "lng": -89.53922438619884},
+{"lat": 34.36281686239207, "lng": -89.53924182055744},
+{"lat": 34.362920371966325, "lng": -89.53938934205325},
+{"lat": 34.36298845573357, "lng": -89.53945840901724},
+{"lat": 34.3630559859175, "lng": -89.53950937098853},
+{"lat": 34.36320875891756, "lng": -89.53959050781123},
+{"lat": 34.36335987107805, "lng": -89.5396662802159},
+{"lat": 34.36353301315813, "lng": -89.5397587493062}
 ];
- 
 
- jacksonAve2 = new google.maps.Polygon({
-  paths: parkingLotCoords2,
+coliseumEastPoly = new google.maps.Polygon({
+  paths: coliseumEastLatLong,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  fillColor: gradient(2),
+  fillColor: gradient(fillColor(lotCount, "15 MIN TIMED PAK MAIL CROSBY")),
   fillOpacity: 0.35
- })
+ });
 
-  jacksonAvePoly.setMap(map);
-  jacksonAve2.setMap(map);
 
+jacksonAvePoly.setMap(map);
+coliseumEastPoly.setMap(map);
 });
 </script>
 </div>
