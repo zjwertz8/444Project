@@ -779,6 +779,28 @@ kincannonPoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
+womensTerraceLatLng =[
+{"lat": 34.368187, "lng": -89.534568},
+{"lat": 34.368187, "lng": -89.534021},
+{"lat": 34.368833, "lng": -89.534147},
+{"lat": 34.368999, "lng": -89.53444},
+{"lat": 34.36901, "lng": -89.534767},
+{"lat": 34.36897, "lng": -89.535078},
+{"lat": 34.368835, "lng": -89.535311},
+{"lat": 34.368625, "lng": -89.535343},
+{"lat": 34.368251, "lng": -89.535314},
+{"lat": 34.368169, "lng": -89.535303}];
+
+womensTerracePoly = new google.maps.Polygon({
+  paths: womensTerraceLatLng,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillOpacity: 0.35
+});
+
 
 jacksonAvePoly.setMap(map);
 sororityPoly.setMap(map);
@@ -790,6 +812,7 @@ meekPoly.setMap(map);
 magnoliaPoly.setMap(map);
 residentialCollegePoly.setMap(map);
 kincannonPoly.setMap(map);
+womensTerracePoly.setMap(map);
 
 });
 </script>
