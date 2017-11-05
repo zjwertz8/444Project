@@ -33,6 +33,7 @@ d3.csv("FullDataRaw.csv", function(data) {
   // console.log(lotCount[0])
   console.log(lotCount[0].key)
 
+<<<<<<< HEAD
 
 // var gradient = d3.scaleSequential().domain([0,10]).interpolator(d3.interpolatePlasma);
 
@@ -42,6 +43,12 @@ var gradient = d3.scaleLinear().domain([0,10]).range(["orange", "red"]);
 // var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
 
 
+=======
+var gradient = d3.scaleLinear().domain([0,10542]).range(["orange", "red"]);
+
+// var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
+
+>>>>>>> 5de1b275d4b0c1d18ab67c2fd7d5f69e19e01b96
 //function to find key in array, give correct fill color
 function fillColor(lotCount, param)
 {
@@ -772,7 +779,7 @@ kincannonPoly = new google.maps.Polygon({
   strokeOpacity: 0.8,
   strokeWeight: 0,
   // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillColor: gradient(fillColor(lotCount, "KINCANNON HALL PARKING LOT")),
   fillOpacity: 0.35
 });
 
@@ -794,7 +801,7 @@ womensTerracePoly = new google.maps.Polygon({
   strokeOpacity: 0.8,
   strokeWeight: 0,
   // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillColor: gradient(fillColor(lotCount, "WOMENS TERRACE-LOWER LOT")),
   fillOpacity: 0.35
 });
 
