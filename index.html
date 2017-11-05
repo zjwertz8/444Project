@@ -242,6 +242,42 @@ stockardRearPoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
+//Stockard Rear
+MeekLatLong = [
+  {"lat": 34.367382, "lng": -89.537515},
+  {"lat": 34.367322, "lng": -89.537552},
+  {"lat": 34.367258, "lng": -89.537576},
+  {"lat": 34.367211, "lng": -89.537593},
+  {"lat": 34.367131, "lng": -89.537622},
+  {"lat": 34.367063, "lng": -89.537638},
+  {"lat": 34.367003, "lng": -89.537649},
+  {"lat": 34.366956, "lng": -89.537649},
+  {"lat": 34.366881, "lng": -89.537668},
+  {"lat": 34.366837, "lng": -89.53767},
+  {"lat": 34.366819, "lng": -89.537456},
+  {"lat": 34.366802, "lng": -89.537244},
+  {"lat": 34.366773, "lng": -89.537027},
+  {"lat": 34.366952, "lng": -89.537002},
+  {"lat": 34.367078, "lng": -89.536984},
+  {"lat": 34.367251, "lng": -89.53696},
+  {"lat": 34.367302, "lng": -89.537099},
+  {"lat": 34.367351, "lng": -89.537255},
+  {"lat": 34.367388, "lng": -89.537378},
+  {"lat": 34.367419, "lng": -89.537488},
+  {"lat": 34.367381, "lng": -89.537515}
+
+];
+
+MeekPoly = new google.maps.Polygon({
+  paths: MeekLatLong,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "MEEK LOT")),
+  fillOpacity: 0.35
+});
+
 
 //Manning Center East
 manningCenterLatLong = 
@@ -305,6 +341,7 @@ coliseumEastPoly.setMap(map);
 crosbyRearPoly.setMap(map);
 stockardRearPoly.setMap(map);
 manningCenterPoly.setMap(map);
+MeekPoly.setMap(map);
 
 });
 </script>
