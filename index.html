@@ -35,8 +35,6 @@ d3.csv("FullDataRaw.csv", function(data) {
 
 var gradient = d3.scaleLinear().domain([0,10542]).range(["orange", "red"]);
 
-// var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
-
 //function to find key in array, give correct fill color
 function fillColor(lotCount, param)
 {
@@ -671,7 +669,7 @@ CirclePoly = new google.maps.Polygon({
   strokeOpacity: 0.8,
   strokeWeight: 0,
   // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "15 MINUTE FORD CENTER")),
+  fillColor: gradient(fillColor(lotCount, "CIRCLE")),
   fillOpacity: 0.35
 });
 
