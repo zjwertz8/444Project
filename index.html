@@ -204,7 +204,6 @@ crosbyRearPoly = new google.maps.Polygon({
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  // fillColor: gradient(10),
   fillColor: gradient(fillColor(lotCount, "CROSBY REAR LOT")),
   fillOpacity: 0.35
 });
@@ -226,7 +225,7 @@ stockardRearLatLong = [
 ];
 
 
-PoolDriveLatLong =[
+pooleDriveLatLong =[
 {"lat":  34.3643414845513, "lng": -89.5434434339404},
 {"lat":  34.3643077199841, "lng": -89.5433374866843},
 {"lat":  34.3642673131891, "lng": -89.5432094112038},
@@ -330,13 +329,12 @@ PoolDriveLatLong =[
 {"lat":  34.3643415347275, "lng": -89.5434425603305}
 ];
 
-PoolDrivePoly = new google.maps.Polygon({
-  paths: PoolDriveLatLong,
+pooleDrivePoly = new google.maps.Polygon({
+  paths: pooleDriveLatLong,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "??")),
+  fillColor: gradient(fillColor(lotCount, "POOLE DRIVE")),
   fillOpacity: 0.35
 });
 
@@ -390,12 +388,11 @@ oldAthleticsPoly = new google.maps.Polygon({
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  // fillColor: gradient(10),
   fillColor: gradient(fillColor(lotCount, "OLD ATHLETICS F/S")),
   fillOpacity: 0.35
 });
 
-FordCenterLatLong = [
+fordCenterLatLong = [
 {"lat":  34.3658182559148, "lng": -89.5275312289595},
 {"lat":  34.3658866694329, "lng": -89.5275349169969},
 {"lat":  34.3657296946476, "lng": -89.5275305584073},
@@ -536,13 +533,13 @@ FordCenterLatLong = [
 
 ];
 
-FordCenterPoly = new google.maps.Polygon({
-  paths: FordCenterLatLong,
+fordCenterPoly = new google.maps.Polygon({
+  paths: fordCenterLatLong,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
   // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "??")),
+  fillColor: gradient(fillColor(lotCount, "FORD CENTER LOT")),
   fillOpacity: 0.35
 });
 
@@ -663,7 +660,7 @@ circleLatLongInner = [
 
 ];
 
-CirclePoly = new google.maps.Polygon({
+circlePoly = new google.maps.Polygon({
   paths: [circleLatLongOuter, circleLatLongInner],
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
@@ -928,9 +925,12 @@ manningCenterPoly.setMap(map);
 meekPoly.setMap(map);
 magnoliaPoly.setMap(map);
 residentialCollegePoly.setMap(map);
-kincannonPoly.setMap(map);
+// kincannonPoly.setMap(map);
 circlePoly.setMap(map);
 womensTerracePoly.setMap(map);
+fordCenterPoly.setMap(map);
+pooleDrivePoly.setMap(map);
+oldAthleticsPoly.setMap(map);
 
 });
 </script>
