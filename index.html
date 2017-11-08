@@ -1062,6 +1062,53 @@ oldAthleticMeterPoly = new google.maps.Polygon({
 });
 
 
+//Dorm Row North #19 Lot
+dormRowNorthLatLng1 = 
+[
+{"lat": 34.36800258993698, "lng": -89.53712448477745},
+{"lat": 34.36799041308578, "lng": -89.53710973262787},
+{"lat": 34.36785757459397, "lng": -89.53722506761551},
+{"lat": 34.36775241063858, "lng": -89.5373310148716},
+{"lat": 34.36767049336085, "lng": -89.5373860001564},
+{"lat": 34.36755868721735, "lng": -89.53746646642685},
+{"lat": 34.36740813613492, "lng": -89.53754156827927},
+{"lat": 34.36726533375527, "lng": -89.53760460019112},
+{"lat": 34.367082679193985, "lng": -89.53766226768494},
+{"lat": 34.366874563208476, "lng": -89.53770115971565},
+{"lat": 34.36686127919184, "lng": -89.5377266407013},
+{"lat": 34.36708489319102, "lng": -89.53769311308861},
+{"lat": 34.36726976173968, "lng": -89.53763410449028},
+{"lat": 34.36755536624049, "lng": -89.53749865293503},
+{"lat": 34.36775241063858, "lng": -89.53737124800682},
+{"lat": 34.36800258993698, "lng": -89.53712448477745}
+];
+
+dormRowNorthLatLng2 =
+[
+{"lat": 34.36711256814943, "lng": -89.53780174255371},
+{"lat": 34.36693434125722, "lng": -89.5378265529871},
+{"lat": 34.36693434125722, "lng": -89.53785002231598},
+{"lat": 34.36711146115127, "lng": -89.53782588243484}
+];
+
+dormRowNorthLatLng3 =
+[
+{"lat": 34.36677161202452, "lng": -89.53785069286823},
+{"lat": 34.36660888247576, "lng": -89.53787215054035},
+{"lat": 34.36660943597817, "lng": -89.53789360821247},
+{"lat": 34.36677437953113, "lng": -89.53787013888359}
+]
+
+dormRowNorthPoly = new google.maps.Polygon({
+  paths: [dormRowNorthLatLng1, dormRowNorthLatLng2, dormRowNorthLatLng3],
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  fillColor: gradient(fillColor(lotCount, "DORM ROW NORTH")),
+  fillOpacity: 0.35
+});
+
+
 
 jacksonAvePoly.setMap(map);
 sororityPoly.setMap(map);
@@ -1081,6 +1128,8 @@ kincannonPoly.setMap(map);
 womensTerracePoly.setMap(map);
 hflFacultyPoly.setMap(map);
 oldAthleticMeterPoly.setMap(map);
+dormRowNorthPoly.setMap(map);
+
 // google.maps.event.addListener(jacksonAvePoly,"mouseover",function(){
 //  this.setOptions({fillColor: "#FFFFFF", fillOpacity: 0.2, });
 // });
