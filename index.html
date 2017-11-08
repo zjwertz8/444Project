@@ -35,7 +35,6 @@ d3.csv("FullDataRaw.csv", function(data) {
 
 var gradient = d3.scaleLinear().domain([0,10542]).range(["orange", "red"]);
 
-// var gradient = d3.scaleSequential(d3.interpolateReds).domain([0,10]);
 
 //function to find key in array, give correct fill color
 function fillColor(lotCount, param)
@@ -49,8 +48,19 @@ function fillColor(lotCount, param)
   }
 }
 
+function polygonLabel(lotCount, param)
+{
+  for(i = 0; i < lotCount.length; i++)
+  {
+  if(lotCount[i].key == param)
+    {
+      return lotCount[i].key;
+    }
+  }
+}
+
 //Jackson Avenue
-jacksonAveLatLong =
+jacksonAveLatLng =
 [
 {"lat": 34.368872307822194, "lng": -89.54835623502731},
 {"lat": 34.36886566597249, "lng": -89.54841256141663},
@@ -85,7 +95,7 @@ jacksonAveLatLong =
 
 
 jacksonAvePoly = new google.maps.Polygon({
-  paths: jacksonAveLatLong,
+  paths: jacksonAveLatLng,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -95,7 +105,7 @@ jacksonAvePoly = new google.maps.Polygon({
 
 
 //Sorority
-sororityLatLong =
+sororityLatLng =
 [
 {"lat": 34.36913392239193, "lng": -89.53253991901875},
 {"lat": 34.36918927094585, "lng": -89.53243933618069},
@@ -128,7 +138,7 @@ sororityLatLong =
 ];
 
 sororityPoly = new google.maps.Polygon({
-  paths: sororityLatLong,
+  paths: sororityLatLng,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -137,7 +147,7 @@ sororityPoly = new google.maps.Polygon({
  });
 
 //Coliseum East
-coliseumEastLatLong =
+coliseumEastLatLng =
 [
 {"lat": 34.363540651798374, "lng": -89.53974527114042},
 {"lat": 34.36371777886659, "lng": -89.53922760480054},
@@ -173,7 +183,7 @@ coliseumEastLatLong =
 ];
 
 coliseumEastPoly = new google.maps.Polygon({
-  paths: coliseumEastLatLong,
+  paths: coliseumEastLatLng,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -183,7 +193,7 @@ coliseumEastPoly = new google.maps.Polygon({
 
 
 //Crosby Rear
-crosyRearLatLong = [
+crosbyRearLatLng = [
   {"lat": 34.369766, "lng": -89.534701},
   {"lat": 34.370179, "lng": -89.534662},
   {"lat": 34.370126, "lng": -89.535075},
@@ -202,7 +212,7 @@ crosyRearLatLong = [
 
 
 crosbyRearPoly = new google.maps.Polygon({
-  paths: crosyRearLatLong,
+  paths: crosbyRearLatLng,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -212,7 +222,7 @@ crosbyRearPoly = new google.maps.Polygon({
 
 
 //Stockard Rear
-stockardRearLatLong = [
+stockardRearLatLng = [
   {"lat": 34.370356, "lng": -89.53791},
   {"lat": 34.370093, "lng": -89.537935},
   {"lat": 34.369789, "lng": -89.538047},
@@ -227,8 +237,19 @@ stockardRearLatLong = [
 ];
 
 
+stockardRearPoly = new google.maps.Polygon({
+  paths: stockardRearLatLng,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 0,
+  // fillColor: gradient(10),
+  fillColor: gradient(fillColor(lotCount, "STOCKARD REAR LOT")),
+  fillOpacity: 0.35
+});
 
-pooleDriveLatLong =[
+
+
+pooleDriveLatLng =[
 {"lat":  34.3642780514318, "lng": -89.5434394106268},
 {"lat":  34.3642680881108, "lng": -89.5434273406863},
 {"lat":  34.3642680881108, "lng": -89.5434270054101},
@@ -389,7 +410,7 @@ pooleDriveLatLong =[
 ];
 
 pooleDrivePoly = new google.maps.Polygon({
-  paths: pooleDriveLatLong,
+  paths: pooleDriveLatLng,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -397,7 +418,7 @@ pooleDrivePoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
-oldAthleticsLatLong = [
+oldAthleticsLatLng = [
 {"lat":  34.364203547916, "lng": -89.5384307205677},
 {"lat":  34.3641526242175, "lng": -89.5382697880268},
 {"lat":  34.3640064951716, "lng": -89.53831538558},
@@ -443,7 +464,7 @@ oldAthleticsLatLong = [
 ];
 
 oldAthleticsPoly = new google.maps.Polygon({
-  paths: oldAthleticsLatLong,
+  paths: oldAthleticsLatLng,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -451,7 +472,7 @@ oldAthleticsPoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
-fordCenterLatLong = [
+fordCenterLatLng = [
 {"lat":  34.3658182559148, "lng": -89.5275312289595},
 {"lat":  34.3658866694329, "lng": -89.5275349169969},
 {"lat":  34.3657296946476, "lng": -89.5275305584073},
@@ -593,7 +614,7 @@ fordCenterLatLong = [
 ];
 
 fordCenterPoly = new google.maps.Polygon({
-  paths: fordCenterLatLong,
+  paths: fordCenterLatLng,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -719,8 +740,52 @@ circleLatLongInner = [
 
 ];
 
+
+outerCircleLatLng = 
+[
+{"lat":  34.3650037101279, "lng": -89.53233942389488},
+{"lat":  34.365169763865836, "lng": -89.53385218977928},
+{"lat":  34.364862010677975, "lng": -89.53449055552483},
+{"lat":  34.364707026630235, "lng": -89.53484460711479},
+{"lat":  34.364691528209704, "lng": -89.53514769673347},
+{"lat":  34.36478451868993, "lng": -89.53550443053246},
+{"lat":  34.36499042581466, "lng": -89.53575387597084},
+{"lat":  34.365160907674756, "lng": -89.53585311770439},
+{"lat":  34.3653756700438, "lng": -89.53586652874947},
+{"lat":  34.36560150204426, "lng": -89.53582361340523},
+{"lat":  34.365856115824585, "lng": -89.53562512993813},
+{"lat":  34.36597788735905, "lng": -89.53533008694649},
+{"lat":  34.366019953848, "lng": -89.53495725989342},
+{"lat":  34.365964603200254, "lng": -89.53468903899193},
+{"lat":  34.36575427040529, "lng": -89.53443422913551},
+{"lat":  34.36530703470737, "lng": -89.53386828303337},
+{"lat":  34.36512105480347, "lng": -89.53232601284981}
+]
+
+innerCircleLatLng =
+[
+{"lat":  34.36530703470737, "lng": -89.53404530882835},
+{"lat":  34.36575205637309, "lng": -89.53462466597557},
+{"lat":  34.36584947373581, "lng": -89.5347909629345},
+{"lat":  34.36587604208778, "lng": -89.53495725989342},
+{"lat":  34.36587604208778, "lng": -89.53518256545067},
+{"lat":  34.365831761496445, "lng": -89.5353864133358},
+{"lat":  34.36574098621105, "lng": -89.53551515936852},
+{"lat":  34.365645782757284, "lng": -89.53561708331108},
+{"lat":  34.36549744227654, "lng": -89.53565463423729},
+{"lat":  34.36532917514462, "lng": -89.53568950295448},
+{"lat":  34.36523618526883, "lng": -89.53568413853645},
+{"lat":  34.36512105480347, "lng": -89.53563049435616},
+{"lat":  34.36495721502232, "lng": -89.53548833727837},
+{"lat":  34.364857582566316, "lng": -89.53524693846703},
+{"lat":  34.36482658577805, "lng": -89.53493848443031},
+{"lat":  34.36487086690063, "lng": -89.53473195433617},
+{"lat":  34.36494614475527, "lng": -89.5345763862133},
+{"lat":  34.365233971222935, "lng": -89.53403994441032}
+]
+
 circlePoly = new google.maps.Polygon({
-  paths: [circleLatLongOuter, circleLatLongInner],
+  paths: [outerCircleLatLng, innerCircleLatLng],
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -729,18 +794,9 @@ circlePoly = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
-stockardRearPoly = new google.maps.Polygon({
-  paths: stockardRearLatLong,
-  strokeColor: '#FF0000',
-  strokeOpacity: 0.8,
-  strokeWeight: 0,
-  // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "STOCKARD REAR LOT")),
-  fillOpacity: 0.35
-});
 
 //Meek Lot
-meekLatLong = [
+meekLatLng = [
   {"lat": 34.367382, "lng": -89.537515},
   {"lat": 34.367322, "lng": -89.537552},
   {"lat": 34.367258, "lng": -89.537576},
@@ -766,7 +822,7 @@ meekLatLong = [
 ];
 
 meekPoly = new google.maps.Polygon({
-  paths: meekLatLong,
+  paths: meekLatLng,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -777,7 +833,7 @@ meekPoly = new google.maps.Polygon({
 
 
 //Manning Center East
-manningCenterLatLong =
+manningCenterLatLng =
 [
 {"lat": 34.35957910706344, "lng": -89.5358718931675},
 {"lat": 34.360630843262136, "lng": -89.53505381941795},
@@ -823,7 +879,7 @@ manningCenterLatLong =
 ];
 
 manningCenterPoly = new google.maps.Polygon({
-  paths: manningCenterLatLong,
+  paths: manningCenterLatLng,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -833,7 +889,7 @@ manningCenterPoly = new google.maps.Polygon({
 });
 
 
-magnoliaLatLong =
+magnoliaLatLng =
 [
 {"lat": 34.366137297100316, "lng": -89.54212814569473},
 {"lat": 34.365949105012334, "lng": -89.54017549753189},
@@ -843,7 +899,7 @@ magnoliaLatLong =
 ]
 
 magnoliaPoly = new google.maps.Polygon({
-  paths: magnoliaLatLong,
+  paths: magnoliaLatLng,
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
@@ -989,7 +1045,25 @@ oldAthleticsPoly.setMap(map);
 kincannonPoly.setMap(map);
 womensTerracePoly.setMap(map);
 
+// google.maps.event.addListener(jacksonAvePoly,"mouseover",function(){
+//  this.setOptions({fillColor: "#FFFFFF", fillOpacity: 0.2, });
+// });
+
+// google.maps.event.addListener(jacksonAvePoly,"mouseout",function(){
+//  this.setOptions({fillColor: gradient(fillColor(lotCount, "Jackson Avenue Center")),  fillOpacity: 0.35 });
+
+
+
+var infowindow = new google.maps.InfoWindow({ content: polygonLabel(lotCount, "JACKSON AVENUE CENTER") });
+
+google.maps.event.addListener(jacksonAvePoly, "click", function() {
+  infowindow.open(map, jacksonAvePoly)
+})
+
+
 });
+
+// });
 </script>
 </div>
   </body>
