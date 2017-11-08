@@ -31,7 +31,7 @@ d3.csv("FullDataRaw.csv", function(data) {
 
   console.log(lotCount)
   // console.log(lotCount[0])
-  console.log(lotCount[0].key)
+  console.log(lotCount[92].key);
 
 
 
@@ -45,21 +45,12 @@ function fillColor(lotCount, param)
   {
   if(lotCount[i].key == param)
     {
+      console.log(lotCount[i].value);
       return lotCount[i].value;
     }
   }
 }
 
-function polygonLabel(lotCount, param)
-{
-  for(i = 0; i < lotCount.length; i++)
-  {
-  if(lotCount[i].key == param)
-    {
-      return lotCount[i].key;
-    }
-  }
-}
 
 //Jackson Avenue #1 Lot
 jacksonAveLatLng =
@@ -589,7 +580,7 @@ bishopPoly = new google.maps.Polygon({
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  fillColor: gradient(fillColor(lotCount, "WOMENS TERRACE-LOWER LOT")),
+  fillColor: gradient(fillColor(lotCount, "BISHOP LOT")),
   fillOpacity: 0.35
 });
 
@@ -922,8 +913,7 @@ kincannonPoly = new google.maps.Polygon({
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  // fillColor: gradient(10),
-  fillColor: gradient(fillColor(lotCount, "KINCANNON HALL PARKING LOT")),
+  fillColor: gradient(fillColor(lotCount, "KINCANNON  HALL PARKING LOT")),
   fillOpacity: 0.35
 });
 
