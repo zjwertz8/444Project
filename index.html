@@ -29,9 +29,19 @@ d3.csv("FullDataRaw.csv", function(data) {
      .rollup(function(v) { return v.length;})
      .entries(data)
 
+  var lots2017 = d3.nest()
+     .key(function(d) {return d.CLM_DESCRIPTION;})
+     .key(function(d) {return d.Year;})
+     .key(function(d) {return d.Month;})
+     .rollup(function(v) {return v.length;})
+     .entries(data)
+
   console.log(lotCount)
   // console.log(lotCount[0])
-  console.log(lotCount[92].key);
+  console.log(lots2017)
+  console.log(lots2017[0])
+  console.log(lots2017[0].values)
+  console.log(lots2017[0].values[0])
 
 
 
@@ -45,7 +55,6 @@ function fillColor(lotCount, param)
   {
   if(lotCount[i].key == param)
     {
-      console.log(lotCount[i].value);
       return lotCount[i].value;
     }
   }
