@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>Ole Miss Parking Citation Visualization</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylesheets/styles.css">
     <script src="http://maps.google.com/maps/api/js?sensor=True"></script>
 
@@ -42,7 +43,7 @@ d3.csv("FullDataRaw.csv", function(data) {
   console.log(lots2017[0])
   console.log(lots2017[0].values)
   console.log(lots2017[0].values[0])
-  
+
 
 
 
@@ -1498,6 +1499,10 @@ campusWalkPoly.setMap(map);
 
 });
 </script>
+</div>
+
+<div id="changeYear">
+<button type="submit" class="btn btn-default">Submit</button>
 </div>
   </body>
 </html>
