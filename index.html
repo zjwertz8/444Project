@@ -26,18 +26,23 @@ var map = new google.maps.Map(d3.select("#map").node(), {
 d3.csv("FullDataRaw.csv", function(data) {
   var lotCount = d3.nest()
      .key(function(d) {return d.CLM_DESCRIPTION;})
+     .rollup(function(v) { return v.length;})
+     .entries(data)
+
+  var lots2017 = d3.nest()
+     .key(function(d) {return d.CLM_DESCRIPTION;})
      .key(function(d) {return d.Year;})
      .key(function(d) {return d.Month;})
-     .rollup(function(v) { return v.length;})
+     .rollup(function(v) {return v.length;})
      .entries(data)
 
   console.log(lotCount)
   // console.log(lotCount[0])
-  console.log(lotCount)
-  console.log(lotCount[0])
-  console.log(lotCount[0].values)
-  console.log(lotCount[0].values[0])
-
+  console.log(lots2017)
+  console.log(lots2017[0])
+  console.log(lots2017[0].values)
+  console.log(lots2017[0].values[0])
+  
 
 
 
