@@ -59,6 +59,8 @@ function onchange() {
   selectValue = d3.select('select').property('value')
   console.log(selectValue)
   yearsSpot = selectValue
+
+ 
 };
 
   
@@ -133,7 +135,7 @@ jacksonAvePoly = new google.maps.Polygon({
   strokeColor: '#FF0000',
   strokeOpacity: 0.8,
   strokeWeight: 0,
-  fillColor: gradient(fillColor(lots2017, "JACKSON AVENUE CENTER", yearsSpot)),
+  fillColor: gradient(fillColor(lots2017, "JACKSON AVENUE CENTER", 2015)),
   fillOpacity: 0.35
 
 });
