@@ -146,6 +146,28 @@ jacksonAvePoly = new google.maps.Polygon({
 });
 
 
+var jacksonAveMarker = new google.maps.LatLng(34.36976895269373, -89.54888463020325);
+
+function addMarker(loc, text)
+{
+  if (!marker) 
+  {
+var marker = new google.maps.Marker({position: loc});
+marker.setMap(map);
+google.maps.event.addListener(marker,'click',function() 
+    {
+      var infowindow = new google.maps.InfoWindow({
+      content: text
+      });
+    infowindow.open(map,marker);
+    });
+
+  }
+}
+var num = 2
+
+
+addMarker(jacksonAveMarker, "<p>Parking Lot: Jackson Avenue Center<br />Number of Tickets:</p> " + num)
 
 //Sorority #2 Lot
 sororityLatLng =
