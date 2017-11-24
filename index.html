@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylesheets/styles.css">
     <script src="http://maps.google.com/maps/api/js?sensor=True"></script>
-  
   </head>
 <body>
 <h1>Ole Miss Parking Citation Visualization</h1>
@@ -23,18 +22,23 @@ var map = new google.maps.Map(d3.select("#map").node(), {
                center: new google.maps.LatLng(34.364732, -89.538443),
                mapTypeId: google.maps.MapTypeId.ROADMAP
              });
+
+//array of existing polygons
 var existingPolygons = [];
 
 
 
 d3.csv("FullDataRaw.csv", function(data) {
  
+
+  //rollup with parking lot and year
   var lotsRolledUpY = d3.nest()
   .key(function(d) {return d.CLM_DESCRIPTION;})
   .key(function(d) {return d.Year;})
   .rollup(function(v) {return v.length;})
   .entries(data)
-
+  
+  //rollup with parking lot and year and month
   var lotsRolledUpM = d3.nest()
   .key(function(d) {return d.CLM_DESCRIPTION;})
   .key(function(d) {return d.Year;})
@@ -42,6 +46,7 @@ d3.csv("FullDataRaw.csv", function(data) {
   .rollup(function(v) {return v.length;})
   .entries(data)
 
+  //rollup with parking lot and year and month and day
   var lotsRolledUpD = d3.nest()
   .key(function(d) {return d.CLM_DESCRIPTION;})
   .key(function(d) {return d.Year;})
@@ -56,35 +61,12 @@ console.log(lotsRolledUpM);
 console.log(lotsRolledUpD);
 
 
-// var jacksonAveMarker = new google.maps.LatLng(34.36976895269373, -89.54888463020325);
-
-// function addMarker(loc, text)
-// {
-//   jacksonAvePoly.marker = new google.maps.Marker({position: loc});
-//   jacksonAvePoly.marker.setMap(map);
-//   google.maps.event.addListener(jacksonAvePoly,'click',function() 
-//     {
-//       var infowindow = new google.maps.InfoWindow({
-//       content: text
-//       });
-//     infowindow.open(map,jacksonAvePoly.marker);
-//     });
-// }
-
-// // function addText(text)
-
-
-// function hideMarker(loc)
-// {
-//   loc.setMap(null);
-// }
-// var num = 2
-
 var years = ["2014", "2015", "2016", "2017"];
 
 var months = ["All", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var days = ["All"];
 
+//dictionary for corresponding month day
 var monthDict = {
   "January" : 1,
   "February" : 2,
@@ -100,7 +82,7 @@ var monthDict = {
   "December" : 12
 }
 
-
+//dictionary for number of days in month
 var monthMaxDayDict = {
   "January": 31,
   "February": 28,
@@ -116,7 +98,7 @@ var monthMaxDayDict = {
   "December" : 31
 }
 
-
+//year drop down
 var yearSelect = d3.select('body')
   .append('select')
     .attr('class','select')
@@ -129,9 +111,7 @@ var options = yearSelect
   .append('option')
     .text(function (d) { return d; });
 
-
-
-
+//month drop down
 var monthSelect = d3.select('body')
   .append('select')
     .attr('class','select')
@@ -144,6 +124,7 @@ var options = monthSelect
   .append('option')
   .text(function (d) { return d; });
 
+//day drop down
 var daySelect = d3.select('body')
   .append('select')
   .attr('class','select')
@@ -158,43 +139,61 @@ var options = daySelect
   .text(function (d) { return d; });
 
 
-
+//function for when drop down is changed
 function onchange() {
   selectYear = d3.select("#year").property("value");
   selectMonth = d3.select("#month").property("value");
   selectDay = d3.select("#day").property("value");
   console.log(selectMonth);
   console.log(selectDay);
+  
+
+// if(selectYear == "2014")
+// {
+//   newMonths14 = ["All", "July", "August", "September", "October", "November", "December"];
+
+//  monthSelect.selectAll('option').remove()
+//  monthSelect.selectAll('option').data(newMonths14).enter().append('option').text(function (d) { return d; });
+//  d3.select("#month").property("value", selectMonth);
+// }
+
+// if(selectYear == "2017")
+// {
+//   newMonths17 = ["All", "January", "February", "March", "April", "May", "June"];
+
+//  monthSelect.selectAll('option').remove()
+//  monthSelect.selectAll('option').data(newMonths17).enter().append('option').text(function (d) { return d; });
+//  d3.select("#month").property("value", selectMonth);
+// }
+
+  //if month is all, month and day is null, disable day drop down
   if(selectMonth == "All")
   {
     selectMonth = null;
     selectDay = null;
     d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
   }
+  //else month is selected, enable day drop down
   else
   {
-    
     d3.select("#day").attr('disabled', null);
       var newDays = ["All"];
+      //push number of days to newDays array, depending on month
       for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
       {
         newDays.push(i);
       }
+      //change spelt out month with corresponding number
       selectMonth = monthDict[selectMonth];
 
+      //remove previous options
       daySelect.selectAll('option').remove()
+      //replace new options
       daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
+      //select day
       d3.select("#day").property("value", selectDay);
-      // select day 
-    //populate days with given month
-    
-
-    
-
-    // select selectDay if not "All"
-    
   }
-
+  //if select day is all,
   if(selectDay == "All")
   {
     selectDay = null;
@@ -203,13 +202,13 @@ function onchange() {
 };
 
 
-  
-var gradient = d3.scaleLinear().domain([0,10542]).range(["#DDE500", "#F9211A"]);
+  //need function to find highest number 
+var gradient = d3.scaleLinear().domain([0,10550]).range(["#DDE500", "#F9211A"]);
 
 
 
 // function to find key in array, give correct fill color
-function fillColor(lotCount, lotName, year=null, month=null, day=null)
+function fillColor(lotCount, lotName, year, month=null, day=null)
 {
 
   total = 0;
@@ -234,41 +233,27 @@ function fillColor(lotCount, lotName, year=null, month=null, day=null)
                                 if (day == lotCount[i].values[j].values[k].values[l].key)
                                 {
                                 total += lotCount[i].values[j].values[k].values[l].value;
-                                console.log(total);
                                 }
                               }
                            }  
                            else 
                            {
-                             total += lotCount[i].values[j].values[k].value;
+                             total = lotCount[i].values[j].values[k].value;
                            }
                         }
                     }
                 }
                 else 
                 {
-                  total += lotCount[i].values[j].value;
+                  total = lotCount[i].values[j].value;
                 }
             } 
         } 
     }
   }
-  console.log(total);
+  // console.log(total);
   return total;
 }
-
-
-
-// function fillColor(lotCount, param, year=null, month=null, day=null)
-// {
-//   for(i = 0; i < lotCount.length; i++)
-//   {
-//     if(lotCount[i].key == param)
-//     {
-//       return lotCount[i].value
-//     }
-//   }
-// }
 
 //Jackson Avenue #1 Lot
 jacksonAveLatLng =
@@ -303,10 +288,116 @@ jacksonAveLatLng =
 {"lat": 34.368871569748826, "lng": -89.54835623502731}
 ];
 
+//Sorority #2 Lot
+sororityLatLng =
+[
+{"lat": 34.36913392239193, "lng": -89.53253991901875},
+{"lat": 34.36918927094585, "lng": -89.53243933618069},
+{"lat": 34.36917266638351, "lng": -89.53238435089588},
+{"lat": 34.36918152215051, "lng": -89.53230522572994},
+{"lat": 34.369236870672985, "lng": -89.5322073251009},
+{"lat": 34.369286684311966, "lng": -89.53211076557636},
+{"lat": 34.36928889825079, "lng": -89.53206785023212},
+{"lat": 34.36927561461696, "lng": -89.53191764652729},
+{"lat": 34.36874426753734, "lng": -89.53197129070759},
+{"lat": 34.368470843872664, "lng": -89.53200213611126},
+{"lat": 34.36849851837325, "lng": -89.53212954103947},
+{"lat": 34.36850183931271, "lng": -89.53215904533863},
+{"lat": 34.36852397890571, "lng": -89.5321885496378},
+{"lat": 34.36856161620037, "lng": -89.53222341835499},
+{"lat": 34.36859039764961, "lng": -89.5322623103857},
+{"lat": 34.36860368139206, "lng": -89.5323521643877},
+{"lat": 34.36859593254255, "lng": -89.5323870331049},
+{"lat": 34.36858154182012, "lng": -89.53241921961308},
+{"lat": 34.36855386734699, "lng": -89.53246749937534},
+{"lat": 34.368526192864685, "lng": -89.53249834477901},
+{"lat": 34.368526192864685, "lng": -89.53249767422676},
+{"lat": 34.36851069515059, "lng": -89.53252114355564},
+{"lat": 34.36850958817092, "lng": -89.53254528343678},
+{"lat": 34.36851180213028, "lng": -89.53260160982609},
+{"lat": 34.36852840682361, "lng": -89.53265525400639},
+{"lat": 34.36858154182012, "lng": -89.53265525400639},
+{"lat": 34.3691372433062, "lng": -89.53261904418468},
+{"lat": 34.36913392239193, "lng": -89.53253924846649}
+];
+
+//Coliseum East #3 Lot
+coliseumEastLatLng =
+[
+{"lat": 34.363540651798374, "lng": -89.53974527114042},
+{"lat": 34.36371777886659, "lng": -89.53922760480054},
+{"lat": 34.36372353546975, "lng": -89.53920091695181},
+{"lat": 34.36371357208278, "lng": -89.53919018811575},
+{"lat": 34.363699734043365, "lng": -89.53918348259322},
+{"lat": 34.363360424601915, "lng": -89.53901718555244},
+{"lat": 34.36329234113901, "lng": -89.53898499904426},
+{"lat": 34.36322149001383, "lng": -89.53896220026763},
+{"lat": 34.36313015837512, "lng": -89.53894744811805},
+{"lat": 34.36308919745286, "lng": -89.53894275425228},
+{"lat": 34.36299177688088, "lng": -89.53894744811805},
+{"lat": 34.36292867486747, "lng": -89.53895482419284},
+{"lat": 34.36290542674218, "lng": -89.53896152971538},
+{"lat": 34.362893802677135, "lng": -89.53897829352172},
+{"lat": 34.362870554537956, "lng": -89.5390366315678},
+{"lat": 34.36285062756, "lng": -89.53911709783824},
+{"lat": 34.362859483995216, "lng": -89.53913117943557},
+{"lat": 34.362859373295706, "lng": -89.53913144767284},
+{"lat": 34.36285893046804, "lng": -89.53914459048065},
+{"lat": 34.36285284166889, "lng": -89.53915800152572},
+{"lat": 34.36284177112382, "lng": -89.53916805980953},
+{"lat": 34.362810220062364, "lng": -89.5392002463177},
+{"lat": 34.36280247067702, "lng": -89.53921164570602},
+{"lat": 34.362805238314735, "lng": -89.53922438619884},
+{"lat": 34.36281686239207, "lng": -89.53924182055744},
+{"lat": 34.362920371966325, "lng": -89.53938934205325},
+{"lat": 34.36298845573357, "lng": -89.53945840901724},
+{"lat": 34.3630559859175, "lng": -89.53950937098853},
+{"lat": 34.36320875891756, "lng": -89.53959050781123},
+{"lat": 34.36335987107805, "lng": -89.5396662802159},
+{"lat": 34.36353301315813, "lng": -89.5397587493062}
+];
+
+//Crosby Rear #4 Lot
+crosbyRearLatLng = [
+{"lat": 34.37027520217699, "lng": -89.53504040837288},
+{"lat": 34.370302876081496, "lng": -89.53437253832817},
+{"lat": 34.37047666799292, "lng": -89.53440070152283},
+{"lat": 34.37049714663391, "lng": -89.53438527882099},
+{"lat": 34.370508769644104, "lng": -89.53434973955154},
+{"lat": 34.37052592741816, "lng": -89.53430078923702},
+{"lat": 34.37081318124229, "lng": -89.53424446284771},
+{"lat": 34.37078495403155, "lng": -89.53401312232018},
+{"lat": 34.37116685078261, "lng": -89.5339373499155},
+{"lat": 34.37118622231055, "lng": -89.53398495912552},
+{"lat": 34.37127477780976, "lng": -89.53397288918495},
+{"lat": 34.37129802361279, "lng": -89.53413248062134},
+{"lat": 34.37131628816778, "lng": -89.53414790332317},
+{"lat": 34.37152273270953, "lng": -89.53410230576992},
+{"lat": 34.37153380210761, "lng": -89.53411839902401},
+{"lat": 34.37158748866741, "lng": -89.53453548252583},
+{"lat": 34.371623464177944, "lng": -89.53482247889042},
+{"lat": 34.371623464177944, "lng": -89.53482247889042},
+{"lat": 34.37161460866908, "lng": -89.53483119606972},
+{"lat": 34.37156590335369, "lng": -89.53479766845703},
+{"lat": 34.37155483395987, "lng": -89.53479565680027},
+{"lat": 34.37154653191355, "lng": -89.53480504453182},
+{"lat": 34.371529374348555, "lng": -89.53486606478691},
+{"lat": 34.37124046256493, "lng": -89.53492239117622},
+{"lat": 34.37077056368514, "lng": -89.53501358628273},
+{"lat": 34.37035600995255, "lng": -89.53509137034416},
+{"lat": 34.37034770778743, "lng": -89.5350269973278},
+{"lat": 34.37027520217699, "lng": -89.53504040837288}
+];
+
+
+var infowindow = new google.maps.InfoWindow({
+  content: ''
+});
+
  function buildHeatmap(year, month=null, day=null){
 
-  yearOnly=month==null && day==null;
-  yearAndMonth = day==null;
+  yearOnly = month == null && day == null;
+  yearAndMonth = day == null;
 
   //clear polygons
   for(var i = 0; i < existingPolygons.length; i++){
@@ -317,129 +408,100 @@ jacksonAveLatLng =
 jacksonAvePoly = new google.maps.Polygon({
   paths: jacksonAveLatLng,
   fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "JACKSON AVENUE CENTER", year, month, day)),
-  fillOpacity: 0.35
-
+  fillOpacity: 0.65,
+  strokeWeight: 0.6
 });
-existingPolygons.push(jacksonAvePoly);
 
-jacksonAvePoly.setMap(map);
+  sororityPoly = new google.maps.Polygon({
+  paths: sororityLatLng,
+  fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "SORORITY LOT", year, month, day)),
+  fillOpacity: 0.65,
+  strokeWeight: 0.6
+ });
+
+  coliseumEastPoly = new google.maps.Polygon({
+  paths: coliseumEastLatLng,
+  fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "COLISEUM EAST LOT", year, month, day)),
+  fillOpacity: 0.35,
+  strokeWeight: 0.6
+ });
+
+  crosbyRearPoly = new google.maps.Polygon({
+  paths: crosbyRearLatLng,
+  fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "CROSBY REAR LOT", year, month, day)),
+  fillOpacity: 0.35,
+  strokeWeight: 0.6
+});
+
+
+lotAndLatLngDict = {
+  "JACKSON AVENUE CENTER" : new google.maps.LatLng(34.370165509648004, -89.54679988324642),
+  "SORORITY LOT" : new google.maps.LatLng(34.36882829393721, -89.53233204782009)
 }
 
-// //Sorority #2 Lot
-// sororityLatLng =
-// [
-// {"lat": 34.36913392239193, "lng": -89.53253991901875},
-// {"lat": 34.36918927094585, "lng": -89.53243933618069},
-// {"lat": 34.36917266638351, "lng": -89.53238435089588},
-// {"lat": 34.36918152215051, "lng": -89.53230522572994},
-// {"lat": 34.369236870672985, "lng": -89.5322073251009},
-// {"lat": 34.369286684311966, "lng": -89.53211076557636},
-// {"lat": 34.36928889825079, "lng": -89.53206785023212},
-// {"lat": 34.36927561461696, "lng": -89.53191764652729},
-// {"lat": 34.36874426753734, "lng": -89.53197129070759},
-// {"lat": 34.368470843872664, "lng": -89.53200213611126},
-// {"lat": 34.36849851837325, "lng": -89.53212954103947},
-// {"lat": 34.36850183931271, "lng": -89.53215904533863},
-// {"lat": 34.36852397890571, "lng": -89.5321885496378},
-// {"lat": 34.36856161620037, "lng": -89.53222341835499},
-// {"lat": 34.36859039764961, "lng": -89.5322623103857},
-// {"lat": 34.36860368139206, "lng": -89.5323521643877},
-// {"lat": 34.36859593254255, "lng": -89.5323870331049},
-// {"lat": 34.36858154182012, "lng": -89.53241921961308},
-// {"lat": 34.36855386734699, "lng": -89.53246749937534},
-// {"lat": 34.368526192864685, "lng": -89.53249834477901},
-// {"lat": 34.368526192864685, "lng": -89.53249767422676},
-// {"lat": 34.36851069515059, "lng": -89.53252114355564},
-// {"lat": 34.36850958817092, "lng": -89.53254528343678},
-// {"lat": 34.36851180213028, "lng": -89.53260160982609},
-// {"lat": 34.36852840682361, "lng": -89.53265525400639},
-// {"lat": 34.36858154182012, "lng": -89.53265525400639},
-// {"lat": 34.3691372433062, "lng": -89.53261904418468},
-// {"lat": 34.36913392239193, "lng": -89.53253924846649}
-// ];
 
-// sororityPoly = new google.maps.Polygon({
-//   paths: sororityLatLng,
-//   strokeColor: '#FF0000',
-//   strokeOpacity: 0.8,
-//   strokeWeight: 0,
-//   fillColor: gradient(fillColor(lotCount, "SORORITY LOT")),
-//   fillOpacity: 0.35
-//  });
+function addInfoWindow(lotName) {
+    if(infowindow)
+    {
+      infowindow.close();
+    }
 
-// //Coliseum East #3 Lot
-// coliseumEastLatLng =
-// [
-// {"lat": 34.363540651798374, "lng": -89.53974527114042},
-// {"lat": 34.36371777886659, "lng": -89.53922760480054},
-// {"lat": 34.36372353546975, "lng": -89.53920091695181},
-// {"lat": 34.36371357208278, "lng": -89.53919018811575},
-// {"lat": 34.363699734043365, "lng": -89.53918348259322},
-// {"lat": 34.363360424601915, "lng": -89.53901718555244},
-// {"lat": 34.36329234113901, "lng": -89.53898499904426},
-// {"lat": 34.36322149001383, "lng": -89.53896220026763},
-// {"lat": 34.36313015837512, "lng": -89.53894744811805},
-// {"lat": 34.36308919745286, "lng": -89.53894275425228},
-// {"lat": 34.36299177688088, "lng": -89.53894744811805},
-// {"lat": 34.36292867486747, "lng": -89.53895482419284},
-// {"lat": 34.36290542674218, "lng": -89.53896152971538},
-// {"lat": 34.362893802677135, "lng": -89.53897829352172},
-// {"lat": 34.362870554537956, "lng": -89.5390366315678},
-// {"lat": 34.36285062756, "lng": -89.53911709783824},
-// {"lat": 34.362859483995216, "lng": -89.53913117943557},
-// {"lat": 34.362859373295706, "lng": -89.53913144767284},
-// {"lat": 34.36285893046804, "lng": -89.53914459048065},
-// {"lat": 34.36285284166889, "lng": -89.53915800152572},
-// {"lat": 34.36284177112382, "lng": -89.53916805980953},
-// {"lat": 34.362810220062364, "lng": -89.5392002463177},
-// {"lat": 34.36280247067702, "lng": -89.53921164570602},
-// {"lat": 34.362805238314735, "lng": -89.53922438619884},
-// {"lat": 34.36281686239207, "lng": -89.53924182055744},
-// {"lat": 34.362920371966325, "lng": -89.53938934205325},
-// {"lat": 34.36298845573357, "lng": -89.53945840901724},
-// {"lat": 34.3630559859175, "lng": -89.53950937098853},
-// {"lat": 34.36320875891756, "lng": -89.53959050781123},
-// {"lat": 34.36335987107805, "lng": -89.5396662802159},
-// {"lat": 34.36353301315813, "lng": -89.5397587493062}
-// ];
+    infowindow.setContent("<p>Parking Lot: " + lotName + "<br />Number of Tickets:</p> " + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day),);
+    infowindow.setPosition(lotAndLatLngDict[lotName]);
 
-// coliseumEastPoly = new google.maps.Polygon({
-//   paths: coliseumEastLatLng,
-//   strokeColor: '#FF0000',
-//   strokeOpacity: 0.8,
-//   strokeWeight: 0,
-//   fillColor: gradient(fillColor(lotCount, "COLISEUM EAST LOT")),
-//   fillOpacity: 0.35
-//  });
+    infowindow.open(map);
+}
+
+google.maps.event.addListener(jacksonAvePoly, 'click', function() {
+addInfoWindow("JACKSON AVENUE CENTER");
+});
+
+google.maps.event.addListener(sororityPoly, 'click', function() {
+addInfoWindow("SORORITY LOT");
+});
 
 
-// //Crosby Rear #4 Lot
-// crosbyRearLatLng = [
-//   {"lat": 34.369766, "lng": -89.534701},
-//   {"lat": 34.370179, "lng": -89.534662},
-//   {"lat": 34.370126, "lng": -89.535075},
-//   {"lat": 34.370226, "lng": -89.535105},
-//   {"lat": 34.370354, "lng": -89.535094},
-//   {"lat": 34.371093, "lng": -89.534949},
-//   {"lat": 34.371634, "lng": -89.534853},
-//   {"lat": 34.371532, "lng": -89.534051},
-//   {"lat": 34.371321, "lng": -89.534088},
-//   {"lat": 34.371271, "lng": -89.533756},
-//   {"lat": 34.37075, "lng": -89.533866},
-//   {"lat": 34.370788, "lng": -89.534193},
-//   {"lat": 34.370206, "lng": -89.534273},
-//   {"lat": 34.37018, "lng": -89.534661}
-// ];
+
+// google.maps.event.addListener(jacksonAvePoly,'click',function() 
+//     {
+//       // infowindow.close();
+//       infowindow.setContent("Hey");
+//       infowindow.setPosition(lotAndLatLngDict[];
+//       // var infowindow = new google.maps.InfoWindow({
+//       // content: "<p>Parking Lot: Jackson Avenue Center<br />Number of Tickets:</p> " + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "JACKSON AVENUE CENTER", year, month, day),
+//       // position: new google.maps.LatLng(34.370165509648004, -89.54679988324642)
+//       // });
+//     infowindow.open(map);
+//     });
 
 
-// crosbyRearPoly = new google.maps.Polygon({
-//   paths: crosbyRearLatLng,
-//   strokeColor: '#FF0000',
-//   strokeOpacity: 0.8,
-//   strokeWeight: 0,
-//   fillColor: gradient(fillColor(lotCount, "CROSBY REAR LOT")),
-//   fillOpacity: 0.35
-// });
+//push polygons to existing polygon array
+existingPolygons.push(jacksonAvePoly);
+existingPolygons.push(sororityPoly);
+existingPolygons.push(coliseumEastPoly);
+existingPolygons.push(crosbyRearPoly);
+
+
+//bind polygons to map
+jacksonAvePoly.setMap(map);
+sororityPoly.setMap(map);
+coliseumEastPoly.setMap(map);
+crosbyRearPoly.setMap(map);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // //Manning Center East # 5 Lot
@@ -1694,24 +1756,7 @@ jacksonAvePoly.setMap(map);
 // dormRowNorthPoly.setMap(map);
 // campusWalkPoly.setMap(map);
 
-// var count = 0
 
-// google.maps.event.addListener(jacksonAvePoly,"mouseover",function(){
-//   if(count == 0)
-//     {
-//     addMarker(jacksonAveMarker, "<p>Parking Lot: Jackson Avenue Center<br />Number of Tickets:</p> " + num)
-//     }
-// });
-
-// google.maps.event.addListener(jacksonAvePoly,"mouseout",function(){
-//   timeoutId = window.setTimeout(function() {
-//      hideMarker(jacksonAvePoly.marker);
-//    }, 2000);
-//   count = 0;
-// });
-
-
-// });
 
 
 
@@ -1723,3 +1768,6 @@ jacksonAvePoly.setMap(map);
 </div>
   </body>
 </html>
+
+
+
