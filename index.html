@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ole Miss Parking Citation Visualization</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="stylesheets/styles.css">
@@ -22,25 +23,62 @@ var map = new google.maps.Map(d3.select("#map").node(), {
                center: new google.maps.LatLng(34.364732, -89.538443),
                mapTypeId: google.maps.MapTypeId.ROADMAP
              });
+var existingPolygons = [];
 
 
 
 d3.csv("FullDataRaw.csv", function(data) {
-  var lotCount = d3.nest()
-     .key(function(d) {return d.CLM_DESCRIPTION;})
-     .rollup(function(v) { return v.length;})
-     .entries(data)
+ 
+  var lotsRolledUpY = d3.nest()
+  .key(function(d) {return d.CLM_DESCRIPTION;})
+  .key(function(d) {return d.Year;})
+  .rollup(function(v) {return v.length;})
+  .entries(data)
 
-  var lots2017 = d3.nest()
-     .key(function(d) {return d.CLM_DESCRIPTION;})
-     .key(function(d) {return d.Year;})
-     .rollup(function(v) {return v.length;})
-     .entries(data)
+  var lotsRolledUpM = d3.nest()
+  .key(function(d) {return d.CLM_DESCRIPTION;})
+  .key(function(d) {return d.Year;})
+  .key(function(d) {return d.Month;})
+  .rollup(function(v) {return v.length;})
+  .entries(data)
 
-  console.log(lotCount)
-  // console.log(lotCount[0])
-  console.log(lots2017)
+  var lotsRolledUpD = d3.nest()
+  .key(function(d) {return d.CLM_DESCRIPTION;})
+  .key(function(d) {return d.Year;})
+  .key(function(d) {return d.Month;})
+  .key(function(d) {return d.Day;})
+  .rollup(function(v) {return v.length;})
+  .entries(data)
 
+
+console.log(lotsRolledUpY);
+console.log(lotsRolledUpM);
+console.log(lotsRolledUpD);
+
+
+// var jacksonAveMarker = new google.maps.LatLng(34.36976895269373, -89.54888463020325);
+
+// function addMarker(loc, text)
+// {
+//   jacksonAvePoly.marker = new google.maps.Marker({position: loc});
+//   jacksonAvePoly.marker.setMap(map);
+//   google.maps.event.addListener(jacksonAvePoly,'click',function() 
+//     {
+//       var infowindow = new google.maps.InfoWindow({
+//       content: text
+//       });
+//     infowindow.open(map,jacksonAvePoly.marker);
+//     });
+// }
+
+// // function addText(text)
+
+
+// function hideMarker(loc)
+// {
+//   loc.setMap(null);
+// }
+// var num = 2
 
 var years = ["2014", "2015", "2016", "2017"];
 
@@ -58,43 +96,71 @@ var options = select
 function onchange() {
   selectValue = d3.select('select').property('value');
   console.log(selectValue)
-  yearsSpot = selectValue
+  buildHeatmap(selectValue);
 };
 
 
   
-var gradient = d3.scaleLinear().domain([0,10582]).range(["Orange", "Red"]);
+var gradient = d3.scaleLinear().domain([0,10542]).range(["#DDE500", "#F9211A"]);
+
 
 
 // function to find key in array, give correct fill color
-function fillColor(lotCount, param, year)
+function fillColor(lotCount, lotName, year=null, month=null, day=null)
 {
+
+  total = 0;
+
   for(i = 0; i < lotCount.length; i++)
   {
-    if(lotCount[i].key == param) 
+    if(lotCount[i].key == lotName) 
     {
-      console.log(lotCount[i].values.length)
       for(j = 0; j < lotCount[i].values.length; j++)
-      {
-        console.log(lotCount[i].values[j].key)
-         if(lotCount[i].values[j].key == year)
         {
-            console.log(lotCount[i].values[j].value)
-              return lotCount[i].values[j].value;
-
-        }
-      }
+            if(year == lotCount[i].values[j].key)
+            {
+                if(month != null)
+                {
+                    for(k = 0; k < lotCount[i].values[j].values.length; k++)
+                    {
+                        if (month == lotCount[i].values[j].values[k].key)
+                        {
+                           if(day != null)
+                           {
+                              for(l = 0; l < lotCount[i].values[j].values[k].values.length; l++)
+                              {
+                                total += lotCount[i].values[j].values[k].values[l].value;
+                              }
+                           }  
+                           else 
+                           {
+                             total += lotCount[i].values[j].values[k].value;
+                           }
+                        }
+                    }
+                }
+                else 
+                {
+                  total += lotCount[i].values[j].value;
+                }
+            } 
+      } 
     }
   }
+  console.log(total);
+  return total;
 }
 
-// function fillColor(lotCount, param)
+
+
+// function fillColor(lotCount, param, year=null, month=null, day=null)
 // {
-// for(i = 0; i < lotCount.length; i++)
-// {
-//   if(lotCount[i].key == param)
+//   for(i = 0; i < lotCount.length; i++)
 //   {
-//     return lotCount[i].value
+//     if(lotCount[i].key == param)
+//     {
+//       return lotCount[i].value
+//     }
 //   }
 // }
 
@@ -131,85 +197,69 @@ jacksonAveLatLng =
 {"lat": 34.368871569748826, "lng": -89.54835623502731}
 ];
 
+ function buildHeatmap(year, month=null, day=null){
 
+  yearOnly=month==null && day==null;
+  yearAndMonth = day==null;
 
+  //clear polygons
+  for(var i = 0; i < existingPolygons.length; i++){
+      existingPolygons[i].setMap(null);
+  }
 
 
 jacksonAvePoly = new google.maps.Polygon({
   paths: jacksonAveLatLng,
-  strokeColor: '#FF0000',
-  strokeOpacity: 0.8,
-  strokeWeight: 0,
-  fillColor: gradient(fillColor(lots2017, "JACKSON AVENUE CENTER", 2014)),
+  fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "JACKSON AVENUE CENTER", year, month, day)),
   fillOpacity: 0.35
 
 });
+existingPolygons.push(jacksonAvePoly);
 
-
-var jacksonAveMarker = new google.maps.LatLng(34.36976895269373, -89.54888463020325);
-
-function addMarker(loc, text)
-{
-  if (!marker) 
-  {
-var marker = new google.maps.Marker({position: loc});
-marker.setMap(map);
-google.maps.event.addListener(marker,'click',function() 
-    {
-      var infowindow = new google.maps.InfoWindow({
-      content: text
-      });
-    infowindow.open(map,marker);
-    });
-
-  }
+jacksonAvePoly.setMap(map);
 }
-var num = 2
 
+// //Sorority #2 Lot
+// sororityLatLng =
+// [
+// {"lat": 34.36913392239193, "lng": -89.53253991901875},
+// {"lat": 34.36918927094585, "lng": -89.53243933618069},
+// {"lat": 34.36917266638351, "lng": -89.53238435089588},
+// {"lat": 34.36918152215051, "lng": -89.53230522572994},
+// {"lat": 34.369236870672985, "lng": -89.5322073251009},
+// {"lat": 34.369286684311966, "lng": -89.53211076557636},
+// {"lat": 34.36928889825079, "lng": -89.53206785023212},
+// {"lat": 34.36927561461696, "lng": -89.53191764652729},
+// {"lat": 34.36874426753734, "lng": -89.53197129070759},
+// {"lat": 34.368470843872664, "lng": -89.53200213611126},
+// {"lat": 34.36849851837325, "lng": -89.53212954103947},
+// {"lat": 34.36850183931271, "lng": -89.53215904533863},
+// {"lat": 34.36852397890571, "lng": -89.5321885496378},
+// {"lat": 34.36856161620037, "lng": -89.53222341835499},
+// {"lat": 34.36859039764961, "lng": -89.5322623103857},
+// {"lat": 34.36860368139206, "lng": -89.5323521643877},
+// {"lat": 34.36859593254255, "lng": -89.5323870331049},
+// {"lat": 34.36858154182012, "lng": -89.53241921961308},
+// {"lat": 34.36855386734699, "lng": -89.53246749937534},
+// {"lat": 34.368526192864685, "lng": -89.53249834477901},
+// {"lat": 34.368526192864685, "lng": -89.53249767422676},
+// {"lat": 34.36851069515059, "lng": -89.53252114355564},
+// {"lat": 34.36850958817092, "lng": -89.53254528343678},
+// {"lat": 34.36851180213028, "lng": -89.53260160982609},
+// {"lat": 34.36852840682361, "lng": -89.53265525400639},
+// {"lat": 34.36858154182012, "lng": -89.53265525400639},
+// {"lat": 34.3691372433062, "lng": -89.53261904418468},
+// {"lat": 34.36913392239193, "lng": -89.53253924846649}
+// ];
 
-addMarker(jacksonAveMarker, "<p>Parking Lot: Jackson Avenue Center<br />Number of Tickets:</p> " + num)
-
-//Sorority #2 Lot
-sororityLatLng =
-[
-{"lat": 34.36913392239193, "lng": -89.53253991901875},
-{"lat": 34.36918927094585, "lng": -89.53243933618069},
-{"lat": 34.36917266638351, "lng": -89.53238435089588},
-{"lat": 34.36918152215051, "lng": -89.53230522572994},
-{"lat": 34.369236870672985, "lng": -89.5322073251009},
-{"lat": 34.369286684311966, "lng": -89.53211076557636},
-{"lat": 34.36928889825079, "lng": -89.53206785023212},
-{"lat": 34.36927561461696, "lng": -89.53191764652729},
-{"lat": 34.36874426753734, "lng": -89.53197129070759},
-{"lat": 34.368470843872664, "lng": -89.53200213611126},
-{"lat": 34.36849851837325, "lng": -89.53212954103947},
-{"lat": 34.36850183931271, "lng": -89.53215904533863},
-{"lat": 34.36852397890571, "lng": -89.5321885496378},
-{"lat": 34.36856161620037, "lng": -89.53222341835499},
-{"lat": 34.36859039764961, "lng": -89.5322623103857},
-{"lat": 34.36860368139206, "lng": -89.5323521643877},
-{"lat": 34.36859593254255, "lng": -89.5323870331049},
-{"lat": 34.36858154182012, "lng": -89.53241921961308},
-{"lat": 34.36855386734699, "lng": -89.53246749937534},
-{"lat": 34.368526192864685, "lng": -89.53249834477901},
-{"lat": 34.368526192864685, "lng": -89.53249767422676},
-{"lat": 34.36851069515059, "lng": -89.53252114355564},
-{"lat": 34.36850958817092, "lng": -89.53254528343678},
-{"lat": 34.36851180213028, "lng": -89.53260160982609},
-{"lat": 34.36852840682361, "lng": -89.53265525400639},
-{"lat": 34.36858154182012, "lng": -89.53265525400639},
-{"lat": 34.3691372433062, "lng": -89.53261904418468},
-{"lat": 34.36913392239193, "lng": -89.53253924846649}
-];
-
-sororityPoly = new google.maps.Polygon({
-  paths: sororityLatLng,
-  strokeColor: '#FF0000',
-  strokeOpacity: 0.8,
-  strokeWeight: 0,
-  fillColor: gradient(fillColor(lots2017, "SORORITY LOT", 2014)),
-  fillOpacity: 0.35
- });
+// sororityPoly = new google.maps.Polygon({
+//   paths: sororityLatLng,
+//   strokeColor: '#FF0000',
+//   strokeOpacity: 0.8,
+//   strokeWeight: 0,
+//   fillColor: gradient(fillColor(lotCount, "SORORITY LOT")),
+//   fillOpacity: 0.35
+//  });
 
 // //Coliseum East #3 Lot
 // coliseumEastLatLng =
@@ -252,7 +302,7 @@ sororityPoly = new google.maps.Polygon({
 //   strokeColor: '#FF0000',
 //   strokeOpacity: 0.8,
 //   strokeWeight: 0,
-//   fillColor: gradient(fillColor(lots2017, "COLISEUM EAST LOT")),
+//   fillColor: gradient(fillColor(lotCount, "COLISEUM EAST LOT")),
 //   fillOpacity: 0.35
 //  });
 
@@ -281,7 +331,7 @@ sororityPoly = new google.maps.Polygon({
 //   strokeColor: '#FF0000',
 //   strokeOpacity: 0.8,
 //   strokeWeight: 0,
-//   fillColor: gradient(fillColor(lots2017, "CROSBY REAR LOT")),
+//   fillColor: gradient(fillColor(lotCount, "CROSBY REAR LOT")),
 //   fillOpacity: 0.35
 // });
 
@@ -337,7 +387,7 @@ sororityPoly = new google.maps.Polygon({
 //   strokeColor: '#FF0000',
 //   strokeOpacity: 0.8,
 //   strokeWeight: 0,
-//   fillColor: gradient(fillColor(lots2017, "MANNING CENTER EAST")),
+//   fillColor: gradient(fillColor(lotCount, "MANNING CENTER EAST")),
 //   fillOpacity: 0.35
 // });
 
@@ -425,7 +475,6 @@ sororityPoly = new google.maps.Polygon({
 //   fillColor: gradient(fillColor(lotCount, "MAGNOLIA DRIVE")),
 //   fillOpacity: 0.35
 // });
-
 
 
 
@@ -1518,8 +1567,8 @@ sororityPoly = new google.maps.Polygon({
 // });
 
 
-jacksonAvePoly.setMap(map);
-sororityPoly.setMap(map);
+
+// sororityPoly.setMap(map);
 // coliseumEastPoly.setMap(map);
 // crosbyRearPoly.setMap(map);
 // manningCenterPoly.setMap(map);
@@ -1539,12 +1588,20 @@ sororityPoly.setMap(map);
 // dormRowNorthPoly.setMap(map);
 // campusWalkPoly.setMap(map);
 
+// var count = 0
+
 // google.maps.event.addListener(jacksonAvePoly,"mouseover",function(){
-//  this.setOptions({fillColor: "#FFFFFF", fillOpacity: 0.2, });
+//   if(count == 0)
+//     {
+//     addMarker(jacksonAveMarker, "<p>Parking Lot: Jackson Avenue Center<br />Number of Tickets:</p> " + num)
+//     }
 // });
 
 // google.maps.event.addListener(jacksonAvePoly,"mouseout",function(){
-//  this.setOptions({fillColor: gradient(fillColor(lotCount, "Jackson Avenue Center")),  fillOpacity: 0.35 });
+//   timeoutId = window.setTimeout(function() {
+//      hideMarker(jacksonAvePoly.marker);
+//    }, 2000);
+//   count = 0;
 // });
 
 
