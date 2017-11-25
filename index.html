@@ -9,7 +9,8 @@
     <script src="http://maps.google.com/maps/api/js?sensor=True"></script>
   </head>
 <body>
-<h1>Ole Miss Parking Citation Visualization</h1>
+<h1>Ole Miss Parking Citation Visualization <button type="button" class="btn btn-primary btn-lg active" id="myButton">Compare Parking lots</button></h1>
+
 <script type="text/javascript" src="d3.min.js"></script>
 <script type="text/javascript" src="d3/d3.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
@@ -259,6 +260,20 @@ function fillColor(lotCount, lotName, year, month=null, day=null)
   // console.log(total);
   return total;
 }
+
+
+// function fillColor(lotCount, param)
+// {
+// for(i = 0; i < lotCount.length; i++)
+// {
+//   if(lotCount[i].key == param)
+//   {
+//     return lotCount[i].value
+//   }
+// }
+
+
+
 
 //Jackson Avenue #1 Lot
 jacksonAveLatLng =
@@ -2219,9 +2234,14 @@ turnerColiseumPoly.setMap(map);
  buildHeatmap(d3.select("#year").value);
 });
 
+
+document.getElementById("myButton").onclick = function () {
+        location.href = "lineGraph.html";
+    };
 </script>
 </div>
   </body>
+
 </html>
 
 
