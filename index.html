@@ -14,6 +14,7 @@
 <script type="text/javascript" src="d3.min.js"></script>
 <script type="text/javascript" src="d3/d3.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script type="text/javascript" src="scripts/globalLatLng.js"></script>
 <div id="map-container">
 <div id="map"></div>
 <button type="button" class="btn btn-primary btn-lg active" id="myButton">Compare Parking lots</button>
@@ -307,38 +308,7 @@ function fillColor(lotCount, lotName, year, month=null, day=null)
 }
 
 
-//Jackson Avenue #1 Lot
-jacksonAveLatLng =
-[
-{"lat": 34.368872307822194, "lng": -89.54835623502731},
-{"lat": 34.36886566597249, "lng": -89.54841256141663},
-{"lat": 34.36891880075512, "lng": -89.54855471849442},
-{"lat": 34.36902064232761, "lng": -89.54865127801895},
-{"lat": 34.36945014672778, "lng": -89.54886049032211},
-{"lat": 34.36976895269373, "lng": -89.54888463020325},
-{"lat": 34.369534276197754, "lng": -89.54839915037155},
-{"lat": 34.36985308184354, "lng": -89.54814702272415},
-{"lat": 34.36995713620141, "lng": -89.54807192087173},
-{"lat": 34.370096613116694, "lng": -89.54787880182266},
-{"lat": 34.37042427225808, "lng":-89.54734236001968},
-{"lat": 34.37067222967534, "lng": -89.54681396484375},
-{"lat": 34.3708050637041, "lng": -89.54634189605713},
-{"lat": 34.370798422007674, "lng": -89.54625874757767},
-{"lat": 34.37073643281554, "lng": -89.54615145921707},
-{"lat": 34.37072757721292, "lng": -89.5460495352745},
-{"lat": 34.370732005014354, "lng": -89.54593151807785},
-{"lat": 34.370758571818, "lng": -89.54582959413528},
-{"lat": 34.37080949150144, "lng": -89.54575449228287},
-{"lat": 34.37082056099375, "lng": -89.54564183950424},
-{"lat": 34.370816133196996, "lng": -89.54518854618073},
-{"lat": 34.37085376946189, "lng": -89.5450946688652},
-{"lat": 34.37052832590648, "lng": -89.54488545656204},
-{"lat": 34.37047519214473, "lng": -89.54488277435303},
-{"lat": 34.370435341801304, "lng": -89.54489082098007},
-{"lat": 34.37037778016064, "lng": -89.5449498295784},
-{"lat": 34.37034678541467, "lng": -89.5450222492218},
-{"lat": 34.368871569748826, "lng": -89.54835623502731}
-];
+
 
 //Sorority #2 Lot
 sororityLatLng =
@@ -1645,6 +1615,38 @@ function maxGradient(lotCount, year, month, day)
 
 }
 
+function buildLegend(max, newgradient)
+{
+  //clear old legend
+  d3.select('svg').remove();
+  d3.selectAll('.legend-keys').remove();
+
+  d3.select('body').append('text').attr('class', 'legend-keys').text('0');
+  d3.select('body').append('svg');
+
+  var vis = d3.select('svg')
+   
+  vis
+  .attr('height', 40)
+  //var colorScale = newgradient;
+   var colorScale = d3.scaleLinear().domain([0, 25, 50, 75, 100])
+     .range(["light blue", "cyan", "green", "yellow", "red"])
+  var xScale = d3.scaleLinear().domain([0, 100]).range([0, 300])
+
+  var arr = d3.range(101);
+  vis.selectAll('rect').data(arr).enter()
+  .append('rect')
+  .attr('x', function(d) { return xScale(d) })
+        .attr('y', 20)
+        .attr('height', 20)
+        .attr('width', 5)
+        .attr('fill', function(d) { return colorScale(d) })
+
+    d3.select('body').append('text').attr('class','legend-keys').text(max);
+}
+
+
+
 //function to get rid of precious polygons and then add new ones
  function buildHeatmap(year=null, month=null, day=null){
   //Did they select a year only?
@@ -1652,9 +1654,12 @@ function maxGradient(lotCount, year, month, day)
   //did they select a year and a month?
   yearAndMonth = day == null;
 
+  maxGradient1 = maxGradient(year == null ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day);
+  
+  buildLegend(maxGradient1, gradient);
 
   //need function to find highest number 
-var gradient = d3.scaleLinear().domain([0, maxGradient(year == null ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day)]).range(["#DDE500", "#F9211A"]);
+var gradient = d3.scaleLinear().domain([0, maxGradient1 * 0.25, maxGradient1 * 0.50, maxGradient1 * 0.75, maxGradient1]).range(["LIGHT BLUE", "CYAN", "GREEN", "YELLOW", "RED"]);
 
 
 
@@ -1666,7 +1671,7 @@ var gradient = d3.scaleLinear().domain([0, maxGradient(year == null ? lotsRolled
 
 
 jacksonAvePoly = new google.maps.Polygon({
-  paths: jacksonAveLatLng,
+  paths: window.LatLng.jacksonAveLatLng,
   fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "JACKSON AVENUE CENTER", year, month, day)),
   fillOpacity: 0.65,
   strokeWeight: 0.6
