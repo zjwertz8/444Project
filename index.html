@@ -9,13 +9,14 @@
     <script src="http://maps.google.com/maps/api/js?sensor=True"></script>
   </head>
 <body>
-<h1>Ole Miss Parking Citation Visualization <button type="button" class="btn btn-primary btn-lg active" id="myButton">Compare Parking lots</button></h1>
+<h1>Ole Miss Parking Citation Visualization </h1>
 
 <script type="text/javascript" src="d3.min.js"></script>
 <script type="text/javascript" src="d3/d3.min.js"></script>
 <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
 <div id="map-container">
 <div id="map"></div>
+<button type="button" class="btn btn-primary btn-lg active" id="myButton">Compare Parking lots</button>
 <script>
 
 var map = new google.maps.Map(d3.select("#map").node(), {
@@ -31,6 +32,11 @@ var existingPolygons = [];
 
 d3.csv("FullDataRaw.csv", function(data) {
  
+  //rollup with parking lot and year
+  var lotsRolledUp = d3.nest()
+  .key(function(d) {return d.CLM_DESCRIPTION;})
+  .rollup(function(v) {return v.length;})
+  .entries(data)
 
   //rollup with parking lot and year
   var lotsRolledUpY = d3.nest()
@@ -56,13 +62,13 @@ d3.csv("FullDataRaw.csv", function(data) {
   .rollup(function(v) {return v.length;})
   .entries(data)
 
-
+console.log(lotsRolledUp);
 console.log(lotsRolledUpY);
 console.log(lotsRolledUpM);
 console.log(lotsRolledUpD);
 
 
-var years = ["2014", "2015", "2016", "2017"];
+var years = ["All", "2014", "2015", "2016", "2017"];
 
 var months = ["All", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 var days = ["All"];
@@ -99,6 +105,12 @@ var monthMaxDayDict = {
   "December" : 31
 }
 
+var yearSelectLabel = d3.select('body')
+  .append('label')
+  .attr('class', 'select-label')
+  .attr('for', 'year')
+  .text('Year:')
+
 //year drop down
 var yearSelect = d3.select('body')
   .append('select')
@@ -112,11 +124,18 @@ var options = yearSelect
   .append('option')
     .text(function (d) { return d; });
 
+var monthSelectLabel = d3.select('body')
+  .append('label')
+  .attr('class', 'select-label')
+  .attr('for', 'month')
+  .text('Month:')
+
 //month drop down
 var monthSelect = d3.select('body')
   .append('select')
     .attr('class','select')
     .attr('id', 'month')
+    .attr('disabled', 'disabled')
     .on('change',onchange)
 
 var options = monthSelect
@@ -125,6 +144,12 @@ var options = monthSelect
   .append('option')
   .text(function (d) { return d; });
 
+var daySelectLabel = d3.select('body')
+  .append('label')
+  .attr('class', 'select-label')
+  .attr('for', 'day')
+  .text('Day:')
+
 //day drop down
 var daySelect = d3.select('body')
   .append('select')
@@ -132,6 +157,9 @@ var daySelect = d3.select('body')
   .attr('id', 'day')
   .attr('disabled', 'disabled')
   .on('change',onchange)
+
+
+
 
 var options = daySelect
   .selectAll('option')
@@ -173,16 +201,27 @@ function onchange() {
 // }
 
   //if month is all, month and day is null, disable day drop down
-  if(selectMonth == "All")
+  if(selectYear == "All"){
+    selectYear = null;
+    selectMonth = null;
+    selectDay = null;
+    d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
+    d3.select("#month").attr('disabled', 'disabled').property('value', 'All');
+  }
+  else if(selectMonth == "All")
   {
     selectMonth = null;
     selectDay = null;
     d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
+    d3.select("#month").attr('disabled', null);
+
   }
   //else month is selected, enable day drop down
   else
   {
     d3.select("#day").attr('disabled', null);
+    d3.select("#month").attr('disabled', null);
+
       var newDays = ["All"];
       //push number of days to newDays array, depending on month
       for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
@@ -204,12 +243,15 @@ function onchange() {
   {
     selectDay = null;
   }
+
+
+
   buildHeatmap(selectYear,selectMonth, selectDay);
 };
 
 
-  //need function to find highest number 
-var gradient = d3.scaleLinear().domain([0,10550]).range(["#DDE500", "#F9211A"]);
+
+
 
 
 
@@ -219,12 +261,15 @@ function fillColor(lotCount, lotName, year, month=null, day=null)
 
   total = 0;
   for(i = 0; i < lotCount.length; i++)
-  {
+  { 
     if(lotCount[i].key == lotName) 
     {
       for(j = 0; j < lotCount[i].values.length; j++)
         {
-            if(year == lotCount[i].values[j].key)
+            if(year == null){
+                total += lotCount[i].values[j].value;
+            }
+            else if(year == lotCount[i].values[j].key)
             {
                 if(month != null)
                 {
@@ -260,19 +305,6 @@ function fillColor(lotCount, lotName, year, month=null, day=null)
   // console.log(total);
   return total;
 }
-
-
-// function fillColor(lotCount, param)
-// {
-// for(i = 0; i < lotCount.length; i++)
-// {
-//   if(lotCount[i].key == param)
-//   {
-//     return lotCount[i].value
-//   }
-// }
-
-
 
 
 //Jackson Avenue #1 Lot
@@ -1549,12 +1581,83 @@ var infowindow = new google.maps.InfoWindow({
 });
 
 
+function maxGradient(lotCount, year, month, day)
+{
+  
+
+  currentMax = 0;
+  for(i = 0; i < lotCount.length; i++)
+  { 
+    if(year == null) {
+       if(lotCount[i].value > currentMax)
+                  {
+                    currentMax = lotCount[i].value;
+                  }
+    }
+    else {
+      for(j = 0; j < lotCount[i].values.length; j++)
+        {
+            if(year == lotCount[i].values[j].key)
+            {
+                if(month != null)
+                {
+                    for(k = 0; k < lotCount[i].values[j].values.length; k++)
+                    {
+                        if (month == lotCount[i].values[j].values[k].key)
+                        {
+                           if(day != null)
+                           {
+                              for(l = 0; l < lotCount[i].values[j].values[k].values.length; l++)
+                              {
+                                if (day == lotCount[i].values[j].values[k].values[l].key)
+                                {
+                                  if(lotCount[i].values[j].values[k].values[l].value > currentMax)
+                                  {
+                                    currentMax = lotCount[i].values[j].values[k].values[l].value;
+                                  }
+
+                                }
+                              }
+                           }  
+                           else 
+                           {
+                             if(lotCount[i].values[j].values[k].value > currentMax)
+                             {
+                              currentMax = lotCount[i].values[j].values[k].value;
+                             }
+                           }
+                        }
+                    }
+                }
+            else 
+            {
+                  if(lotCount[i].values[j].value > currentMax)
+                  {
+                    currentMax = lotCount[i].values[j].value
+                  }         
+                } 
+            } 
+    }
+  }
+}
+  console.log(currentMax);
+  return currentMax;
+
+}
+
 //function to get rid of precious polygons and then add new ones
- function buildHeatmap(year, month=null, day=null){
+ function buildHeatmap(year=null, month=null, day=null){
   //Did they select a year only?
   yearOnly = month == null && day == null;
   //did they select a year and a month?
   yearAndMonth = day == null;
+
+
+  //need function to find highest number 
+var gradient = d3.scaleLinear().domain([0, maxGradient(year == null ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day)]).range(["#DDE500", "#F9211A"]);
+
+
+
 
   //clear polygons
   for(var i = 0; i < existingPolygons.length; i++){
@@ -1769,7 +1872,17 @@ function addInfoWindow(lotName) {
       infowindow.close();
     }
 
-    infowindow.setContent("<p>Parking Lot: " + lotName + "<br />Number of Tickets:</p> " + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day));
+    infowindow.setContent("<div id='iw-container'>" 
+      + "<div id='iw-title'>"
+      + "<span class='lot-name'>" + lotName + "</span>" 
+      + "</div>" 
+      + "<div id='iw-content'>Number of Tickets: " + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day) + "</div></div>");
+
+
+
+
+
+
     infowindow.setPosition(lotAndLatLngDict[lotName]);
 
     infowindow.open(map);
@@ -2231,13 +2344,18 @@ turnerColiseumPoly.setMap(map);
 
 
  //init with 2014
- buildHeatmap(d3.select("#year").value);
+ buildHeatmap(d3.select("#year").property("value") == 'All' ? null : d3.select('#year').property('value'));
 });
 
 
 document.getElementById("myButton").onclick = function () {
         location.href = "lineGraph.html";
     };
+
+google.maps.event.addDomListener(window, 'resize', function() {
+  map.setCenter(new google.maps.LatLng(34.364732, -89.538443));
+});
+
 </script>
 </div>
   </body>
