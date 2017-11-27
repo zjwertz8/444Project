@@ -40,6 +40,7 @@ h1
 
 .lot-name {
     font-weight: bold;
+    font-size: 14px;
 }
 
 select.select {
@@ -73,12 +74,10 @@ select.select {
 }
 
 
-/*#myButton {
-    text-align: center;
-    margin-top: 5px;
-    margin-right: 5px;
-}*/
-
+.number {
+    font-weight: bold;
+    color: rgb(40, 96, 144);
+}
 .compareContainer {
     text-align: center;
     margin-top: 10px;

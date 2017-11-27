@@ -236,8 +236,6 @@
 
 
 
-
-
   // function to find key in array, give correct fill color
   function fillColor(lotCount, lotName, year, month=null, day=null)
   {
@@ -462,7 +460,7 @@
   });
 
     poolePoly = new google.maps.Polygon({
-    paths: [window.LatLng.pooleLatLng1, window.LatLng.pooleLatLng2, window.LatLng.pooleLatLng3, window.LatLng.pooleLatLng4],
+    paths: [window.LatLng.pooleLatLng1, window.LatLng.pooleLatLng2, window.LatLng.pooleLatLng3, window.LatLng.pooleLatLng4, window.LatLng.pooleLatLng5, window.LatLng.pooleLatLng6, window.LatLng.pooleLatLng7, window.LatLng.pooleLatLng8, window.LatLng.pooleLatLng9, window.LatLng.pooleLatLng10, window.LatLng.pooleLatLng11],
     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "POOLE DRIVE", year, month, day)),
     fillOpacity: 0.95,
     strokeWeight: 0.6
@@ -499,7 +497,7 @@
 
   stockardRearPoly = new google.maps.Polygon({
     paths: window.LatLng.stockardRearLatLng,
-    fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "STOCKARD REAR LOT", year, month, day)),
+    fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "STOCKARD/MARTIN REAR LOT", year, month, day)),
     fillOpacity: 0.95,
     strokeWeight: 0.6,
   });
@@ -603,6 +601,13 @@
     strokeWeight: 0.6
   });
 
+  musicBuildingPoly = new google.maps.Polygon({
+    paths: window.LatLng.musicBuildingLatLng,
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "MUSIC BUILDING WEST LOT", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
   southLotPoly = new google.maps.Polygon({
     paths: window.LatLng.southLotLatLng,
      fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "SOUTH LOT", year, month, day)),
@@ -625,30 +630,39 @@
     "JACKSON AVENUE CENTER" : new google.maps.LatLng(34.37066853965804, -89.54728603363037),
     "SORORITY LOT" : new google.maps.LatLng(34.369278197455856, -89.5319464802742),
     "COLISEUM EAST LOT" : new google.maps.LatLng(34.36365903178182, -89.539475440979),
+    "STOCKARD/MARTIN REAR LOT" : new google.maps.LatLng(34.37050618657293, -89.5378178358078),
     "CROSBY REAR LOT" : new google.maps.LatLng(34.37159984944055, -89.53448116779327),
+
     "MANNING CENTER EAST" : new google.maps.LatLng(34.36066700781123, -89.53498005867004),
     "RESIDENTIAL COLLEGE/ALUMN DR LOT" : new google.maps.LatLng(34.3679210419447, -89.52936619520187),
     "MAGNOLIA DRIVE" : new google.maps.LatLng(34.36608711253981, -89.54136371612549),
+    "STOCKARD/MARTIN FRONT LOT" : new google.maps.LatLng(),
+    "POOLE DRIVE" : new google.maps.LatLng(34.363890772536365, -89.54178214073181),
+
     "MEEK LOT" : new google.maps.LatLng(34.3674288001151, -89.53739404678345),
     "BISHOP LOT" : new google.maps.LatLng(34.365564601387156, -89.53974902629852),
     "FORD CENTER LOT" : new google.maps.LatLng(34.36741994416282, -89.5282906293869),
     "CIRCLE" : new google.maps.LatLng(34.3660295477764, -89.53502297401428),
-    "STOCKARD REAR LOT" : new google.maps.LatLng(34.37050618657293, -89.5378178358078),
     "OLD ATHLETICS F/S" : new google.maps.LatLng(34.36398819206313, -89.53863859176636),
+
     "KINCANNON  HALL PARKING LOT" : new google.maps.LatLng(34.36960364607053, -89.53856885433197),
     "WOMENS TERRACE-LOWER LOT" : new google.maps.LatLng(34.368850906327204, -89.53476279973984),
     "HFL FACULTY/STAFF" : new google.maps.LatLng(34.36704208934999, -89.53857153654099),
     "OLD ATHLETICS METER" : new google.maps.LatLng(34.364292258415695, -89.53848570585251),
     "DORM ROW NORTH" : new google.maps.LatLng(34.36702511524971, -89.5376904308796),
+
     "CAMPUS WALK APT. COMPLEX" : new google.maps.LatLng(34.364366060716115, -89.54769641160965),
     "NCPA FACULTY/STAFF LOT" : new google.maps.LatLng(34.36204273213624, -89.54077363014221),
     "ALL AMERICAN DR." : new google.maps.LatLng(34.364382666231094, -89.53818965703249),
     "COLISEUM WEST LOT" : new google.maps.LatLng(34.363375037542795, -89.54072856955463),
     "WOMENS TERRACE-UPPER LOT" : new google.maps.LatLng(34.368250923426345, -89.53442215919495),
+
     "TURNER COLISEUM LOT" : new google.maps.LatLng(34.3626006913775, -89.53744769096375),
     "FRATERNITY ALLEY" : new google.maps.LatLng(34.36462141636153, -89.54166948795319),
-    "POOLE DRIVE" : new google.maps.LatLng(34.363890772536365, -89.54178214073181),
+    "THE INN AT OLE MISS" : new google.maps.LatLng(34.3674184679905, -89.52908992767334),
+    "MUSIC BUILDING WEST LOT": new google.maps.LatLng(34.36443691089038, -89.53004479408264),
     "SOUTH LOT" : new google.maps.LatLng(34.35723940805898, -89.53495860099792),
+    
     "KINARD REAR RESIDENTIAL WEST" : new google.maps.LatLng(34.369032449857976, -89.54127252101898)
   }
 
@@ -664,24 +678,23 @@
         + "<div id='iw-title'>"
         + "<span class='lot-name'>" + lotName + "</span>" 
         + "</div>" 
-        + "<div id='iw-content'>Number of Tickets: " + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day) + "</div></div>");
+        + "<div id='iw-content'>Number of Tickets: <div class='number'>" + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day) + "</div></div></div>");
 
       infowindow.setPosition(lotAndLatLngDict[lotName]);
-
       infowindow.open(map);
   }
 
-
   //Info Window event listeners, every polygon
+  //#1 Jackson Ave
   google.maps.event.addListener(jacksonAvePoly, 'mouseover', function() {
   addInfoWindow("JACKSON AVENUE CENTER");
   this.setOptions({strokeWeight: 1.6});
   });
-
   google.maps.event.addListener(jacksonAvePoly, 'mouseout', function() {
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#2 Sorority Lot
   google.maps.event.addListener(sororityPoly, 'mouseover', function() {
   addInfoWindow("SORORITY LOT");
   this.setOptions({strokeWeight: 1.6});
@@ -690,6 +703,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#3 Coliseum East
   google.maps.event.addListener(coliseumEastPoly, 'mouseover', function() {
   addInfoWindow("COLISEUM EAST LOT");
   this.setOptions({strokeWeight: 1.6});
@@ -697,7 +711,17 @@
   google.maps.event.addListener(coliseumEastPoly, 'mouseout', function() {
   this.setOptions({strokeWeight: 0.6});
   });
+  
+  //#4 Stockard/Martin Rear Lot
+  google.maps.event.addListener(stockardRearPoly, 'mouseover', function() {
+    addInfoWindow("STOCKARD/MARTIN REAR LOT");
+    this.setOptions({strokeWeight: 1.6});
+  })
+  google.maps.event.addListener(stockardRearPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
 
+  //#5 Crosby Rear
   google.maps.event.addListener(crosbyRearPoly, 'mouseover', function() {
   addInfoWindow("CROSBY REAR LOT");
   this.setOptions({strokeWeight: 1.6});
@@ -706,6 +730,10 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+
+
+
+  //#6 Manning Center East
   google.maps.event.addListener(manningCenterPoly, 'mouseover', function() {
     addInfoWindow("MANNING CENTER EAST");
     this.setOptions({strokeWeight: 1.6});
@@ -714,6 +742,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#7 Residential College
   google.maps.event.addListener(residentialCollegePoly, 'mouseover', function() {
     addInfoWindow("RESIDENTIAL COLLEGE/ALUMN DR LOT");
     this.setOptions({strokeWeight: 1.6});
@@ -722,6 +751,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#8 Magnolia Drive
   google.maps.event.addListener(magnoliaPoly, 'mouseover', function() {
     addInfoWindow("MAGNOLIA DRIVE");
     this.setOptions({strokeWeight: 1.6});
@@ -730,6 +760,18 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+//#9 Stockard/Martin Front
+  
+  //#10 Poole Drive
+  google.maps.event.addListener(poolePoly, 'mouseover', function() {
+  addInfoWindow("POOLE DRIVE");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(poolePoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+ 
+ //#11 Meek Lot
   google.maps.event.addListener(meekPoly, 'mouseover', function() {
     addInfoWindow("MEEK LOT");
     this.setOptions({strokeWeight: 1.6});
@@ -738,6 +780,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#12 Bishop Lot
   google.maps.event.addListener(bishopPoly, 'mouseover', function() {
     addInfoWindow("BISHOP LOT");
     this.setOptions({strokeWeight: 1.6});
@@ -746,6 +789,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#13 Ford Center
   google.maps.event.addListener(fordCenterPoly, 'mouseover', function() {
     addInfoWindow("FORD CENTER LOT");
     this.setOptions({strokeWeight: 1.6});
@@ -754,6 +798,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#14 Circle
   google.maps.event.addListener(circlePoly, 'mouseover', function() {
     addInfoWindow("CIRCLE");
     this.setOptions({strokeWeight: 1.6});
@@ -763,14 +808,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
-  google.maps.event.addListener(stockardRearPoly, 'mouseover', function() {
-    addInfoWindow("STOCKARD REAR LOT");
-    this.setOptions({strokeWeight: 1.6});
-  })
-  google.maps.event.addListener(stockardRearPoly, 'mouseout', function() {
-  this.setOptions({strokeWeight: 0.6});
-  });
-
+  //#15 Old Athletics F/S
   google.maps.event.addListener(oldAthleticsPoly, 'mouseover', function() {
     addInfoWindow("OLD ATHLETICS F/S");
     this.setOptions({strokeWeight: 1.6});
@@ -779,6 +817,10 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+
+
+
+  //#16 Kincannon Hall
   google.maps.event.addListener(kincannonPoly, 'mouseover', function() {
     addInfoWindow("KINCANNON  HALL PARKING LOT");
     this.setOptions({strokeWeight: 1.6});
@@ -786,7 +828,8 @@
   google.maps.event.addListener(kincannonPoly, 'mouseout', function() {
   this.setOptions({strokeWeight: 0.6});
   });
-
+ 
+  //#17 Womens Terrace- Lower Lot
   google.maps.event.addListener(womensTerraceLowerPoly, 'mouseover', function() {
     addInfoWindow("WOMENS TERRACE-LOWER LOT");
     this.setOptions({strokeWeight: 1.6});
@@ -795,15 +838,16 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#18 HFL F/S
   google.maps.event.addListener(hflFacultyPoly, 'mouseover', function() {
     addInfoWindow("HFL FACULTY/STAFF");
     this.setOptions({strokeWeight: 1.6});
   })
-
   google.maps.event.addListener(hflFacultyPoly, 'mouseout', function() {
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#19 Old Athletics Meter
   google.maps.event.addListener(oldAthleticMeterPoly, 'mouseover', function() {
     addInfoWindow("OLD ATHLETICS METER");
     this.setOptions({strokeWeight: 1.6});
@@ -812,6 +856,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#20 Dorm Row North
   google.maps.event.addListener(dormRowNorthPoly, 'mouseover', function() {
   addInfoWindow("DORM ROW NORTH");
   this.setOptions({strokeWeight: 1.6});
@@ -820,6 +865,10 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+
+
+
+  //#21 Campus Walk
   google.maps.event.addListener(campusWalkPoly, 'mouseover', function() {
   addInfoWindow("CAMPUS WALK APT. COMPLEX");
   this.setOptions({strokeWeight: 1.6});
@@ -828,6 +877,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#22 NCPA F/S
   google.maps.event.addListener(ncpaFacultyPoly, 'mouseover', function() {
   addInfoWindow("NCPA FACULTY/STAFF LOT");
   this.setOptions({strokeWeight: 1.6});
@@ -836,6 +886,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+ //#23 All American Drive
   google.maps.event.addListener(allAmericanPoly, 'mouseover', function() {
   addInfoWindow("ALL AMERICAN DR.");
   this.setOptions({strokeWeight: 1.6});
@@ -844,6 +895,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#24 Coliseum West
   google.maps.event.addListener(coliseumWestPoly, 'mouseover', function() {
   addInfoWindow("COLISEUM WEST LOT");
   this.setOptions({strokeWeight: 1.6});
@@ -852,6 +904,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#25 Womens Terrace- Upper Lot
   google.maps.event.addListener(womensTerraceUpperPoly, 'mouseover', function() {
   addInfoWindow("WOMENS TERRACE-UPPER LOT");
   this.setOptions({strokeWeight: 1.6});
@@ -860,6 +913,10 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+
+
+
+  //#26 Turner Coliseum
   google.maps.event.addListener(turnerColiseumPoly, 'mouseover', function() {
   addInfoWindow("TURNER COLISEUM LOT");
   this.setOptions({strokeWeight: 1.6});
@@ -868,6 +925,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#27 Frat Alley
   google.maps.event.addListener(fratAlleyPoly, 'mouseover', function() {
   addInfoWindow("FRATERNITY ALLEY");
   this.setOptions({strokeWeight: 1.6});
@@ -876,17 +934,25 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
-  google.maps.event.addListener(poolePoly, 'mouseover', function() {
-  addInfoWindow("POOLE DRIVE");
+  //#28 The Inn
+  google.maps.event.addListener(theInnPoly, 'mouseover', function() {
+  addInfoWindow("THE INN AT OLE MISS");
   this.setOptions({strokeWeight: 1.6});
   });
-  google.maps.event.addListener(poolePoly, 'mouseout', function() {
+  google.maps.event.addListener(theInnPoly, 'mouseout', function() {
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#29 Music Building
+   google.maps.event.addListener(musicBuildingPoly, 'mouseover', function() {
+  addInfoWindow("MUSIC BUILDING WEST LOT");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(musicBuildingPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
 
-  //need #28 music building
-
+ //#30 South Lot
   google.maps.event.addListener(southLotPoly, 'mouseover', function() {
   addInfoWindow("SOUTH LOT");
   this.setOptions({strokeWeight: 1.6});
@@ -895,6 +961,7 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+ //#31 Kinard Rear
   google.maps.event.addListener(kinardRearPoly, 'mouseover', function() {
   addInfoWindow("KINARD REAR RESIDENTIAL WEST");
   this.setOptions({strokeWeight: 1.6});
@@ -910,37 +977,39 @@
   existingPolygons.push(jacksonAvePoly);
   existingPolygons.push(sororityPoly);
   existingPolygons.push(coliseumEastPoly);
+  existingPolygons.push(stockardRearPoly);
   existingPolygons.push(crosbyRearPoly);
-  existingPolygons.push(manningCenterPoly);
 
+  existingPolygons.push(manningCenterPoly);
   existingPolygons.push(residentialCollegePoly);
   existingPolygons.push(magnoliaPoly);
+
   existingPolygons.push(poolePoly);
+
   existingPolygons.push(meekPoly);
   existingPolygons.push(bishopPoly);
-
   existingPolygons.push(fordCenterPoly);
   existingPolygons.push(circlePoly);
-  existingPolygons.push(stockardRearPoly);
   existingPolygons.push(oldAthleticsPoly);
+  
   existingPolygons.push(kincannonPoly);
-
   existingPolygons.push(womensTerraceLowerPoly);
   existingPolygons.push(hflFacultyPoly);
   existingPolygons.push(oldAthleticMeterPoly);
   existingPolygons.push(dormRowNorthPoly);
-  existingPolygons.push(campusWalkPoly);
 
+  existingPolygons.push(campusWalkPoly);
   existingPolygons.push(ncpaFacultyPoly);
   existingPolygons.push(allAmericanPoly);
   existingPolygons.push(coliseumWestPoly);
   existingPolygons.push(womensTerraceUpperPoly);
+  
   existingPolygons.push(turnerColiseumPoly);
-
   existingPolygons.push(fratAlleyPoly);
   existingPolygons.push(theInnPoly);
-
+  existingPolygons.push(musicBuildingPoly);
   existingPolygons.push(southLotPoly);
+
   existingPolygons.push(kinardRearPoly);
 
 
@@ -977,7 +1046,7 @@
 
   fratAlleyPoly.setMap(map);
   theInnPoly.setMap(map);
-
+  musicBuildingPoly.setMap(map);
   southLotPoly.setMap(map);
   kinardRearPoly.setMap(map);
 
@@ -987,7 +1056,6 @@
    buildHeatmap(d3.select("#year").property("value") == 'All' ? null : d3.select('#year').property('value'));
   });
 
-
   google.maps.event.addDomListener(window, 'resize', function() {
     map.setCenter(new google.maps.LatLng(34.364732, -89.538443));
   });
@@ -996,10 +1064,12 @@
   </div>
   <div id="gradient"></div>
   <div class="compareContainer">
-   <div id="myButton">
+  <p>paragraph introducing line graph</p>
+  <div id="myButton">
   <a href="lineGraph.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" >Compare Parking lots</button></a>
   </div>
 </div>
+
     </body>
 
 
