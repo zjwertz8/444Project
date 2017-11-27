@@ -600,6 +600,21 @@
     strokeWeight: 0.6
   });
 
+  southLotPoly = new google.maps.Polygon({
+    paths: window.LatLng.southLotLatLng,
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "SOUTH LOT", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
+  kinardRearPoly = new google.maps.Polygon({
+    paths: window.LatLng.kinardRearLatLng,
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "KINARD REAR RESIDENTIAL WEST", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
+
 
 
 
@@ -629,7 +644,9 @@
     "WOMENS TERRACE-UPPER LOT" : new google.maps.LatLng(34.368250923426345, -89.53442215919495),
     "TURNER COLISEUM LOT" : new google.maps.LatLng(34.3626006913775, -89.53744769096375),
     "FRATERNITY ALLEY" : new google.maps.LatLng(34.36462141636153, -89.54166948795319),
-    "POOLE DRIVE" : new google.maps.LatLng(34.363890772536365, -89.54178214073181)
+    "POOLE DRIVE" : new google.maps.LatLng(34.363890772536365, -89.54178214073181),
+    "SOUTH LOT" : new google.maps.LatLng(34.35723940805898, -89.53495860099792),
+    "KINARD REAR RESIDENTIAL WEST" : new google.maps.LatLng(34.369032449857976, -89.54127252101898)
   }
 
 
@@ -865,6 +882,25 @@
   });
 
 
+  //need #28 music building
+
+  google.maps.event.addListener(southLotPoly, 'mouseover', function() {
+  addInfoWindow("SOUTH LOT");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(southLotPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
+  google.maps.event.addListener(kinardRearPoly, 'mouseover', function() {
+  addInfoWindow("KINARD REAR RESIDENTIAL WEST");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(kinardRearPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
+
 
 
   //push polygons to existing polygon array
@@ -901,6 +937,9 @@
   existingPolygons.push(fratAlleyPoly);
   existingPolygons.push(theInnPoly);
 
+  existingPolygons.push(southLotPoly);
+  existingPolygons.push(kinardRearPoly);
+
 
   //bind polygons to map
   jacksonAvePoly.setMap(map);
@@ -935,7 +974,10 @@
 
   fratAlleyPoly.setMap(map);
   theInnPoly.setMap(map);
-  
+
+  southLotPoly.setMap(map);
+  kinardRearPoly.setMap(map);
+
   }
 
    //init with All
