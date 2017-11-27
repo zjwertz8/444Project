@@ -9,7 +9,7 @@
       <script src="http://maps.google.com/maps/api/js?sensor=True"></script>
     </head>
   <body>
-  <h1>Ole Miss Parking Citation Visualization </h1>
+  <h1><img height="80" width="115" src="OleMiss.png" alt="Ole Miss">Parking Citation Visualization </h1>
 
   <script type="text/javascript" src="d3.min.js"></script>
   <script type="text/javascript" src="d3/d3.min.js"></script>
@@ -17,7 +17,6 @@
   <script type="text/javascript" src="scripts/globalLatLng.js"></script>
   <div id="map-container">
   <div id="map"></div>
-  <button type="button" class="btn btn-primary btn-lg active" id="myButton">Compare Parking lots</button>
   <script>
 
   var map = new google.maps.Map(d3.select("#map").node(), {
@@ -105,15 +104,16 @@
     "November" : 30,
     "December" : 31
   }
-
-  var yearSelectLabel = d3.select('body')
+  
+  //label for year
+  var yearSelectLabel = d3.select('#map-container')
     .append('label')
     .attr('class', 'select-label')
     .attr('for', 'year')
     .text('Year:')
 
   //year drop down
-  var yearSelect = d3.select('body')
+  var yearSelect = d3.select('#map-container')
     .append('select')
       .attr('class','select')
       .attr('id', 'year')
@@ -125,14 +125,15 @@
     .append('option')
       .text(function (d) { return d; });
 
-  var monthSelectLabel = d3.select('body')
+  //label for month
+  var monthSelectLabel = d3.select('#map-container')
     .append('label')
     .attr('class', 'select-label')
     .attr('for', 'month')
     .text('Month:')
 
   //month drop down
-  var monthSelect = d3.select('body')
+  var monthSelect = d3.select('#map-container')
     .append('select')
       .attr('class','select')
       .attr('id', 'month')
@@ -145,21 +146,20 @@
     .append('option')
     .text(function (d) { return d; });
 
-  var daySelectLabel = d3.select('body')
+  //label for day
+  var daySelectLabel = d3.select('#map-container')
     .append('label')
     .attr('class', 'select-label')
     .attr('for', 'day')
     .text('Day:')
 
   //day drop down
-  var daySelect = d3.select('body')
+  var daySelect = d3.select('#map-container')
     .append('select')
     .attr('class','select')
     .attr('id', 'day')
     .attr('disabled', 'disabled')
     .on('change',onchange)
-
-
 
 
   var options = daySelect
@@ -174,33 +174,12 @@
     selectYear = d3.select("#year").property("value");
     selectMonth = d3.select("#month").property("value");
     selectDay = d3.select("#day").property("value");
-    console.log(selectMonth);
-    console.log(selectDay);
 
     if(infowindow)
     {
       infowindow.close();
     }
     
-
-  // if(selectYear == "2014")
-  // {
-  //   newMonths14 = ["All", "July", "August", "September", "October", "November", "December"];
-
-  //  monthSelect.selectAll('option').remove()
-  //  monthSelect.selectAll('option').data(newMonths14).enter().append('option').text(function (d) { return d; });
-  //  d3.select("#month").property("value", selectMonth);
-  // }
-
-  // if(selectYear == "2017")
-  // {
-  //   newMonths17 = ["All", "January", "February", "March", "April", "May", "June"];
-
-  //  monthSelect.selectAll('option').remove()
-  //  monthSelect.selectAll('option').data(newMonths17).enter().append('option').text(function (d) { return d; });
-  //  d3.select("#month").property("value", selectMonth);
-  // }
-
     //if month is all, month and day is null, disable day drop down
     if(selectYear == "All"){
       selectYear = null;
@@ -382,8 +361,8 @@
     d3.select('svg').remove();
     d3.selectAll('.legend-keys').remove();
 
-    d3.select('body').append('text').attr('class', 'legend-keys').text('0');
-    d3.select('body').append('svg');
+    d3.select('#gradient').append('text').attr('class', 'legend-keys').text('0');
+    d3.select('#gradient').append('svg');
 
     var vis = d3.select('svg')
      
@@ -403,7 +382,7 @@
           .attr('width', 5)
           .attr('fill', function(d) { return colorScale(d) })
 
-      d3.select('body').append('text').attr('class','legend-keys').text(max);
+      d3.select('#gradient').append('text').attr('class','legend-keys').text(max);
   }
 
 
@@ -1109,7 +1088,7 @@
 
 
 
-   //init with 2014
+   //init with All
    buildHeatmap(d3.select("#year").property("value") == 'All' ? null : d3.select('#year').property('value'));
   });
 
@@ -1124,7 +1103,14 @@
 
   </script>
   </div>
+  <div id="gradient"></div>
+  <div class="compareContainer">
+   <div id="compareButton">
+  <button type="button" class="btn btn-primary btn-lg active" id="myButton">Compare Parking lots</button>
+  </div>
+  </div>
     </body>
+
 
   </html>
 
