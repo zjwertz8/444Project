@@ -431,6 +431,13 @@
     strokeWeight: 0.6
    });
 
+     stockardRearPoly = new google.maps.Polygon({
+    paths: window.LatLng.stockardRearLatLng,
+    fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "STOCKARD/MARTIN REAR LOT", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6,
+  });
+
     crosbyRearPoly = new google.maps.Polygon({
     paths: window.LatLng.crosbyRearLatLng,
     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "CROSBY REAR LOT", year, month, day)),
@@ -438,6 +445,9 @@
     strokeWeight: 0.6
   });
 
+
+
+   //#6
     manningCenterPoly = new google.maps.Polygon({
     paths: window.LatLng.manningCenterLatLng,
     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "MANNING CENTER EAST", year, month, day)),
@@ -458,6 +468,13 @@
     fillOpacity: 0.95,
     strokeWeight: 0.6
   });
+ 
+ stockardMartinFrontPoly = new google.maps.Polygon({
+    paths: window.LatLng.stockardMartinFrontLatLng,
+    fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "STOCKARD/MARTIN FRONT LOT", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6,
+  });
 
     poolePoly = new google.maps.Polygon({
     paths: [window.LatLng.pooleLatLng1, window.LatLng.pooleLatLng2, window.LatLng.pooleLatLng3, window.LatLng.pooleLatLng4, window.LatLng.pooleLatLng5, window.LatLng.pooleLatLng6, window.LatLng.pooleLatLng7, window.LatLng.pooleLatLng8, window.LatLng.pooleLatLng9, window.LatLng.pooleLatLng10, window.LatLng.pooleLatLng11],
@@ -467,6 +484,9 @@
   });
     
 
+
+
+   //#11
     meekPoly = new google.maps.Polygon({
     paths: window.LatLng.meekLatLng,
     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "MEEK LOT", year, month, day)),
@@ -493,13 +513,6 @@
     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "CIRCLE", year, month, day)),
     fillOpacity: 0.95,
     strokeWeight: 0.6
-  });
-
-  stockardRearPoly = new google.maps.Polygon({
-    paths: window.LatLng.stockardRearLatLng,
-    fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "STOCKARD/MARTIN REAR LOT", year, month, day)),
-    fillOpacity: 0.95,
-    strokeWeight: 0.6,
   });
 
   oldAthleticsPoly = new google.maps.Polygon({
@@ -662,7 +675,7 @@
     "THE INN AT OLE MISS" : new google.maps.LatLng(34.3674184679905, -89.52908992767334),
     "MUSIC BUILDING WEST LOT": new google.maps.LatLng(34.36443691089038, -89.53004479408264),
     "SOUTH LOT" : new google.maps.LatLng(34.35723940805898, -89.53495860099792),
-    
+
     "KINARD REAR RESIDENTIAL WEST" : new google.maps.LatLng(34.369032449857976, -89.54127252101898)
   }
 
@@ -761,6 +774,13 @@
   });
 
 //#9 Stockard/Martin Front
+  google.maps.event.addListener(stockardMartinFrontPoly, 'mouseover', function() {
+    addInfoWindow("STOCKARD/MARTIN FRONT LOT");
+    this.setOptions({strokeWeight: 1.6});
+  })
+  google.maps.event.addListener(stockardMartinFrontPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
   
   //#10 Poole Drive
   google.maps.event.addListener(poolePoly, 'mouseover', function() {
@@ -771,6 +791,9 @@
   this.setOptions({strokeWeight: 0.6});
   });
  
+
+
+
  //#11 Meek Lot
   google.maps.event.addListener(meekPoly, 'mouseover', function() {
     addInfoWindow("MEEK LOT");
@@ -961,6 +984,9 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+
+
+
  //#31 Kinard Rear
   google.maps.event.addListener(kinardRearPoly, 'mouseover', function() {
   addInfoWindow("KINARD REAR RESIDENTIAL WEST");
@@ -983,7 +1009,7 @@
   existingPolygons.push(manningCenterPoly);
   existingPolygons.push(residentialCollegePoly);
   existingPolygons.push(magnoliaPoly);
-
+  existingPolygons.push(stockardMartinFrontPoly);
   existingPolygons.push(poolePoly);
 
   existingPolygons.push(meekPoly);
@@ -1023,31 +1049,33 @@
   residentialCollegePoly.setMap(map);
   magnoliaPoly.setMap(map);
   meekPoly.setMap(map);
+  stockardMartinFrontPoly.setMap(map);
   poolePoly.setMap(map);
-  bishopPoly.setMap(map);
 
+  bishopPoly.setMap(map);
   fordCenterPoly.setMap(map);
   circlePoly.setMap(map);
   stockardRearPoly.setMap(map);
   oldAthleticsPoly.setMap(map);
-  kincannonPoly.setMap(map);
 
+  kincannonPoly.setMap(map);
   womensTerraceLowerPoly.setMap(map);
   hflFacultyPoly.setMap(map);
   oldAthleticMeterPoly.setMap(map);
   dormRowNorthPoly.setMap(map);
-  campusWalkPoly.setMap(map);
 
+  campusWalkPoly.setMap(map);
   ncpaFacultyPoly.setMap(map);
   allAmericanPoly.setMap(map);
   coliseumWestPoly.setMap(map);
   womensTerraceUpperPoly.setMap(map);
-  turnerColiseumPoly.setMap(map);
 
+  turnerColiseumPoly.setMap(map);
   fratAlleyPoly.setMap(map);
   theInnPoly.setMap(map);
   musicBuildingPoly.setMap(map);
   southLotPoly.setMap(map);
+  
   kinardRearPoly.setMap(map);
 
   }
