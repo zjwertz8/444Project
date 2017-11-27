@@ -81,7 +81,7 @@ var svg = d3.select("body")
 // gridlines in x axis function
 function make_x_gridlines() {       
     return d3.axisBottom(x)
-        .ticks(12)
+        .ticks(24)
 }
 
 // gridlines in y axis function
@@ -126,7 +126,7 @@ d3.csv("data.csv", function(error, data) {
         // Add the Legend
         svg.append("text")
             .attr("x", (legendSpace/2)+i*legendSpace)  // space legend
-            .attr("y", height + (margin.bottom/2)+ 20)
+            .attr("y", height + (margin.bottom/2)+ 35)
             // .attr("y", height + (margin.bottom/2)+ 10)
             .attr("class", "legend")    // style the legend
             .style("fill", function() { // Add the colours dynamically
@@ -173,17 +173,22 @@ d3.csv("data.csv", function(error, data) {
   svg.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + height + ")")
-      .tickFormat(d3.time.format("%Y"))
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(x)
+               .ticks(24)
+               .tickFormat(d3.timeFormat("%b-%y"))
+        )
+      .selectAll("text")
+    .attr("transform", "rotate(41)")
+    .style("text-anchor", "start");
 
     // text label for the x axis
   svg.append("text")             
       .attr("transform",
             "translate(" + (width/2) + " ," + 
-                           (height + margin.top) + ")")
+                           (height + margin.top + 17) + ")")
       .style("text-anchor", "end")
       .attr("class", "axislabel") 
-      .text("Year");
+      .text("Month - Year");
 
   // Add the Y Axis
   svg.append("g")
