@@ -24,7 +24,12 @@ path {
     text-anchor: middle;
 }
 
-
+.legend1 {
+	font-size: 16px;
+    font-weight: bold;
+    text-anchor: middle;
+    text-decoration: underline;
+}
 .grid .tick {
     stroke: lightgrey;
     opacity: 0.1;
@@ -135,6 +140,7 @@ d3.csv("data.csv", function(error, data) {
                     .style("opacity", newOpacity); 
                 // Update whether or not the elements are active
                 d.active = active;
+                d3.select(this).attr("class", "legend1") 
                 }) 
 
             .text(d.key); 
