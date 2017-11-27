@@ -30,6 +30,7 @@ path {
     text-anchor: middle;
     text-decoration: underline;
 }
+
 .grid .tick {
     stroke: lightgrey;
     opacity: 0.1;
@@ -140,9 +141,14 @@ d3.csv("data.csv", function(error, data) {
                     .style("opacity", newOpacity); 
                 // Update whether or not the elements are active
                 d.active = active;
-                d3.select(this).attr("class", "legend1") 
-                }) 
 
+                 var active1 =d.active1 ? false: true,
+                 newClass = active1? "legend1" : "legend";
+
+                 d3.select(this).attr("class", newClass);
+                 d.active1 = active1; 
+                }) 
+            
             .text(d.key); 
 
     });
@@ -167,6 +173,7 @@ d3.csv("data.csv", function(error, data) {
   svg.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + height + ")")
+      .tickFormat(d3.time.format("%Y"))
       .call(d3.axisBottom(x));
 
     // text label for the x axis

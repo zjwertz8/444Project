@@ -15,16 +15,24 @@ html, body
         padding: 0;
 }
       
+
+body 
+{
+    background-color: #01AEF0;
+}
+
 #map-container 
 {
         height: 80%;
         width: 100%;
         text-align: center;
+        display: inline-block;
 }
 
 h1 
 {
     text-align: center;
+    color: #C8102E;
 }
 
 
@@ -35,7 +43,7 @@ h1
 }
 
 select.select {
-    margin: 10px;
+    margin: 5px 10px 0 5px;
 }
 
 #iw-container { 
@@ -64,12 +72,28 @@ select.select {
 
 }
 
-/*.gm-style-iw {
-    width: 350px !important;
-    top: 15px !important;
-    left: 0px !important;
-    background-color: #fff;
-    box-shadow:0 1px 6px rgba(178, 178, 178, 0.6);
-    border: 1px solid rgba(72, 181, 233, 0.6);
-    border-radius: 2px 2px 10px 10px;
+
+/*#myButton {
+    text-align: center;
+    margin-top: 5px;
+    margin-right: 5px;
 }*/
+
+.compareContainer {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.legend-keys {
+    font-weight: bold;
+    color: #C8102E;
+}
+
+.select-label { 
+    margin-left: 5px;
+    color: #C8102E;
+ }
+
+ #gradient {
+    text-align: center;
+ }
