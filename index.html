@@ -350,7 +350,6 @@
       }
     }
   }
-    console.log(currentMax);
     return currentMax;
 
   }
@@ -458,6 +457,14 @@
     fillOpacity: 0.95,
     strokeWeight: 0.6
   });
+
+    poolePoly = new google.maps.Polygon({
+    paths: [window.LatLng.pooleLatLng1, window.LatLng.pooleLatLng2, window.LatLng.pooleLatLng3, window.LatLng.pooleLatLng4],
+    fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "POOLE DRIVE", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+    
 
     meekPoly = new google.maps.Polygon({
     paths: window.LatLng.meekLatLng,
@@ -579,35 +586,51 @@
     strokeWeight: 0.6
   });
 
+  fratAlleyPoly = new google.maps.Polygon({
+    paths: [window.LatLng.fratAlleyLatLng1, window.LatLng.fratAlleyLatLng2],
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "FRATERNITY ALLEY", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
+  theInnPoly = new google.maps.Polygon({
+    paths: window.LatLng.theInnLatLng,
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "THE INN AT OLE MISS", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
 
 
 
   lotAndLatLngDict = {
-    "JACKSON AVENUE CENTER" : new google.maps.LatLng(34.370165509648004, -89.54679988324642),
-    "SORORITY LOT" : new google.maps.LatLng(34.36882829393721, -89.53233204782009),
-    "COLISEUM EAST LOT" : new google.maps.LatLng(34.3630851082921, -89.53932724893093),
-    "CROSBY REAR LOT" : new google.maps.LatLng(34.37094037653353, -89.53470848500729),
-    "MANNING CENTER EAST" : new google.maps.LatLng(34.360136476997866, -89.53510444611311),
-    "RESIDENTIAL COLLEGE/ALUMN DR LOT" : new google.maps.LatLng(34.36774355472055, -89.5295150578022),
-    "MAGNOLIA DRIVE" : new google.maps.LatLng(34.365969031253414, -89.54126983880997),
-    "MEEK LOT" : new google.maps.LatLng(34.36706939521034, -89.5372948050499),
-    "BISHOP LOT" : new google.maps.LatLng(34.36535352961884, -89.53970611095428),
-    "FORD CENTER LOT" : new google.maps.LatLng(34.36639855129822, -89.52810287475586),
-    "CIRCLE" : new google.maps.LatLng(34.36523839931469, -89.53577399253845),
-    "STOCKARD REAR LOT" : new google.maps.LatLng(34.36999846262895, -89.53721702098846),
-    "OLD ATHLETICS F/S" : new google.maps.LatLng(34.36354685122506, -89.53876733779907),
-    "KINCANNON  HALL PARKING LOT" : new google.maps.LatLng(34.369044257656945, -89.53848972916603),
-    "WOMENS TERRACE-LOWER LOT" : new google.maps.LatLng(34.368542797555165, -89.53473530709743),
-    "HFL FACULTY/STAFF" : new google.maps.LatLng(34.3667395089413, -89.5380511879921),
-    "OLD ATHLETICS METER" : new google.maps.LatLng(34.36394095841237, -89.53817456960678),
+    "JACKSON AVENUE CENTER" : new google.maps.LatLng(34.37066853965804, -89.54728603363037),
+    "SORORITY LOT" : new google.maps.LatLng(34.369278197455856, -89.5319464802742),
+    "COLISEUM EAST LOT" : new google.maps.LatLng(34.36365903178182, -89.539475440979),
+    "CROSBY REAR LOT" : new google.maps.LatLng(34.37159984944055, -89.53448116779327),
+    "MANNING CENTER EAST" : new google.maps.LatLng(34.36066700781123, -89.53498005867004),
+    "RESIDENTIAL COLLEGE/ALUMN DR LOT" : new google.maps.LatLng(34.3679210419447, -89.52936619520187),
+    "MAGNOLIA DRIVE" : new google.maps.LatLng(34.36608711253981, -89.54136371612549),
+    "MEEK LOT" : new google.maps.LatLng(34.3674288001151, -89.53739404678345),
+    "BISHOP LOT" : new google.maps.LatLng(34.365564601387156, -89.53974902629852),
+    "FORD CENTER LOT" : new google.maps.LatLng(34.36741994416282, -89.5282906293869),
+    "CIRCLE" : new google.maps.LatLng(34.3660295477764, -89.53502297401428),
+    "STOCKARD REAR LOT" : new google.maps.LatLng(34.37050618657293, -89.5378178358078),
+    "OLD ATHLETICS F/S" : new google.maps.LatLng(34.36398819206313, -89.53863859176636),
+    "KINCANNON  HALL PARKING LOT" : new google.maps.LatLng(34.36960364607053, -89.53856885433197),
+    "WOMENS TERRACE-LOWER LOT" : new google.maps.LatLng(34.368850906327204, -89.53476279973984),
+    "HFL FACULTY/STAFF" : new google.maps.LatLng(34.36704208934999, -89.53857153654099),
+    "OLD ATHLETICS METER" : new google.maps.LatLng(34.364292258415695, -89.53848570585251),
     "DORM ROW NORTH" : new google.maps.LatLng(34.36702511524971, -89.5376904308796),
     "CAMPUS WALK APT. COMPLEX" : new google.maps.LatLng(34.364366060716115, -89.54769641160965),
-    "NCPA FACULTY/STAFF LOT" : new google.maps.LatLng(34.36149657831279, -89.54106599092484),
+    "NCPA FACULTY/STAFF LOT" : new google.maps.LatLng(34.36204273213624, -89.54077363014221),
     "ALL AMERICAN DR." : new google.maps.LatLng(34.364382666231094, -89.53818965703249),
     "COLISEUM WEST LOT" : new google.maps.LatLng(34.363375037542795, -89.54072856955463),
     "WOMENS TERRACE-UPPER LOT" : new google.maps.LatLng(34.368250923426345, -89.53442215919495),
-    "TURNER COLISEUM LOT" : new google.maps.LatLng()
-  }//need to adjust loc from col west and up
+    "TURNER COLISEUM LOT" : new google.maps.LatLng(34.3626006913775, -89.53744769096375),
+    "FRATERNITY ALLEY" : new google.maps.LatLng(34.36462141636153, -89.54166948795319),
+    "POOLE DRIVE" : new google.maps.LatLng(34.363890772536365, -89.54178214073181)
+  }
 
 
 
@@ -623,11 +646,6 @@
         + "</div>" 
         + "<div id='iw-content'>Number of Tickets: " + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day) + "</div></div>");
 
-
-
-
-
-
       infowindow.setPosition(lotAndLatLngDict[lotName]);
 
       infowindow.open(map);
@@ -639,14 +657,6 @@
   addInfoWindow("JACKSON AVENUE CENTER");
   this.setOptions({strokeWeight: 1.6});
   });
-
-  // google.maps.event.addListener(jacksonAvePoly,"mouseout",function(){
-  //   timeoutId = window.setTimeout(function() {
-  //      if(infowindow) {
-  //       infowindow.close();
-  //      }
-  //    }, 2000);
-  // });
 
   google.maps.event.addListener(jacksonAvePoly, 'mouseout', function() {
   this.setOptions({strokeWeight: 0.6});
@@ -838,6 +848,22 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  google.maps.event.addListener(fratAlleyPoly, 'mouseover', function() {
+  addInfoWindow("FRATERNITY ALLEY");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(fratAlleyPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
+  google.maps.event.addListener(poolePoly, 'mouseover', function() {
+  addInfoWindow("POOLE DRIVE");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(poolePoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
 
 
 
@@ -850,26 +876,31 @@
 
   existingPolygons.push(residentialCollegePoly);
   existingPolygons.push(magnoliaPoly);
+  existingPolygons.push(poolePoly);
   existingPolygons.push(meekPoly);
   existingPolygons.push(bishopPoly);
-  existingPolygons.push(fordCenterPoly);
 
+  existingPolygons.push(fordCenterPoly);
   existingPolygons.push(circlePoly);
   existingPolygons.push(stockardRearPoly);
   existingPolygons.push(oldAthleticsPoly);
   existingPolygons.push(kincannonPoly);
-  existingPolygons.push(womensTerraceLowerPoly);
 
+  existingPolygons.push(womensTerraceLowerPoly);
   existingPolygons.push(hflFacultyPoly);
   existingPolygons.push(oldAthleticMeterPoly);
   existingPolygons.push(dormRowNorthPoly);
   existingPolygons.push(campusWalkPoly);
-  existingPolygons.push(ncpaFacultyPoly);
 
+  existingPolygons.push(ncpaFacultyPoly);
   existingPolygons.push(allAmericanPoly);
   existingPolygons.push(coliseumWestPoly);
   existingPolygons.push(womensTerraceUpperPoly);
   existingPolygons.push(turnerColiseumPoly);
+
+  existingPolygons.push(fratAlleyPoly);
+  existingPolygons.push(theInnPoly);
+
 
   //bind polygons to map
   jacksonAvePoly.setMap(map);
@@ -881,221 +912,36 @@
   residentialCollegePoly.setMap(map);
   magnoliaPoly.setMap(map);
   meekPoly.setMap(map);
+  poolePoly.setMap(map);
   bishopPoly.setMap(map);
-  fordCenterPoly.setMap(map);
 
+  fordCenterPoly.setMap(map);
   circlePoly.setMap(map);
   stockardRearPoly.setMap(map);
   oldAthleticsPoly.setMap(map);
   kincannonPoly.setMap(map);
-  womensTerraceLowerPoly.setMap(map);
 
+  womensTerraceLowerPoly.setMap(map);
   hflFacultyPoly.setMap(map);
   oldAthleticMeterPoly.setMap(map);
   dormRowNorthPoly.setMap(map);
   campusWalkPoly.setMap(map);
-  ncpaFacultyPoly.setMap(map);
 
+  ncpaFacultyPoly.setMap(map);
   allAmericanPoly.setMap(map);
   coliseumWestPoly.setMap(map);
   womensTerraceUpperPoly.setMap(map);
   turnerColiseumPoly.setMap(map);
+
+  fratAlleyPoly.setMap(map);
+  theInnPoly.setMap(map);
+  
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // //Poole Drive #8 Lot
-  // pooleDriveLatLng =[
-  // {"lat":  34.3642780514318, "lng": -89.5434394106268},
-  // {"lat":  34.3642680881108, "lng": -89.5434273406863},
-  // {"lat":  34.3642680881108, "lng": -89.5434270054101},
-  // {"lat":  34.364253696645, "lng": -89.5434259995818},
-  // {"lat":  34.3642398586947, "lng": -89.5434280112385},
-  // {"lat":  34.3642265742604, "lng": -89.5434340462088},
-  // {"lat":  34.3642265742604, "lng": -89.5434337109327},
-  // {"lat":  34.3642155038968, "lng": -89.543421305716},
-  // {"lat":  34.364201112422, "lng": -89.5433616265654},
-  // {"lat":  34.3641507422406, "lng": -89.5431819185614},
-  // {"lat":  34.3640632862494, "lng": -89.5428741350769},
-  // {"lat":  34.363972509048, "lng": -89.5425864681601},
-  // {"lat":  34.3638955697577, "lng": -89.5423028245568},
-  // {"lat":  34.3639437260124, "lng": -89.5422880724072},
-  // {"lat":  34.3639321020914, "lng": -89.5422411337494},
-  // {"lat":  34.3639237992897, "lng": -89.5422230288386},
-  // {"lat":  34.3639071936838, "lng": -89.542210958898},
-  // {"lat":  34.3638922486356, "lng": -89.5421968773007},
-  // {"lat":  34.3638568233257, "lng": -89.5420869067311},
-  // {"lat":  34.3638579303669, "lng": -89.5420614257454},
-  // {"lat":  34.3638629120519, "lng": -89.5420265570282},
-  // {"lat":  34.3638490740372, "lng": -89.5419930294156},
-  // {"lat":  34.3638125416673, "lng": -89.5420044288039},
-  // {"lat":  34.3638058994165, "lng": -89.5419910177588},
-  // {"lat":  34.3637760092814, "lng": -89.5418763533234},
-  // {"lat":  34.3637389233583, "lng": -89.5417281612753},
-  // {"lat":  34.3636918740292, "lng": -89.5415417477488},
-  // {"lat":  34.3636874458557, "lng": -89.5415202900767},
-  // {"lat":  34.3637367092728, "lng": -89.5415001735091},
-  // {"lat":  34.3637234247586, "lng": -89.5414666458964},
-  // {"lat":  34.3637123543286, "lng": -89.5414592698216},
-  // {"lat":  34.3636963022024, "lng": -89.54135466367},
-  // {"lat":  34.363706819113, "lng": -89.5413338765501},
-  // {"lat":  34.3637095867209, "lng": -89.5413191244006},
-  // {"lat":  34.3637079261562, "lng": -89.5413083955645},
-  // {"lat":  34.3637001768539, "lng": -89.5412983372807},
-  // {"lat":  34.3636857852905, "lng": -89.5412929728627},
-  // {"lat":  34.3636514669372, "lng": -89.5413023605942},
-  // {"lat":  34.3635828301884, "lng": -89.5409201458096},
-  // {"lat":  34.3635634569024, "lng": -89.5407940819859},
-  // {"lat":  34.3635540470189, "lng": -89.5407464727759},
-  // {"lat":  34.3635905795016, "lng": -89.5407303795218},
-  // {"lat":  34.3635927935909, "lng": -89.5406995341181},
-  // {"lat":  34.3635927935909, "lng": -89.540699198842},
-  // {"lat":  34.3635728667847, "lng": -89.5406820997595},
-  // {"lat":  34.3635523864512, "lng": -89.5405587181448},
-  // {"lat":  34.363559028722, "lng": -89.5405312255024},
-  // {"lat":  34.3635640104249, "lng": -89.5405137911438},
-  // {"lat":  34.3635640104249, "lng": -89.5405134558677},
-  // {"lat":  34.3635529399738, "lng": -89.540498368442},
-  // {"lat":  34.3635407624759, "lng": -89.540498368442},
-  // {"lat":  34.3635407624759, "lng": -89.5404980331659},
-  // {"lat":  34.3635075511089, "lng": -89.5405057445168},
-  // {"lat":  34.3634914989435, "lng": -89.5403997972607},
-  // {"lat":  34.3634870707594, "lng": -89.5403622463345},
-  // {"lat":  34.3634854101903, "lng": -89.54031329602},
-  // {"lat":  34.3634837496212, "lng": -89.5402811095118},
-  // {"lat":  34.3634798749597, "lng": -89.5401959493756},
-  // {"lat":  34.3634826425751, "lng": -89.5401409640908},
-  // {"lat":  34.3634793214367, "lng": -89.5401114597916},
-  // {"lat":  34.3634809820059, "lng": -89.5400812849402},
-  // {"lat":  34.3635047834944, "lng": -89.5400745794177},
-  // {"lat":  34.3635291384989, "lng": -89.5400732383131},
-  // {"lat":  34.3635346737262, "lng": -89.540051780641},
-  // {"lat":  34.3635208356573, "lng": -89.5400115475058},
-  // {"lat":  34.3635081046318, "lng": -89.5399921014904},
-  // {"lat":  34.363536887817, "lng": -89.539872072637},
-  // {"lat":  34.3635911330239, "lng": -89.5398237928748},
-  // {"lat":  34.3636010964254, "lng": -89.5398090407252},
-  // {"lat":  34.3635999893809, "lng": -89.5397942885756},
-  // {"lat":  34.3635861513227, "lng": -89.5397835597395},
-  // {"lat":  34.3635579216769, "lng": -89.5397708192467},
-  // {"lat":  34.3635645639474, "lng": -89.539739973843},
-  // {"lat":  34.3635689921274, "lng": -89.5397218689322},
-  // {"lat":  34.3635789555315, "lng": -89.5396856591105},
-  // {"lat":  34.3635855978003, "lng": -89.5396668836474},
-  // {"lat":  34.3636027569922, "lng": -89.5396192744374},
-  // {"lat":  34.3636232373135, "lng": -89.5395642891526},
-  // {"lat":  34.3636276654904, "lng": -89.5395502075552},
-  // {"lat":  34.363663644419, "lng": -89.5395777001976},
-  // {"lat":  34.3636780359862, "lng": -89.539560265839},
-  // {"lat":  34.363706819113, "lng": -89.5394697412848},
-  // {"lat":  34.3637201036298, "lng": -89.5394268259406},
-  // {"lat":  34.3636769289426, "lng": -89.5394040271639},
-  // {"lat":  34.3637915078713, "lng": -89.5390519872307},
-  // {"lat":  34.363826379688, "lng": -89.5389621332287},
-  // {"lat":  34.3638568233257, "lng": -89.5388950780034},
-  // {"lat":  34.3639193711284, "lng": -89.5388970896601},
-  // {"lat":  34.3639952033576, "lng": -89.5388058945536},
-  // {"lat":  34.3640859805344, "lng": -89.5387153699994},
-  // {"lat":  34.3641540633524, "lng": -89.5386851951479},
-  // {"lat":  34.3642226996333, "lng": -89.5386637374758},
-  // {"lat":  34.364252589609, "lng": -89.538648314774},
-  // {"lat":  34.3643228863618, "lng": -89.5386295393109},
-  // {"lat":  34.3643477946458, "lng": -89.5386100932955},
-  // {"lat":  34.3643577579574, "lng": -89.5386583730578},
-  // {"lat":  34.3643660607161, "lng": -89.5387140288949},
-  // {"lat":  34.3642664275571, "lng": -89.5387609675526},
-  // {"lat":  34.3642066476049, "lng": -89.538777731359},
-  // {"lat":  34.3641490816847, "lng": -89.5388005301356},
-  // {"lat":  34.3641302620483, "lng": -89.5388126000761},
-  // {"lat":  34.364095390358, "lng": -89.538833387196},
-  // {"lat":  34.3640715890373, "lng": -89.5388494804501},
-  // {"lat":  34.3640466806711, "lng": -89.5388736203312},
-  // {"lat":  34.3640129159852, "lng": -89.5389111712574},
-  // {"lat":  34.3639907752001, "lng": -89.5389373227953},
-  // {"lat":  34.3639708484886, "lng": -89.5389802381396},
-  // {"lat":  34.3639570104916, "lng": -89.5390057191252},
-  // {"lat":  34.3639337626517, "lng": -89.5390687510371},
-  // {"lat":  34.3639188176082, "lng": -89.5391210541129},
-  // {"lat":  34.3638922486356, "lng": -89.5391921326518},
-  // {"lat":  34.3638629120519, "lng": -89.539288021624},
-  // {"lat":  34.3638407712272, "lng": -89.5393577590584},
-  // {"lat":  34.3638285937711, "lng": -89.5393852517008},
-  // {"lat":  34.3638025782909, "lng": -89.5394583418965},
-  // {"lat":  34.3637594036462, "lng": -89.5395864173769},
-  // {"lat":  34.3637189965868, "lng": -89.5396970584988},
-  // {"lat":  34.3636929810725, "lng": -89.5397949591279},
-  // {"lat":  34.3636708402029, "lng": -89.5398593321442},
-  // {"lat":  34.3636542345468, "lng": -89.5399330928921},
-  // {"lat":  34.363631540145, "lng": -89.5400397107005},
-  // {"lat":  34.3636199161806, "lng": -89.5400484278798},
-  // {"lat":  34.3636154880033, "lng": -89.5400591567158},
-  // {"lat":  34.3636138274367, "lng": -89.5400873199105},
-  // {"lat":  34.3636127203924, "lng": -89.5401858910918},
-  // {"lat":  34.3636182556141, "lng": -89.5402381941676},
-  // {"lat":  34.3636276654904, "lng": -89.5403951033949},
-  // {"lat":  34.3636387359316, "lng": -89.5404695346951},
-  // {"lat":  34.3636486993274, "lng": -89.5405419543385},
-  // {"lat":  34.3636630908972, "lng": -89.5406063273549},
-  // {"lat":  34.3636830176819, "lng": -89.5407223328948},
-  // {"lat":  34.3637095867209, "lng": -89.5408685132861},
-  // {"lat":  34.3637284064517, "lng": -89.5409550145268},
-  // {"lat":  34.3637599571674, "lng": -89.541124664247},
-  // {"lat":  34.3637693670277, "lng": -89.5411816611886},
-  // {"lat":  34.3637843120978, "lng": -89.5412560924887},
-  // {"lat":  34.3637898473082, "lng": -89.5413077250123},
-  // {"lat":  34.3637975966022, "lng": -89.5413352176547},
-  // {"lat":  34.3638191839175, "lng": -89.5415216311812},
-  // {"lat":  34.3638319148957, "lng": -89.5415880158543},
-  // {"lat":  34.363875089503, "lng": -89.5417576655745},
-  // {"lat":  34.3639110683254, "lng": -89.541896469891},
-  // {"lat":  34.3639387443322, "lng": -89.5420118048787},
-  // {"lat":  34.3639669738496, "lng": -89.542115740478},
-  // {"lat":  34.3639979709559, "lng": -89.5422223582863},
-  // {"lat":  34.3640411454776, "lng": -89.5423732325434},
-  // {"lat":  34.3640870875725, "lng": -89.5425334945321},
-  // {"lat":  34.3641341366797, "lng": -89.5426964387297},
-  // {"lat":  34.3641784181682, "lng": -89.5428473129868},
-  // {"lat":  34.364196130757, "lng": -89.5429116860032},
-  // {"lat":  34.3642249137059, "lng": -89.5430109277367},
-  // {"lat":  34.3642603388602, "lng": -89.5431282743811},
-  // {"lat":  34.3643112624933, "lng": -89.5432992652058},
-  // {"lat":  34.3643378313331, "lng": -89.5433884486556},
-  // {"lat":  34.3643428129896, "lng": -89.5434065535664},
-  // {"lat":  34.3642758373605, "lng": -89.5434363931417},
-
-  // ];
-
-  // pooleDrivePoly = new google.maps.Polygon({
-  //   paths: pooleDriveLatLng,
-  //   strokeColor: '#FF0000',
-  //   strokeOpacity: 0.8,
-  //   strokeWeight: 0,
-  //   fillColor: gradient(fillColor(lotCount, "POOLE DRIVE")),
-  //   fillOpacity: 0.95
-  // });
-
-
-
-
 
    //init with All
    buildHeatmap(d3.select("#year").property("value") == 'All' ? null : d3.select('#year').property('value'));
   });
 
-
-  document.getElementById("myButton").onclick = function () {
-          location.href = "lineGraph.html";
-      };
 
   google.maps.event.addDomListener(window, 'resize', function() {
     map.setCenter(new google.maps.LatLng(34.364732, -89.538443));
@@ -1105,10 +951,10 @@
   </div>
   <div id="gradient"></div>
   <div class="compareContainer">
-   <div id="compareButton">
-  <button type="button" class="btn btn-primary btn-lg active" id="myButton">Compare Parking lots</button>
+   <div id="myButton">
+  <a href="lineGraph.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" >Compare Parking lots</button></a>
   </div>
-  </div>
+</div>
     </body>
 
 
