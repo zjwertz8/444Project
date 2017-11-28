@@ -444,7 +444,7 @@
           .attr('fill', function(d) { return colorScale(d) })
 
       d3.select('#map-container').append('text').attr('class','legend-keys').text(max);
-      d3.select('#gradient').append('text').attr('class', 'totalCount').text('Total of number of tickets:' + totalCount(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day))
+      d3.select('#gradient').append('text').attr('class', 'totalCount').text("Total Number of Tickets: " + totalCount(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day))
   }
 
 
@@ -768,7 +768,7 @@
         + "</div>" 
         + "<div class='ymd'>Year: " + year + " | Month: " + month + " | Day: " + day
         + "</div>"
-        + "<div id='iw-content'>Tickets: " + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day) + "</div></div>");
+        + "<div id='iw-content'>Tickets: <strong>" + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day) + "</strong></div></div>");
 
       infowindow.setPosition(lotAndLatLngDict[lotName]);
       infowindow.open(map);
