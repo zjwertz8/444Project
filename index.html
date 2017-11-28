@@ -8,7 +8,7 @@
       <title>Ole Miss Parking Citation Visualization</title>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
       <link rel="stylesheet" href="stylesheets/styles.css">
-      <script src="http://maps.google.com/maps/api/js?sensor=True"></script>
+      <script src="https://maps.google.com/maps/api/js?sensor=True"></script>
     </head>
   <body>
   <h1><img height="80" width="115" src="OleMiss.png" alt="Ole Miss">Parking Citation Visualization </h1>
@@ -641,12 +641,12 @@
     strokeWeight: 0.6
   });
 
-  allAmericanPoly = new google.maps.Polygon({
-    paths: window.LatLng.allAmericanLatLng,
-     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "ALL AMERICAN DR.", year, month, day)),
-    fillOpacity: 0.95,
-    strokeWeight: 0.6
-  });
+  // allAmericanPoly = new google.maps.Polygon({
+  //   paths: window.LatLng.allAmericanLatLng,
+  //    fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "ALL AMERICAN DR.", year, month, day)),
+  //   fillOpacity: 0.95,
+  //   strokeWeight: 0.6
+  // });
 
   coliseumWestPoly = new google.maps.Polygon({
     paths: [window.LatLng.coliseumWestLatLng1, window.LatLng.coliseumWestLatLng2, window.LatLng.coliseumWestLatLng3, window.LatLng.coliseumWestLatLng4],
@@ -709,6 +709,42 @@
     strokeWeight: 0.6
   });
 
+  //#32 No More Union Lot
+
+  //#33 Sorority Row
+  sororityRowPoly = new google.maps.Polygon({
+    paths: [window.LatLng.sororityRowLatLng1, window.LatLng.sororityRowLatLng2, window.LatLng.sororityRowLatLng3, window.LatLng.sororityRowLatLng4, window.LatLng.sororityRowLatLng5, window.LatLng.sororityRowLatLng6, window.LatLng.sororityRowLatLng7],
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "SORORITY ROW", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
+  //#34 Martindale Meter
+  martindaleMeterPoly = new google.maps.Polygon({
+    paths: window.LatLng.martindaleMeterLatLng,
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "MARTINDALE METER", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
+  //#35 Kincannon Field 
+  kincannonFieldPoly = new google.maps.Polygon({
+    paths: window.LatLng.kincannonFieldLatLng,
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "KINCANNON FIELD", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
+
+
+//#36 Athletics Admin Complex
+  athleticsAdminPoly = new google.maps.Polygon({
+    paths: [window.LatLng.athelticsAdminLatLng1, window.LatLng.athelticsAdminLatLng2],
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "ATHLETICS ADMIN COMPLEX", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+ 
 
 
 
@@ -740,7 +776,7 @@
 
     "CAMPUS WALK APT. COMPLEX" : new google.maps.LatLng(34.364366060716115, -89.54769641160965),
     "NCPA FACULTY/STAFF LOT" : new google.maps.LatLng(34.36204273213624, -89.54077363014221),
-    "ALL AMERICAN DR." : new google.maps.LatLng(34.364382666231094, -89.53818965703249),
+    // "ALL AMERICAN DR." : new google.maps.LatLng(34.364382666231094, -89.53818965703249),
     "COLISEUM WEST LOT" : new google.maps.LatLng(34.363375037542795, -89.54072856955463),
     "WOMENS TERRACE-UPPER LOT" : new google.maps.LatLng(34.368250923426345, -89.53442215919495),
 
@@ -750,7 +786,14 @@
     "MUSIC BUILDING WEST LOT": new google.maps.LatLng(34.36443691089038, -89.53004479408264),
     "SOUTH LOT" : new google.maps.LatLng(34.35723940805898, -89.53495860099792),
 
-    "KINARD REAR RESIDENTIAL WEST" : new google.maps.LatLng(34.369032449857976, -89.54127252101898)
+
+    "KINARD REAR RESIDENTIAL WEST" : new google.maps.LatLng(34.369032449857976, -89.54127252101898),
+    //no union lot anymore
+    "SORORITY ROW" : new google.maps.LatLng(34.36973943358368, -89.53249499201775),
+    "MARTINDALE METER" : new google.maps.LatLng(34.364310708975786, -89.53793451189995),
+    "KINCANNON FIELD" : new google.maps.LatLng(34.3700106391883, -89.53996427357197),
+    "ATHLETICS ADMIN COMPLEX" : new google.maps.LatLng(34.36365312750306, -89.53266531229019)
+
   }
 
 
@@ -986,14 +1029,14 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
- //#23 All American Drive
-  google.maps.event.addListener(allAmericanPoly, 'mouseover', function() {
-  addInfoWindow("ALL AMERICAN DR.");
-  this.setOptions({strokeWeight: 1.6});
-  });
-  google.maps.event.addListener(allAmericanPoly, 'mouseout', function() {
-  this.setOptions({strokeWeight: 0.6});
-  });
+ // //#23 All American Drive
+ //  google.maps.event.addListener(allAmericanPoly, 'mouseover', function() {
+ //  addInfoWindow("ALL AMERICAN DR.");
+ //  this.setOptions({strokeWeight: 1.6});
+ //  });
+ //  google.maps.event.addListener(allAmericanPoly, 'mouseout', function() {
+ //  this.setOptions({strokeWeight: 0.6});
+ //  });
 
   //#24 Coliseum West
   google.maps.event.addListener(coliseumWestPoly, 'mouseover', function() {
@@ -1064,7 +1107,7 @@
 
 
 
- //#31 Kinard Rear
+  //#31 Kinard Rear
   google.maps.event.addListener(kinardRearPoly, 'mouseover', function() {
   addInfoWindow("KINARD REAR RESIDENTIAL WEST");
   this.setOptions({strokeWeight: 1.6});
@@ -1073,88 +1116,159 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#32 Union Lot not there anymore
+
+  //#33 Sorority Row
+  google.maps.event.addListener(sororityRowPoly, 'mouseover', function() {
+  addInfoWindow("SORORITY ROW");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(sororityRowPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
+  //#34 Martindale Meter
+  google.maps.event.addListener(martindaleMeterPoly, 'mouseover', function() {
+  addInfoWindow("MARTINDALE METER");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(martindaleMeterPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
+  //#35 Kincannon Field
+  google.maps.event.addListener(kincannonFieldPoly, 'mouseover', function() {
+  addInfoWindow("KINCANNON FIELD");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(kincannonFieldPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
+
+
+
+  //#36 Athletics Admin
+  google.maps.event.addListener(athleticsAdminPoly, 'mouseover', function() {
+  addInfoWindow("ATHLETICS ADMIN COMPLEX");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(athleticsAdminPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
+
+
 
 
 
   //push polygons to existing polygon array
+  //#1
   existingPolygons.push(jacksonAvePoly);
   existingPolygons.push(sororityPoly);
   existingPolygons.push(coliseumEastPoly);
   existingPolygons.push(stockardRearPoly);
   existingPolygons.push(crosbyRearPoly);
 
+  //#6
   existingPolygons.push(manningCenterPoly);
   existingPolygons.push(residentialCollegePoly);
   existingPolygons.push(magnoliaPoly);
   existingPolygons.push(stockardMartinFrontPoly);
   existingPolygons.push(poolePoly);
 
+  //#11
   existingPolygons.push(meekPoly);
   existingPolygons.push(bishopPoly);
   existingPolygons.push(fordCenterPoly);
   existingPolygons.push(circlePoly);
   existingPolygons.push(oldAthleticsPoly);
   
+  //#16
   existingPolygons.push(kincannonPoly);
   existingPolygons.push(womensTerraceLowerPoly);
   existingPolygons.push(hflFacultyPoly);
   existingPolygons.push(oldAthleticMeterPoly);
   existingPolygons.push(dormRowNorthPoly);
 
+  //#21
   existingPolygons.push(campusWalkPoly);
   existingPolygons.push(ncpaFacultyPoly);
-  existingPolygons.push(allAmericanPoly);
+  // existingPolygons.push(allAmericanPoly);
   existingPolygons.push(coliseumWestPoly);
   existingPolygons.push(womensTerraceUpperPoly);
   
+  //#26
   existingPolygons.push(turnerColiseumPoly);
   existingPolygons.push(fratAlleyPoly);
   existingPolygons.push(theInnPoly);
   existingPolygons.push(musicBuildingPoly);
   existingPolygons.push(southLotPoly);
-
+ 
+  //#31
   existingPolygons.push(kinardRearPoly);
+  //no Union Lot anymore
+  existingPolygons.push(sororityRowPoly);
+  existingPolygons.push(martindaleMeterPoly);
+  existingPolygons.push(kincannonFieldPoly);
+
+  //#36
+  existingPolygons.push(athleticsAdminPoly);
 
 
   //bind polygons to map
+  //#1
   jacksonAvePoly.setMap(map);
   sororityPoly.setMap(map);
   coliseumEastPoly.setMap(map);
   crosbyRearPoly.setMap(map);
   manningCenterPoly.setMap(map);
 
+  //#6
   residentialCollegePoly.setMap(map);
   magnoliaPoly.setMap(map);
   meekPoly.setMap(map);
   stockardMartinFrontPoly.setMap(map);
   poolePoly.setMap(map);
 
+  //#11
   bishopPoly.setMap(map);
   fordCenterPoly.setMap(map);
   circlePoly.setMap(map);
   stockardRearPoly.setMap(map);
   oldAthleticsPoly.setMap(map);
 
+  //#16
   kincannonPoly.setMap(map);
   womensTerraceLowerPoly.setMap(map);
   hflFacultyPoly.setMap(map);
   oldAthleticMeterPoly.setMap(map);
   dormRowNorthPoly.setMap(map);
 
+  //#21
   campusWalkPoly.setMap(map);
   ncpaFacultyPoly.setMap(map);
-  allAmericanPoly.setMap(map);
+  // allAmericanPoly.setMap(map);
   coliseumWestPoly.setMap(map);
   womensTerraceUpperPoly.setMap(map);
 
+  //#26
   turnerColiseumPoly.setMap(map);
   fratAlleyPoly.setMap(map);
   theInnPoly.setMap(map);
   musicBuildingPoly.setMap(map);
   southLotPoly.setMap(map);
 
+  //#31
   kinardRearPoly.setMap(map);
+  //no Union Lot anymore
+  sororityRowPoly.setMap(map);
+  martindaleMeterPoly.setMap(map);
+  kincannonFieldPoly.setMap(map);
 
+  //#36
+  athleticsAdminPoly.setMap(map);
+  // womensTerraceDrivePoly.setMap(map);
   }
 
    //init with All
