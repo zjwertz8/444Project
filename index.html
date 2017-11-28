@@ -109,69 +109,7 @@
     "November" : 30,
     "December" : 31
   }
-  
-  // //label for year
-  // var yearSelectLabel = d3.select('#map-container')
-  //   .append('label')
-  //   .attr('class', 'select-label')
-  //   .attr('for', 'year')
-  //   .text('Year:')
-
-  // //year drop down
-  // var yearSelect = d3.select('#map-container')
-  //   .append('select')
-  //     .attr('class','select')
-  //     .attr('id', 'year')
-  //     .on('change',onchange)
-
-  // var options = yearSelect
-  //   .selectAll('option')
-  //   .data(years).enter()
-  //   .append('option')
-  //     .text(function (d) { return d; });
-
-  // //label for month
-  // var monthSelectLabel = d3.select('#map-container')
-  //   .append('label')
-  //   .attr('class', 'select-label')
-  //   .attr('for', 'month')
-  //   .text('Month:')
-
-  // //month drop down
-  // var monthSelect = d3.select('#map-container')
-  //   .append('select')
-  //     .attr('class','select')
-  //     .attr('id', 'month')
-  //     .attr('disabled', 'disabled')
-  //     .on('change',onchange)
-
-  // var options = monthSelect
-  //   .selectAll('option')
-  //   .data(months).enter()
-  //   .append('option')
-  //   .text(function (d) { return d; });
-
-  // //label for day
-  // var daySelectLabel = d3.select('#map-container')
-  //   .append('label')
-  //   .attr('class', 'select-label')
-  //   .attr('for', 'day')
-  //   .text('Day:')
-
-  // //day drop down
-  // var daySelect = d3.select('#map-container')
-  //   .append('select')
-  //   .attr('class','select')
-  //   .attr('id', 'day')
-  //   .attr('disabled', 'disabled')
-  //   .on('change',onchange)
-
-
-  // var options = daySelect
-  //   .selectAll('option')
-  //   .data(days).enter()
-  //   .append('option')
-  //   .text(function (d) { return d; });
+ 
 //label for year
   var yearSelectLabel = d3.select('#gradient')
     .append('label')
@@ -246,18 +184,18 @@
       infowindow.close();
     }
     
-    //if month is all, month and day is null, disable day drop down
+    //if month is all, month and day is "All", disable day drop down
     if(selectYear == "All"){
-      selectYear = null;
-      selectMonth = null;
-      selectDay = null;
+      selectYear = "All";
+      selectMonth = "All";
+      selectDay = "All";
       d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
       d3.select("#month").attr('disabled', 'disabled').property('value', 'All');
     }
     else if(selectMonth == "All")
     {
-      selectMonth = null;
-      selectDay = null;
+      selectMonth = "All";
+      selectDay = "All";
       d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
       d3.select("#month").attr('disabled', null);
 
@@ -287,7 +225,7 @@
     //if select day is all,
     if(selectDay == "All")
     {
-      selectDay = null;
+      selectDay = "All";
     }
 
 
@@ -305,7 +243,7 @@
 
 
   // function to find key in array, give correct fill color
-  function fillColor(lotCount, lotName, year, month=null, day=null)
+  function fillColor(lotCount, lotName, year, month="All", day="All")
   {
 
     total = 0;
@@ -315,18 +253,18 @@
       {
         for(j = 0; j < lotCount[i].values.length; j++)
           {
-              if(year == null){
+              if(year == "All"){
                   total += lotCount[i].values[j].value;
               }
               else if(year == lotCount[i].values[j].key)
               {
-                  if(month != null)
+                  if(month != "All")
                   {
                       for(k = 0; k < lotCount[i].values[j].values.length; k++)
                       {
                           if (month == lotCount[i].values[j].values[k].key)
                           {
-                             if(day != null)
+                             if(day != "All")
                              {
                                 for(l = 0; l < lotCount[i].values[j].values[k].values.length; l++)
                                 {
@@ -361,7 +299,7 @@
    total = 0
     for(i = 0; i < lotCount.length; i++)
     { 
-      if(year == null) {
+      if(year == "All") {
         
           total += lotCount[i].value;
                 
@@ -371,13 +309,13 @@
           {
               if(year == lotCount[i].values[j].key)
               {
-                  if(month != null)
+                  if(month != "All")
                   {
                       for(k = 0; k < lotCount[i].values[j].values.length; k++)
                       {
                           if (month == lotCount[i].values[j].values[k].key)
                           {
-                             if(day != null)
+                             if(day != "All")
                              {
                                 for(l = 0; l < lotCount[i].values[j].values[k].values.length; l++)
                                 {
@@ -420,7 +358,7 @@
     currentMax = 0;
     for(i = 0; i < lotCount.length; i++)
     { 
-      if(year == null) {
+      if(year == "All") {
          if(lotCount[i].value > currentMax)
                     {
                       currentMax = lotCount[i].value;
@@ -431,13 +369,13 @@
           {
               if(year == lotCount[i].values[j].key)
               {
-                  if(month != null)
+                  if(month != "All")
                   {
                       for(k = 0; k < lotCount[i].values[j].values.length; k++)
                       {
                           if (month == lotCount[i].values[j].values[k].key)
                           {
-                             if(day != null)
+                             if(day != "All")
                              {
                                 for(l = 0; l < lotCount[i].values[j].values[k].values.length; l++)
                                 {
@@ -476,11 +414,12 @@
 
   }
 
-  function buildLegend(max, newgradient)
+  function buildLegend(max, newgradient, year, month, day)
   {
     //clear old legend
     d3.select('svg').remove();
     d3.selectAll('.legend-keys').remove();
+    d3.selectAll('.totalCount').remove();
 
     d3.select('#map-container').append('text').attr('class', 'legend-keys').text('0');
     d3.select('#map-container').append('svg');
@@ -505,20 +444,22 @@
           .attr('fill', function(d) { return colorScale(d) })
 
       d3.select('#map-container').append('text').attr('class','legend-keys').text(max);
+      d3.select('#gradient').append('text').attr('class', 'totalCount').text('Total of number of tickets:' + totalCount(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day))
   }
 
 
 
   //function to get rid of precious polygons and then add new ones
-   function buildHeatmap(year=null, month=null, day=null){
+   function buildHeatmap(year="All", month="All", day="All"){
     //Did they select a year only?
-    yearOnly = month == null && day == null;
+    yearOnly = month == "All" && day == "All";
     //did they select a year and a month?
-    yearAndMonth = day == null;
+    yearAndMonth = day == "All";
 
-      maxGradient1 = maxGradient(year == null ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day);
+      maxGradient1 = maxGradient(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day);
     
-    buildLegend(maxGradient1, gradient);
+    buildLegend(maxGradient1, gradient, year, month, day);
+    
 
     //need function to find highest number 
   var gradient = d3.scaleLinear().domain([0, maxGradient1 * 0.25, maxGradient1 * 0.50, maxGradient1 * 0.75, maxGradient1]).range(["LIGHT BLUE", "CYAN", "GREEN", "YELLOW", "RED"]);
@@ -1217,7 +1158,7 @@
   }
 
    //init with All
-   buildHeatmap(d3.select("#year").property("value") == 'All' ? null : d3.select('#year').property('value'));
+   buildHeatmap(d3.select("#year").property("value") == 'All' ? "All" : d3.select('#year').property('value'));
   });
 
   google.maps.event.addDomListener(window, 'resize', function() {
