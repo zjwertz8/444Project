@@ -744,7 +744,39 @@
     fillOpacity: 0.95,
     strokeWeight: 0.6
   });
- 
+
+  //#37 Womens Terrace Drive
+  womensTerraceDrivePoly = new google.maps.Polygon({
+    paths: window.LatLng.womensTerraceDriveLatLng,
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "WOMENS TERRACE DRIVE", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
+  //#38 Dorm Row West
+  dormRowWestPoly = new google.maps.Polygon({
+    paths: [window.LatLng.dormRowWestLatLng1, window.LatLng.dormRowWestLatLng2, window.LatLng.dormRowWestLatLng3],
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "DORM ROW WEST", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
+ //#39 Coliseum Circle
+  coliseumCirclePoly = new google.maps.Polygon({
+    paths: [window.LatLng.coliseumCircleLatLng1, window.LatLng.coliseumCircleLatLng2],
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "COLISEUM CIRCLE", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
+  //#40 West Road Commuter
+  westRoadCommuterPoly = new google.maps.Polygon({
+    paths: window.LatLng.westRoadCommuterLatLng,
+     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "WEST ROAD COMMUTER LOT", year, month, day)),
+    fillOpacity: 0.95,
+    strokeWeight: 0.6
+  });
+
 
 
 
@@ -792,8 +824,13 @@
     "SORORITY ROW" : new google.maps.LatLng(34.36973943358368, -89.53249499201775),
     "MARTINDALE METER" : new google.maps.LatLng(34.364310708975786, -89.53793451189995),
     "KINCANNON FIELD" : new google.maps.LatLng(34.3700106391883, -89.53996427357197),
-    "ATHLETICS ADMIN COMPLEX" : new google.maps.LatLng(34.36365312750306, -89.53266531229019)
 
+
+    "ATHLETICS ADMIN COMPLEX" : new google.maps.LatLng(34.36365312750306, -89.53266531229019),
+    "WOMENS TERRACE DRIVE" : new google.maps.LatLng(34.368902565040614, -89.5351342856884),
+    "DORM ROW WEST" : new google.maps.LatLng(34.366802608093224, -89.54114712774754),
+    "COLISEUM CIRCLE" : new google.maps.LatLng(34.362645711534306, -89.53979328274727),
+    "WEST ROAD COMMUTER LOT" : new google.maps.LatLng(34.36536459983204, -89.5438702404499)
   }
 
 
@@ -1157,6 +1194,42 @@
   this.setOptions({strokeWeight: 0.6});
   });
 
+  //#37 Womens Terrace Drive
+  google.maps.event.addListener(womensTerraceDrivePoly, 'mouseover', function() {
+  addInfoWindow("WOMENS TERRACE DRIVE");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(womensTerraceDrivePoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
+  //#38 Dorm Row West
+  google.maps.event.addListener(dormRowWestPoly, 'mouseover', function() {
+  addInfoWindow("DORM ROW WEST");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(dormRowWestPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
+  //#39 Coliseum Circle 
+  google.maps.event.addListener(coliseumCirclePoly, 'mouseover', function() {
+  addInfoWindow("COLISEUM CIRCLE");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(coliseumCirclePoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
+  //#40 West Road Commuter 
+  google.maps.event.addListener(westRoadCommuterPoly, 'mouseover', function() {
+  addInfoWindow("WEST ROAD COMMUTER LOT");
+  this.setOptions({strokeWeight: 1.6});
+  });
+  google.maps.event.addListener(westRoadCommuterPoly, 'mouseout', function() {
+  this.setOptions({strokeWeight: 0.6});
+  });
+
 
 
 
@@ -1214,6 +1287,10 @@
 
   //#36
   existingPolygons.push(athleticsAdminPoly);
+  existingPolygons.push(womensTerraceDrivePoly);
+  existingPolygons.push(dormRowWestPoly);
+  existingPolygons.push(coliseumCirclePoly);
+  existingPolygons.push(westRoadCommuterPoly);
 
 
   //bind polygons to map
@@ -1268,7 +1345,10 @@
 
   //#36
   athleticsAdminPoly.setMap(map);
-  // womensTerraceDrivePoly.setMap(map);
+  womensTerraceDrivePoly.setMap(map);
+  dormRowWestPoly.setMap(map);
+  coliseumCirclePoly.setMap(map);
+  westRoadCommuterPoly.setMap(map);
   }
 
    //init with All
