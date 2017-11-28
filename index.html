@@ -64,11 +64,13 @@
     .rollup(function(v) {return v.length;})
     .entries(data)
 
-  console.log(lotsRolledUp);
-  console.log(lotsRolledUpY);
-  console.log(lotsRolledUpM);
-  console.log(lotsRolledUpD);
+  var infowindow = new google.maps.InfoWindow({
+    content: ''
+  });
 
+  var infowindow2 = new google.maps.InfoWindow({
+    content: ''
+  });
 
   var years = ["All", "2014", "2015", "2016", "2017"];
 
@@ -108,15 +110,77 @@
     "December" : 31
   }
   
-  //label for year
-  var yearSelectLabel = d3.select('#map-container')
+  // //label for year
+  // var yearSelectLabel = d3.select('#map-container')
+  //   .append('label')
+  //   .attr('class', 'select-label')
+  //   .attr('for', 'year')
+  //   .text('Year:')
+
+  // //year drop down
+  // var yearSelect = d3.select('#map-container')
+  //   .append('select')
+  //     .attr('class','select')
+  //     .attr('id', 'year')
+  //     .on('change',onchange)
+
+  // var options = yearSelect
+  //   .selectAll('option')
+  //   .data(years).enter()
+  //   .append('option')
+  //     .text(function (d) { return d; });
+
+  // //label for month
+  // var monthSelectLabel = d3.select('#map-container')
+  //   .append('label')
+  //   .attr('class', 'select-label')
+  //   .attr('for', 'month')
+  //   .text('Month:')
+
+  // //month drop down
+  // var monthSelect = d3.select('#map-container')
+  //   .append('select')
+  //     .attr('class','select')
+  //     .attr('id', 'month')
+  //     .attr('disabled', 'disabled')
+  //     .on('change',onchange)
+
+  // var options = monthSelect
+  //   .selectAll('option')
+  //   .data(months).enter()
+  //   .append('option')
+  //   .text(function (d) { return d; });
+
+  // //label for day
+  // var daySelectLabel = d3.select('#map-container')
+  //   .append('label')
+  //   .attr('class', 'select-label')
+  //   .attr('for', 'day')
+  //   .text('Day:')
+
+  // //day drop down
+  // var daySelect = d3.select('#map-container')
+  //   .append('select')
+  //   .attr('class','select')
+  //   .attr('id', 'day')
+  //   .attr('disabled', 'disabled')
+  //   .on('change',onchange)
+
+
+  // var options = daySelect
+  //   .selectAll('option')
+  //   .data(days).enter()
+  //   .append('option')
+  //   .text(function (d) { return d; });
+//label for year
+  var yearSelectLabel = d3.select('#gradient')
     .append('label')
     .attr('class', 'select-label')
     .attr('for', 'year')
     .text('Year:')
 
   //year drop down
-  var yearSelect = d3.select('#map-container')
+  var yearSelect = d3.select('#gradient')
     .append('select')
       .attr('class','select')
       .attr('id', 'year')
@@ -129,14 +193,14 @@
       .text(function (d) { return d; });
 
   //label for month
-  var monthSelectLabel = d3.select('#map-container')
+  var monthSelectLabel = d3.select('#gradient')
     .append('label')
     .attr('class', 'select-label')
     .attr('for', 'month')
     .text('Month:')
 
   //month drop down
-  var monthSelect = d3.select('#map-container')
+  var monthSelect = d3.select('#gradient')
     .append('select')
       .attr('class','select')
       .attr('id', 'month')
@@ -150,14 +214,14 @@
     .text(function (d) { return d; });
 
   //label for day
-  var daySelectLabel = d3.select('#map-container')
+  var daySelectLabel = d3.select('#gradient')
     .append('label')
     .attr('class', 'select-label')
     .attr('for', 'day')
     .text('Day:')
 
   //day drop down
-  var daySelect = d3.select('#map-container')
+  var daySelect = d3.select('#gradient')
     .append('select')
     .attr('class','select')
     .attr('id', 'day')
@@ -170,7 +234,6 @@
     .data(days).enter()
     .append('option')
     .text(function (d) { return d; });
-
 
   //function for when drop down is changed
   function onchange() {
@@ -234,6 +297,11 @@
 
 
 
+  console.log(lotsRolledUp);
+  console.log(lotsRolledUp.length);
+  console.log(lotsRolledUpY);
+  // console.log(lotsRolledUpM);
+  // console.log(lotsRolledUpD);
 
 
   // function to find key in array, give correct fill color
@@ -283,14 +351,67 @@
           } 
       }
     }
-    // console.log(total);
     return total;
   }
 
-  var infowindow = new google.maps.InfoWindow({
-    content: ''
-  });
 
+ function totalCount(lotCount, year, month, day)
+  {
+
+   total = 0
+    for(i = 0; i < lotCount.length; i++)
+    { 
+      if(year == null) {
+        
+          total += lotCount[i].value;
+                
+      }
+      else {
+        for(j = 0; j < lotCount[i].values.length; j++)
+          {
+              if(year == lotCount[i].values[j].key)
+              {
+                  if(month != null)
+                  {
+                      for(k = 0; k < lotCount[i].values[j].values.length; k++)
+                      {
+                          if (month == lotCount[i].values[j].values[k].key)
+                          {
+                             if(day != null)
+                             {
+                                for(l = 0; l < lotCount[i].values[j].values[k].values.length; l++)
+                                {
+                                  if (day == lotCount[i].values[j].values[k].values[l].key)
+                                  {
+                                    
+                                      total += lotCount[i].values[j].values[k].values[l].value;
+                        
+
+                                  }
+                                }
+                             }  
+                             else 
+                             {
+                               
+                                total += lotCount[i].values[j].values[k].value;
+                  
+                             }
+                          }
+                      }
+                  }
+              else 
+              {
+                    
+                     total  += lotCount[i].values[j].value
+                             
+                  } 
+              } 
+      }
+    }
+  }
+    return total;
+
+  }
 
   function maxGradient(lotCount, year, month, day)
   {
@@ -361,8 +482,9 @@
     d3.select('svg').remove();
     d3.selectAll('.legend-keys').remove();
 
-    d3.select('#gradient').append('text').attr('class', 'legend-keys').text('0');
-    d3.select('#gradient').append('svg');
+    d3.select('#map-container').append('text').attr('class', 'legend-keys').text('0');
+    d3.select('#map-container').append('svg');
+
 
     var vis = d3.select('svg')
      
@@ -382,7 +504,7 @@
           .attr('width', 5)
           .attr('fill', function(d) { return colorScale(d) })
 
-      d3.select('#gradient').append('text').attr('class','legend-keys').text(max);
+      d3.select('#map-container').append('text').attr('class','legend-keys').text(max);
   }
 
 
@@ -409,7 +531,7 @@
         existingPolygons[i].setMap(null);
     }
 
-
+  //#1
   jacksonAvePoly = new google.maps.Polygon({
     paths: window.LatLng.jacksonAveLatLng,
     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "JACKSON AVENUE CENTER", year, month, day)),
@@ -522,6 +644,9 @@
     strokeWeight: 0.6
   });
 
+
+
+  //#16
   kincannonPoly = new google.maps.Polygon({
     paths: window.LatLng.kincannonLatLng,
     fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "KINCANNON  HALL PARKING LOT", year, month, day)),
@@ -558,6 +683,9 @@
     strokeWeight: 0.6
   });
 
+
+
+  //#21
   campusWalkPoly = new google.maps.Polygon({
     paths: [window.LatLng.campusWalkLatLng, window.LatLng.campusWalkHoleLatLng1, window.LatLng.campusWalkHoleLatLng2, window.LatLng.campusWalkHoleLatLng3, window.LatLng.campusWalkHoleLatLng4, window.LatLng.campusWalkHoleLatLng5],
      fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "CAMPUS WALK APT. COMPLEX", year, month, day)),
@@ -593,6 +721,8 @@
     strokeWeight: 0.6
   });
 
+
+  //#26
   turnerColiseumPoly = new google.maps.Polygon({
     paths: window.LatLng.turnerColiseumLatLng,
      fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "TURNER COLISEUM LOT", year, month, day)),
@@ -628,6 +758,9 @@
     strokeWeight: 0.6
   });
 
+
+
+  //#31
   kinardRearPoly = new google.maps.Polygon({
     paths: window.LatLng.kinardRearLatLng,
      fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "KINARD REAR RESIDENTIAL WEST", year, month, day)),
@@ -649,7 +782,7 @@
     "MANNING CENTER EAST" : new google.maps.LatLng(34.36066700781123, -89.53498005867004),
     "RESIDENTIAL COLLEGE/ALUMN DR LOT" : new google.maps.LatLng(34.3679210419447, -89.52936619520187),
     "MAGNOLIA DRIVE" : new google.maps.LatLng(34.36608711253981, -89.54136371612549),
-    "STOCKARD/MARTIN FRONT LOT" : new google.maps.LatLng(),
+    "STOCKARD/MARTIN FRONT LOT" : new google.maps.LatLng(34.37173415795954, -89.53732967376709),
     "POOLE DRIVE" : new google.maps.LatLng(34.363890772536365, -89.54178214073181),
 
     "MEEK LOT" : new google.maps.LatLng(34.3674288001151, -89.53739404678345),
@@ -686,12 +819,15 @@
       {
         infowindow.close();
       }
+      
 
       infowindow.setContent("<div id='iw-container'>" 
         + "<div id='iw-title'>"
         + "<span class='lot-name'>" + lotName + "</span>" 
         + "</div>" 
-        + "<div id='iw-content'>Number of Tickets: <div class='number'>" + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day) + "</div></div></div>");
+        + "<div class='ymd'>Year: " + year + " | Month: " + month + " | Day: " + day
+        + "</div>"
+        + "<div id='iw-content'>Tickets: " + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day) + "</div></div>");
 
       infowindow.setPosition(lotAndLatLngDict[lotName]);
       infowindow.open(map);
@@ -1075,7 +1211,7 @@
   theInnPoly.setMap(map);
   musicBuildingPoly.setMap(map);
   southLotPoly.setMap(map);
-  
+
   kinardRearPoly.setMap(map);
 
   }
