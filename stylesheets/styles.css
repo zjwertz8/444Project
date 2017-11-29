@@ -198,6 +198,18 @@ select {
     margin-right: 20px;
 }
 
+<<<<<<< HEAD
 .buffer-big {
   height:200px;
+=======
+.check-label {
+    color: navy;
+    font-family: "Bookman";
+    font-size: 16px;
+}
+
+#jacksonToggle {
+    margin-left: 4px;
+    margin-right: 15px;
+>>>>>>> 4637afc5c40abb891b39671092d9bb5189c58a4d
 }
