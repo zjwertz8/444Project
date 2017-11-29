@@ -1552,13 +1552,13 @@
 
         //#49 Rebel Drive
         rebelDrivePoly = new google.maps.Polygon({
-          paths: window.LatLng.rebelDriveLatLng,
+          paths: [window.LatLng.rebelDriveLatLng1, window.LatLng.rebelDriveLatLng2, window.LatLng.rebelDriveLatLng3],
            fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "REBEL DRIVE", year, month, day)),
           fillOpacity: 0.95,
           strokeWeight: 0.6
         });
 
-
+        //#50 
 
 
         lotAndLatLngDict = {
@@ -1629,7 +1629,7 @@
           "GUYTON COMMUTER" : new google.maps.LatLng(34.366522536056245, -89.5437066257),
           "LUCKYDAY EAST LOTS" : new google.maps.LatLng(34.36790185411465, -89.52928707003593),
           "TURNER CENTER EAST LOT" : new google.maps.LatLng(34.36375608251882, -89.53655518591404),
-          "REBEL DRIVE" : new google.maps.LatLng()
+          "REBEL DRIVE" : new google.maps.LatLng(34.36729743663703, -89.53948751091957)
         }
 
 
