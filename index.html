@@ -90,6 +90,7 @@
         var months30 = ["All", ]
         var noFeb = ["All", "January", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         var no30 = ["All", "January", "March", "May", "July", "August", "October", "December"];
+        
 
         //dictionary for corresponding month day
         var monthDict = {
@@ -211,7 +212,7 @@
           selectMonth = d3.select("#month").property("value");
           selectDay = d3.select("#day").property("value");
 
-          if(jacksonCheck._groups[0][0].checked)
+          if(jacksonCheck._groups[0][0].checked == true)
           {
             if(infowindow)
           {
@@ -228,6 +229,7 @@
             d3.select("#month").attr('disabled', 'disabled').property('value', 'All');
             yearSelect.selectAll('option').remove();
             yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
+
           }
           else if(selectYear == 2014)
           {
@@ -299,7 +301,6 @@
             yearSelect.selectAll('option').data(later).enter().append('option').text(function (d) { return d });
             d3.select("#month").property("value", selectMonth);
             d3.select("#year").property("value", selectYear);
-
 
             var newDays = ["All"];
             //push number of days to newDays array, depending on month
@@ -391,7 +392,8 @@
 
           buildHeatmap(selectYear,selectMonth, selectDay);
           }
-          else
+          else if(jacksonCheck._groups[0][0].checked == false)
+          //toggle not checked
           {
 
           if(infowindow)
@@ -402,6 +404,7 @@
           //if month is all, month and day is "All", disable day drop down
           if(selectYear == "All")
           {
+
             selectYear = "All";
             selectMonth = "All";
             selectDay = "All";
@@ -409,6 +412,7 @@
             d3.select("#month").attr('disabled', 'disabled').property('value', 'All');
             yearSelect.selectAll('option').remove();
             yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
+
           }
           else if(selectYear == 2014)
           {
@@ -424,181 +428,8 @@
               yearSelect.selectAll('option').remove();
               yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
               d3.select("#year").property('value', selectYear);
-            }
-            else
-            {
-              d3.select("#day").attr('disabled', null);
-              d3.select("#month").attr('disabled', null);
-              yearSelect.selectAll('option').remove();
-              yearSelect.selectAll('option').data(early).enter().append('option').text(function (d) { return d });
-              monthSelect.selectAll('option').remove();
-              monthSelect.selectAll('option').data(months14).enter().append('option').text(function (d) { return d });
-              d3.select("#month").property("value", selectMonth);
-              d3.select("#year").property("value", selectYear);
-              var newDays = ["All"];
-                //push number of days to newDays array, depending on month
-                for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
-                {
-                  newDays.push(i);
-                }
-                //change spelt out month with corresponding number
-                selectMonth = monthDict[selectMonth];
-                //remove previous options
-                daySelect.selectAll('option').remove()
-                //replace new options
-                daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
-                //select day
-                d3.select("#day").property("value", selectDay);
-            }
-          }
-       else if (selectYear == 2015 || selectYear == 2016)
-        {
-          if(selectMonth == "All")
-          {
-            selectMonth = "All";
-            selectDay = "All";
-            d3.select("#month").attr('disabled', null);
-            d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
-            monthSelect.selectAll('option').remove();
-            monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
-            d3.select("#month").property("value", selectMonth);
-            d3.select("#day").property("value", "All");
-            yearSelect.selectAll('option').remove();
-            yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
-              d3.select("#year").property('value', selectYear);
-          }
-          else
-          {
-            if(selectMonth == "January" || selectMonth == "February" || selectMonth == "March" || selectMonth == "April" || selectMonth == "May" || selectMonth == "June")
-            {
-
-            d3.select("#day").attr('disabled', null);
-            d3.select("#month").attr('disabled', null);
-            monthSelect.selectAll('option').remove();
-            monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
-            yearSelect.selectAll('option').remove();
-            yearSelect.selectAll('option').data(later).enter().append('option').text(function (d) { return d });
-            d3.select("#month").property("value", selectMonth);
-            d3.select("#year").property("value", selectYear);
-
-
-            var newDays = ["All"];
-            //push number of days to newDays array, depending on month
-            for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
-            {
-              newDays.push(i);
-            }
-            //change spelt out month with corresponding number
-            selectMonth = monthDict[selectMonth];
-            //remove previous options
-            daySelect.selectAll('option').remove()
-            //replace new options
-            daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
-            //select day
-            d3.select("#day").property("value", selectDay);
-            }
-            else
-            {
-            d3.select("#day").attr('disabled', null);
-            d3.select("#month").attr('disabled', null);
-            monthSelect.selectAll('option').remove();
-            monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
-            yearSelect.selectAll('option').remove();
-            yearSelect.selectAll('option').data(early).enter().append('option').text(function (d) { return d });
-            d3.select("#month").property("value", selectMonth);
-            d3.select("#year").property("value", selectYear);
-
-
-            var newDays = ["All"];
-            //push number of days to newDays array, depending on month
-            for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
-            {
-              newDays.push(i);
-            }
-            //change spelt out month with corresponding number
-            selectMonth = monthDict[selectMonth];
-            //remove previous options
-            daySelect.selectAll('option').remove()
-            //replace new options
-            daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
-            //select day
-            d3.select("#day").property("value", selectDay);
-            }
-          }
-        }
-        else //2017
-          {
-            if(selectMonth == "All")
-            {
-              selectMonth = "All";
-              selectDay = "All";
-              d3.select("#month").attr('disabled', null);
-              d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
-              monthSelect.selectAll('option').remove();
-              monthSelect.selectAll('option').data(months17).enter().append('option').text(function (d) { return d });
-              d3.select("#month").property('value', selectMonth);
-              yearSelect.selectAll('option').remove();
-              yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
               console.log(selectYear);
-              d3.select("#year").property('value', selectYear);
-            }
-            else
-             {
-              d3.select("#day").attr('disabled', null);
-              d3.select("#month").attr('disabled', null);
-              yearSelect.selectAll('option').remove();
-              yearSelect.selectAll('option').data(later).enter().append('option').text(function (d) { return d });
-              monthSelect.selectAll('option').remove();
-              monthSelect.selectAll('option').data(months17).enter().append('option').text(function (d) { return d });
-              d3.select("#month").property("value", selectMonth);
-              d3.select("#year").property("value", selectYear);
-              var newDays = ["All"];
-              //push number of days to newDays array, depending on month
-              for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
-              {
-                newDays.push(i);
-              }
-              //change spelt out month with corresponding number
-              selectMonth = monthDict[selectMonth];
-              //remove previous options
-              daySelect.selectAll('option').remove()
-              //replace new options
-              daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
-              //select day
-              d3.select("#day").property("value", selectDay);
-            }
-          }
-
-          if(infowindow)
-          {
-            infowindow.close();
-          }
-
-          //if month is all, month and day is "All", disable day drop down
-          if(selectYear == "All")
-          {
-            selectYear = "All";
-            selectMonth = "All";
-            selectDay = "All";
-            d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
-            d3.select("#month").attr('disabled', 'disabled').property('value', 'All');
-            yearSelect.selectAll('option').remove();
-            yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
-          }
-          else if(selectYear == 2014)
-          {
-            if(selectMonth == "All")
-            {
-              selectMonth = "All";
-              selectDay = "All";
-              d3.select("#month").attr('disabled', null);
-              d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
-              monthSelect.selectAll('option').remove();
-              monthSelect.selectAll('option').data(months14).enter().append('option').text(function (d) { return d });
-              d3.select("#month").property("value", selectMonth);
-              yearSelect.selectAll('option').remove();
-              yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
-              d3.select("#year").property('value', selectYear);
+              console.log(selectMonth);
             }
             else
             {
@@ -624,6 +455,7 @@
                 daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
                 //select day
                 d3.select("#day").property("value", selectDay);
+                console.log(selectMonth);
             }
           }
        else if (selectYear == 2015 || selectYear == 2016)
