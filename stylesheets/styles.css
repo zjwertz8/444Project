@@ -1,6 +1,22 @@
+/*
+OFFICIAL COLOR CODES FOR OLE MISS'S SHADE OF RED AND BLUE:
+
+Red
+Hex Color: #C8102E;
+RGB: (200, 16, 46)
+PANTONE: PMS 186 C
+
+Navy Blue
+Hex Color: #13294B; 
+RGB: (19,41,75)
+PANTONE: PMS 2767
+
+*/
+
+
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-#map 
+#map
 {
         height: 100%;
         width: 100%;
@@ -8,20 +24,76 @@
         padding: 0;
 }
 /* Optional: Makes the sample page fill the window. */
-html, body
+html, body, main
 {
         height: 100%;
         margin: 0;
         padding: 0;
+        font-family: 'Roboto Condensed', sans-serif;
 }
-      
 
-body 
+html {
+  background: url(vaught.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+p {
+  color: #13294B;
+}
+
+.banner-top
 {
-    background-color: #01AEF0;
+color: (200, 16, 46);
+font-size: 50px;
+background-color: rgb(240, 240, 240);
+text-shadow: rgb(0, 0, 0) 2px -1px 2px;
+text-align: center;
+
+border-top:5px solid navy;
+border-bottom: 10px solid navy;
+margin: 0;
 }
 
-#map-container 
+.banner-bottom
+{
+
+    text-align: center;
+    font-weight: bold;
+    color: black;
+
+background-color: rgb(240, 240, 240);
+color: rgb(240, 240, 240);
+border-top:10px solid #13294B;
+border-bottom: 5px solid #13294B;
+margin: 0;
+padding-bottom: 5px;
+
+}
+
+.no-padding-no-margins {
+  padding: 0;
+  margin: 0;
+}
+
+.resize {
+    width: auto;
+    height: 100px;
+    margin-top: .5%;
+}
+
+.headline {
+  color: rgb(200, 16, 46);
+}
+
+body
+{
+    background-color: #fff;
+}
+
+#map-container
 {
         height: 80%;
         width: 100%;
@@ -29,25 +101,16 @@ body
         display: inline-block;
 }
 
-h1 
-{
-    text-align: center;
-    font-weight: bold;
-    color: black;
-}
-
-
-
-
 .lot-name {
     font-weight: bold;
+    font-size: 14px;
 }
 
 select.select {
     margin: 5px 10px 0 5px;
 }
 
-#iw-container { 
+#iw-container {
     margin-bottom: 10px;
 
  }
@@ -74,12 +137,10 @@ select.select {
 }
 
 
-/*#myButton {
-    text-align: center;
-    margin-top: 5px;
-    margin-right: 5px;
-}*/
-
+.number {
+    font-weight: bold;
+    color: rgb(40, 96, 144);
+}
 .compareContainer {
     text-align: center;
     margin-top: 10px;
@@ -88,13 +149,70 @@ select.select {
 .legend-keys {
     font-weight: bold;
     color: #C8102E;
+    font-size: 18px;
+    font-family: "Bookman";
 }
 
-.select-label { 
+.select-label {
     margin-left: 5px;
     color: #C8102E;
+    font-size: 18px;
+    font-family: "Bookman";
  }
 
  #gradient {
     text-align: center;
+    padding-top: 15px;
  }
+
+ .styled-select.select {
+   /*background: transparent;*/
+   border: 2px;
+   font-size: 14px;
+   height: 36px;
+   width: 100px;
+   padding: 5px;
+}
+ .semi-square {
+   border-radius: 5px;
+}
+
+.blue {
+    background-color: #226497;
+}
+
+select {
+    color: white;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.btn {
+    font-family: "Roboto", sans-serif;
+}
+
+.totalTickets {
+    text-align: center;
+    margin: 10px 0 5px 0;
+}
+
+#monthSelect {
+    margin-left: 20px;
+}
+
+#month {
+    margin-right: 20px;
+}
+
+.buffer-big {
+  height:200px;
+}
+.check-label {
+    color: #13294B;
+    font-family: "Bookman";
+    font-size: 16px;
+}
+
+#jacksonToggle {
+    margin-left: 4px;
+    margin-right: 15px;
+}
