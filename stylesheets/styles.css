@@ -144,14 +144,15 @@ select.select {
     font-weight: bold;
     color: #C8102E;
     font-size: 18px;
-    font-family: "Bookman";
+    font-family: "Roboto", sans-serif;
+
 }
 
 .select-label {
     margin-left: 5px;
     color: #C8102E;
     font-size: 18px;
-    font-family: "Bookman";
+    font-family: "Roboto", sans-serif;
  }
 
  #gradient {
@@ -197,12 +198,9 @@ select {
     margin-right: 20px;
 }
 
-.buffer-big {
-  height:200px;
-}
 .check-label {
-    color: #13294B;
-    font-family: "Bookman";
+    color: navy;
+    font-family: "Roboto", sans-serif;
     font-size: 16px;
 }
 
