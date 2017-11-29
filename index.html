@@ -178,13 +178,205 @@
           .append('option')
           .text(function (d) { return d; });
 
+
+        //Jackson Ave Toggle
+        var jacksonCheck = d3.select('.totalTickets')
+        .append('input')
+        .attr('id', 'jacksonToggle')
+        .attr('type', 'checkbox')
+        .on('change', onchange)
+
+
         //function for when drop down is changed
         function onchange() 
         {
           selectYear = d3.select("#year").property("value");
           selectMonth = d3.select("#month").property("value");
           selectDay = d3.select("#day").property("value");
-         // console.log(selectMonth);
+
+          if(jacksonCheck._groups[0][0].checked)
+          {
+            if(infowindow)
+          {
+            infowindow.close();
+          }
+          
+          //if month is all, month and day is "All", disable day drop down
+          if(selectYear == "All")
+          {
+            selectYear = "All";
+            selectMonth = "All";
+            selectDay = "All";
+            d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
+            d3.select("#month").attr('disabled', 'disabled').property('value', 'All');
+            yearSelect.selectAll('option').remove();
+            yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
+          }
+          else if(selectYear == 2014)
+          {
+            if(selectMonth == "All")
+            { 
+              selectMonth = "All";
+              selectDay = "All";
+              d3.select("#month").attr('disabled', null);
+              d3.select("#day").attr('disabled', 'disabled').property('value', 'All'); 
+              monthSelect.selectAll('option').remove();
+              monthSelect.selectAll('option').data(months14).enter().append('option').text(function (d) { return d });
+              d3.select("#month").property("value", selectMonth);
+              yearSelect.selectAll('option').remove();
+              yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
+              d3.select("#year").property('value', selectYear);
+            }
+            else
+            {
+              d3.select("#day").attr('disabled', null);
+              d3.select("#month").attr('disabled', null);
+              yearSelect.selectAll('option').remove();
+              yearSelect.selectAll('option').data(early).enter().append('option').text(function (d) { return d });
+              monthSelect.selectAll('option').remove();
+              monthSelect.selectAll('option').data(months14).enter().append('option').text(function (d) { return d });
+              d3.select("#month").property("value", selectMonth);
+              d3.select("#year").property("value", selectYear);
+              var newDays = ["All"];
+                //push number of days to newDays array, depending on month
+                for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
+                {
+                  newDays.push(i);
+                }
+                //change spelt out month with corresponding number
+                selectMonth = monthDict[selectMonth];
+                //remove previous options
+                daySelect.selectAll('option').remove()
+                //replace new options
+                daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
+                //select day
+                d3.select("#day").property("value", selectDay);
+            }
+          }
+       else if (selectYear == 2015 || selectYear == 2016)
+        {
+          if(selectMonth == "All")
+          { 
+            selectMonth = "All";
+            selectDay = "All";
+            d3.select("#month").attr('disabled', null);
+            d3.select("#day").attr('disabled', 'disabled').property('value', 'All'); 
+            monthSelect.selectAll('option').remove();
+            monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
+            d3.select("#month").property("value", selectMonth);
+            d3.select("#day").property("value", "All");
+            yearSelect.selectAll('option').remove();
+            yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
+              d3.select("#year").property('value', selectYear);
+          }
+          else
+          {
+            if(selectMonth == "January" || selectMonth == "February" || selectMonth == "March" || selectMonth == "April" || selectMonth == "May" || selectMonth == "June")
+            {
+
+            d3.select("#day").attr('disabled', null);
+            d3.select("#month").attr('disabled', null);
+            monthSelect.selectAll('option').remove();
+            monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
+            yearSelect.selectAll('option').remove();
+            yearSelect.selectAll('option').data(later).enter().append('option').text(function (d) { return d });
+            d3.select("#month").property("value", selectMonth);
+            d3.select("#year").property("value", selectYear);
+            
+   
+            var newDays = ["All"];
+            //push number of days to newDays array, depending on month
+            for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
+            {
+              newDays.push(i);
+            }
+            //change spelt out month with corresponding number
+            selectMonth = monthDict[selectMonth];
+            //remove previous options
+            daySelect.selectAll('option').remove()
+            //replace new options
+            daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
+            //select day
+            d3.select("#day").property("value", selectDay);
+            }
+            else 
+            {
+            d3.select("#day").attr('disabled', null);
+            d3.select("#month").attr('disabled', null);
+            monthSelect.selectAll('option').remove();
+            monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
+            yearSelect.selectAll('option').remove();
+            yearSelect.selectAll('option').data(early).enter().append('option').text(function (d) { return d });
+            d3.select("#month").property("value", selectMonth);
+            d3.select("#year").property("value", selectYear);
+            
+   
+            var newDays = ["All"];
+            //push number of days to newDays array, depending on month
+            for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
+            {
+              newDays.push(i);
+            }
+            //change spelt out month with corresponding number
+            selectMonth = monthDict[selectMonth];
+            //remove previous options
+            daySelect.selectAll('option').remove()
+            //replace new options
+            daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
+            //select day
+            d3.select("#day").property("value", selectDay);
+            }
+          }
+        }
+        else //2017
+          {
+            if(selectMonth == "All")
+            { 
+              selectMonth = "All";
+              selectDay = "All";
+              d3.select("#month").attr('disabled', null);
+              d3.select("#day").attr('disabled', 'disabled').property('value', 'All'); 
+              monthSelect.selectAll('option').remove();
+              monthSelect.selectAll('option').data(months17).enter().append('option').text(function (d) { return d });
+              d3.select("#month").property('value', selectMonth);
+              yearSelect.selectAll('option').remove();
+              yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
+              console.log(selectYear);
+              d3.select("#year").property('value', selectYear);
+            }
+            else
+             {
+              d3.select("#day").attr('disabled', null);
+              d3.select("#month").attr('disabled', null);
+              yearSelect.selectAll('option').remove();
+              yearSelect.selectAll('option').data(later).enter().append('option').text(function (d) { return d });
+              monthSelect.selectAll('option').remove();
+              monthSelect.selectAll('option').data(months17).enter().append('option').text(function (d) { return d });
+              d3.select("#month").property("value", selectMonth);
+              d3.select("#year").property("value", selectYear);
+              var newDays = ["All"];
+              //push number of days to newDays array, depending on month
+              for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
+              {
+                newDays.push(i);
+              }
+              //change spelt out month with corresponding number
+              selectMonth = monthDict[selectMonth];
+              //remove previous options
+              daySelect.selectAll('option').remove()
+              //replace new options
+              daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
+              //select day
+              d3.select("#day").property("value", selectDay);
+            }
+          }
+
+
+          buildHeatmap(selectYear,selectMonth, selectDay);
+          }
+          else
+          {
+
           if(infowindow)
           {
             infowindow.close();
@@ -362,21 +554,67 @@
 
 
           buildHeatmap(selectYear,selectMonth, selectDay);
+        }
         };
 
-
-
-        // console.log(lotsRolledUp);
-        // console.log(lotsRolledUp.length);
-        // console.log(lotsRolledUpY);
-        // console.log(lotsRolledUpM);
-        // console.log(lotsRolledUpD);
 
 
         // function to find key in array, give correct fill color
         function fillColor(lotCount, lotName, year, month="All", day="All")
         {
-
+          if(jacksonCheck._groups[0][0].checked)
+          {
+            total = 0;
+          for(i = 0; i < lotCount.length; i++)
+          { 
+            if(lotCount[i].key == "JACKSON AVENUE CENTER")
+            {
+              continue;
+            }
+            if(lotCount[i].key == lotName) 
+            {
+              for(j = 0; j < lotCount[i].values.length; j++)
+                {
+                    if(year == "All"){
+                        total += lotCount[i].values[j].value;
+                    }
+                    else if(year == lotCount[i].values[j].key)
+                    {
+                        if(month != "All")
+                        {
+                            for(k = 0; k < lotCount[i].values[j].values.length; k++)
+                            {
+                                if (month == lotCount[i].values[j].values[k].key)
+                                {
+                                   if(day != "All")
+                                   {
+                                      for(l = 0; l < lotCount[i].values[j].values[k].values.length; l++)
+                                      {
+                                        if (day == lotCount[i].values[j].values[k].values[l].key)
+                                        {
+                                        total += lotCount[i].values[j].values[k].values[l].value;
+                                        }
+                                      }
+                                   }  
+                                   else 
+                                   {
+                                     total = lotCount[i].values[j].values[k].value;
+                                   }
+                                }
+                            }
+                        }
+                        else 
+                        {
+                          total = lotCount[i].values[j].value;
+                        }
+                    } 
+                } 
+            }
+          }
+          return total;
+          }
+          else
+          {
           total = 0;
           for(i = 0; i < lotCount.length; i++)
           { 
@@ -422,11 +660,72 @@
           }
           return total;
         }
+        }
 
 
        function totalCount(lotCount, year, month, day)
         {
+          if(jacksonCheck._groups[0][0].checked)
+          {
+            total = 0
+          for(i = 0; i < lotCount.length; i++)
+          { 
+            if(lotCount[i].key == "JACKSON AVENUE CENTER")
+            {
+              continue;
+            }
+            if(year == "All") {
+              
+                total += lotCount[i].value;
+                      
+            }
+            else {
+              for(j = 0; j < lotCount[i].values.length; j++)
+                {
+                    if(year == lotCount[i].values[j].key)
+                    {
+                        if(month != "All")
+                        {
+                            for(k = 0; k < lotCount[i].values[j].values.length; k++)
+                            {
+                                if (month == lotCount[i].values[j].values[k].key)
+                                {
+                                   if(day != "All")
+                                   {
+                                      for(l = 0; l < lotCount[i].values[j].values[k].values.length; l++)
+                                      {
+                                        if (day == lotCount[i].values[j].values[k].values[l].key)
+                                        {
+                                          
+                                            total += lotCount[i].values[j].values[k].values[l].value;
+                              
 
+                                        }
+                                      }
+                                   }  
+                                   else 
+                                   {
+                                     
+                                      total += lotCount[i].values[j].values[k].value;
+                        
+                                   }
+                                }
+                            }
+                        }
+                    else 
+                    {
+                          
+                           total  += lotCount[i].values[j].value
+                                   
+                        } 
+                    } 
+            }
+          }
+        }
+          return total;
+          }
+        else
+        {
          total = 0
           for(i = 0; i < lotCount.length; i++)
           { 
@@ -479,17 +778,26 @@
           }
         }
           return total;
+        }
 
         }
 
         function maxGradient(lotCount, year, month, day)
         {
           
-
-          currentMax = 0;
+          //console.log(jacksonCheck._groups[0][0].checked)
+          if(jacksonCheck._groups[0][0].checked)
+          {
+            currentMax = 0;
           for(i = 0; i < lotCount.length; i++)
           { 
-            if(year == "All") {
+  if(lotCount[i].key == "JACKSON AVENUE CENTER")
+            {
+              continue;
+            }
+            if(year == "All") 
+            {
+
                if(lotCount[i].value > currentMax)
                           {
                             currentMax = lotCount[i].value;
@@ -542,6 +850,67 @@
           }
         }
           return currentMax;
+          }
+          else
+          {
+          currentMax = 0;
+          for(i = 0; i < lotCount.length; i++)
+          { 
+            if(year == "All") 
+            {
+               if(lotCount[i].value > currentMax)
+                          {
+                            currentMax = lotCount[i].value;
+                          }
+            }
+            else {
+              for(j = 0; j < lotCount[i].values.length; j++)
+                {
+                    if(year == lotCount[i].values[j].key)
+                    {
+                        if(month != "All")
+                        {
+                            for(k = 0; k < lotCount[i].values[j].values.length; k++)
+                            {
+                                if (month == lotCount[i].values[j].values[k].key)
+                                {
+                                   if(day != "All")
+                                   {
+                                      for(l = 0; l < lotCount[i].values[j].values[k].values.length; l++)
+                                      {
+                                        if (day == lotCount[i].values[j].values[k].values[l].key)
+                                        {
+                                          if(lotCount[i].values[j].values[k].values[l].value > currentMax)
+                                          {
+                                            currentMax = lotCount[i].values[j].values[k].values[l].value;
+                                          }
+
+                                        }
+                                      }
+                                   }  
+                                   else 
+                                   {
+                                     if(lotCount[i].values[j].values[k].value > currentMax)
+                                     {
+                                      currentMax = lotCount[i].values[j].values[k].value;
+                                     }
+                                   }
+                                }
+                            }
+                        }
+                    else 
+                    {
+                          if(lotCount[i].values[j].value > currentMax)
+                          {
+                            currentMax = lotCount[i].values[j].value
+                          }         
+                        } 
+                    } 
+            }
+          }
+        }
+          return currentMax;
+        }
 
         }
 
@@ -579,7 +948,6 @@
           d3.select('#map-container').append('text').attr('class','legend-keys').text(max);
             
           d3.select('.totalTickets').append('text').attr('class', 'totalCount').text("Total Number of Tickets: " + totalCount(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day)) 
-            
             }
         
 
