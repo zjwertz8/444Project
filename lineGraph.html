@@ -1,54 +1,20 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style> /* set the CSS */
-
-body { font: 12px Arial;}
-
-path { 
-    stroke: steelblue;
-    stroke-width: 2;
-    fill: none;
-}
-
-.axis path,
-.axis line {
-    fill: none;
-    stroke: grey;
-    stroke-width: 1;
-    shape-rendering: crispEdges;
-}
-
-.legend {
-    font-size: 16px;
-    font-weight: bold;
-    text-anchor: middle;
-}
-
-.legend1 {
-	font-size: 16px;
-    font-weight: bold;
-    text-anchor: middle;
-    text-decoration: underline;
-}
-
-.grid .tick {
-    stroke: lightgrey;
-    opacity: 0.1;
-}
-.grid path {
-      stroke-width: 0.1;
-}
-
-.axislabel{
-  font-weight: bold;
-
-}
-</style>
+<head>
+  <link rel="stylesheet" href="stylesheets/line-style.css">
+</head>
 <body>
 
-<!-- load the d3.js library -->    
+<!-- load the d3.js library -->
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<h1> Select or De-select Parking lots by clicking on the legends at the bottom</h1>
+<p></p>
+<div class="banner-top">
+  <img class="resize" src="stylesheets/2000px-Ole_Miss_Rebels_logo.svg.png"><br/>
+  <p class="no-padding-no-margins headline">
+      Line Graph
+  </p>
+</div>
+<h1 style="text-align: center;">Select or De-select Parking lots by clicking on the legends at the bottom</h1>
 <script>
 
 // Set the dimensions of the canvas / graph
@@ -60,32 +26,33 @@ var margin = {top: 30, right: 20, bottom: 70, left: 50},
 var parseDate = d3.timeParse("%b-%Y");
 
 // Set the ranges
-var x = d3.scaleTime().range([0, width]);  
+var x = d3.scaleTime().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 
 // Define the line
-var priceline = d3.line()  
+var priceline = d3.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.price); });
-   
- 
+
+
 // Adds the svg canvas
 var svg = d3.select("body")
     .append("svg")
+        .style("background-color","#ffffff")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
     .append("g")
-        .attr("transform", 
+        .attr("transform",
               "translate(" + margin.left + "," + margin.top + ")");
 
 // gridlines in x axis function
-function make_x_gridlines() {       
+function make_x_gridlines() {
     return d3.axisBottom(x)
         .ticks(24)
 }
 
 // gridlines in y axis function
-function make_y_gridlines() {       
+function make_y_gridlines() {
     return d3.axisLeft(y)
         .ticks(5)
 }
@@ -113,7 +80,7 @@ d3.csv("data.csv", function(error, data) {
     legendSpace = width/dataNest.length; // spacing for the legend
 
     // Loop through each symbol / key
-    dataNest.forEach(function(d,i) { 
+    dataNest.forEach(function(d,i) {
 
         svg.append("path")
             .attr("class", "line")
@@ -121,7 +88,7 @@ d3.csv("data.csv", function(error, data) {
                 return d.color = color(d.key); })
             .attr("id", 'tag'+d.key.replace(/\s+/g, ''))
             .attr("d", priceline(d.values))
-            .style("opacity", 0); 
+            .style("opacity", 0);
 
         // Add the Legend
         svg.append("text")
@@ -132,13 +99,13 @@ d3.csv("data.csv", function(error, data) {
             .style("fill", function() { // Add the colours dynamically
                 return d.color = color(d.key); })
             .on("click", function(){
-                // Determine if current line is visible 
+                // Determine if current line is visible
                 var active   = d.active ? false : true,
-                newOpacity = active ? 1 : 0; 
+                newOpacity = active ? 1 : 0;
                 // Hide or show the elements based on the ID
                 d3.select("#tag"+d.key.replace(/\s+/g, ''))
-                    .transition().duration(100) 
-                    .style("opacity", newOpacity); 
+                    .transition().duration(100)
+                    .style("opacity", newOpacity);
                 // Update whether or not the elements are active
                 d.active = active;
 
@@ -146,14 +113,14 @@ d3.csv("data.csv", function(error, data) {
                  newClass = active1? "legend1" : "legend";
 
                  d3.select(this).attr("class", newClass);
-                 d.active1 = active1; 
-                }) 
-            
-            .text(d.key); 
+                 d.active1 = active1;
+                })
+
+            .text(d.key);
 
     });
 
-  svg.append("g")           
+  svg.append("g")
       .attr("class", "grid")
       .attr("transform", "translate(0," + height + ")")
       .call(make_x_gridlines()
@@ -162,7 +129,7 @@ d3.csv("data.csv", function(error, data) {
       )
 
   // add the Y gridlines
-  svg.append("g")           
+  svg.append("g")
       .attr("class", "grid")
       .call(make_y_gridlines()
           .tickSize(-width)
@@ -182,12 +149,12 @@ d3.csv("data.csv", function(error, data) {
     .style("text-anchor", "start");
 
     // text label for the x axis
-  svg.append("text")             
+  svg.append("text")
       .attr("transform",
-            "translate(" + (width/2) + " ," + 
+            "translate(" + (width/2) + " ," +
                            (height + margin.top + 17) + ")")
       .style("text-anchor", "end")
-      .attr("class", "axislabel") 
+      .attr("class", "axislabel")
       .text("Month - Year");
 
   // Add the Y Axis
@@ -202,10 +169,21 @@ d3.csv("data.csv", function(error, data) {
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
-      .attr("class", "axislabel") 
-      .text("Number of Citations");       
+      .attr("class", "axislabel")
+      .text("Number of Citations");
 
 });
 
 </script>
+<div class="banner-bottom">
+    <div id="gradient"></div>
+    <div class="totalTickets"></div>
+    <div class="compareContainer">
+        <div id="myButton">
+            <a href="index.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Back to Main</button></a>
+        </div>
+    </div>
+</div>
+<div class="buffer-big"></div>
 </body>
+</html>
