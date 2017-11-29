@@ -1542,6 +1542,21 @@
           strokeWeight: 0.6
         });
 
+        //#48 Turner East
+        turnerEastPoly = new google.maps.Polygon({
+          paths: window.LatLng.turnerEastLatLng,
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "TURNER CENTER EAST LOT", year, month, day)),
+          fillOpacity: 0.95,
+          strokeWeight: 0.6
+        });
+
+        //#49 Rebel Drive
+        rebelDrivePoly = new google.maps.Polygon({
+          paths: window.LatLng.rebelDriveLatLng,
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "REBEL DRIVE", year, month, day)),
+          fillOpacity: 0.95,
+          strokeWeight: 0.6
+        });
 
 
 
@@ -1612,7 +1627,9 @@
 
           //#46
           "GUYTON COMMUTER" : new google.maps.LatLng(34.366522536056245, -89.5437066257),
-          "LUCKYDAY EAST LOTS" : new google.maps.LatLng(34.36790185411465, -89.52928707003593)
+          "LUCKYDAY EAST LOTS" : new google.maps.LatLng(34.36790185411465, -89.52928707003593),
+          "TURNER CENTER EAST LOT" : new google.maps.LatLng(34.36375608251882, -89.53655518591404),
+          "REBEL DRIVE" : new google.maps.LatLng()
         }
 
 
@@ -2081,6 +2098,24 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
+        //#48 Turner East
+        google.maps.event.addListener(turnerEastPoly, 'mouseover', function() {
+        addInfoWindow("TURNER CENTER EAST LOT");
+        this.setOptions({strokeWeight: 1.6});
+        });
+        google.maps.event.addListener(turnerEastPoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
+        //#49 Rebel Drive
+        google.maps.event.addListener(rebelDrivePoly, 'mouseover', function() {
+        addInfoWindow("REBEL DRIVE");
+        this.setOptions({strokeWeight: 1.6});
+        });
+        google.maps.event.addListener(rebelDrivePoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
 
 
 
@@ -2154,6 +2189,8 @@
         //#46
         existingPolygons.push(guytonPoly);
         existingPolygons.push(luckydayPoly);
+        existingPolygons.push(turnerEastPoly);
+        existingPolygons.push(rebelDrivePoly)
 
         //bind polygons to map
         //#1
@@ -2224,6 +2261,8 @@
         //#46
         guytonPoly.setMap(map);
         luckydayPoly.setMap(map);
+        turnerEastPoly.setMap(map);
+        rebelDrivePoly.setMap(map);
 
         }
 
