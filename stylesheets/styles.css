@@ -35,8 +35,9 @@ h1
     color: #C8102E;
 }
 
-
-
+.title {
+    font-family: "Bookman";
+}
 
 .lot-name {
     font-weight: bold;
@@ -86,14 +87,57 @@ select.select {
 .legend-keys {
     font-weight: bold;
     color: #C8102E;
+    font-size: 18px;
+    font-family: "Bookman";
+
 }
 
 .select-label { 
     margin-left: 5px;
     color: #C8102E;
+    font-size: 18px;
+    font-family: "Bookman";
  }
 
  #gradient {
     text-align: center;
-    padding-top: 10px;
+    padding-top: 15px;
  }
+
+ .styled-select.select {
+   /*background: transparent;*/
+   border: 2px;
+   font-size: 14px;
+   height: 36px;
+   width: 100px;
+   padding: 5px;
+}
+ .semi-square {
+   border-radius: 5px;
+}
+
+.blue { 
+    background-color: #226497; 
+}
+
+select {
+    color: white;
+    font-family: "Bookman";
+}
+
+.btn {
+    font-family: "Bookman";
+}
+
+.totalTickets {
+    text-align: center;
+    margin: 10px 0 5px 0;
+}
+
+#monthSelect {
+    margin-left: 20px;
+}
+
+#month {
+    margin-right: 20px;
+}

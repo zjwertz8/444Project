@@ -11,7 +11,7 @@
             <script src="https://maps.google.com/maps/api/js?sensor=True"></script>
           </head>
         <body>
-        <h1><img height="80" width="115" src="OleMiss.png" alt="Ole Miss">Parking Citation Visualization </h1>
+        <h1><img height="80" width="115" src="OleMiss.png" alt="Ole Miss"><span class="title">Parking Citation Visualization</span> </h1>
 
         <script type="text/javascript" src="d3.min.js"></script>
         <script type="text/javascript" src="d3/d3.min.js"></script>
@@ -68,10 +68,6 @@
           content: ''
         });
 
-        var infowindow2 = new google.maps.InfoWindow({
-          content: ''
-        });
-
         var years = ["All", "2014", "2015", "2016", "2017"];
         var days = ["All"];
         var later = ["All", "2015", "2016", "2017"];
@@ -101,7 +97,6 @@
           "December" : 12
         }
 
-
         //dictionary for number of days in month
         var monthMaxDayDict = {
           "January": 31,
@@ -128,7 +123,7 @@
         //year drop down
         var yearSelect = d3.select('#gradient')
           .append('select')
-            .attr('class','select')
+            .attr('class','select styled-select blue semi-square')
             .attr('id', 'year')
             .on('change',onchange)
 
@@ -138,17 +133,19 @@
           .append('option')
             .text(function (d) { return d; });
 
+
         //label for month
         var monthSelectLabel = d3.select('#gradient')
           .append('label')
           .attr('class', 'select-label')
+          .attr('id', 'monthSelect')
           .attr('for', 'month')
           .text('Month:')
 
         //month drop down
         var monthSelect = d3.select('#gradient')
           .append('select')
-            .attr('class','select')
+            .attr('class','select styled-select blue semi-square')
             .attr('id', 'month')
             .attr('disabled', 'disabled')
             .on('change',onchange)
@@ -158,7 +155,7 @@
           .data(months).enter()
           .append('option')
           .text(function (d) { return d; });
-
+        
         //label for day
         var daySelectLabel = d3.select('#gradient')
           .append('label')
@@ -169,7 +166,7 @@
         //day drop down
         var daySelect = d3.select('#gradient')
           .append('select')
-          .attr('class','select')
+          .attr('class','select styled-select blue semi-square')
           .attr('id', 'day')
           .attr('disabled', 'disabled')
           .on('change',onchange)
@@ -203,7 +200,6 @@
             d3.select("#month").attr('disabled', 'disabled').property('value', 'All');
             yearSelect.selectAll('option').remove();
             yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
-
           }
           else if(selectYear == 2014)
           {
@@ -361,7 +357,6 @@
               daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
               //select day
               d3.select("#day").property("value", selectDay);
-         
             }
           }
 
@@ -565,7 +560,8 @@
            
           vis
           .attr('height', 40)
-          //var colorScale = newgradient;
+          .attr('transform', 'translate(0, 4)')
+
            var colorScale = d3.scaleLinear().domain([0, 25, 50, 75, 100])
              .range(["light blue", "cyan", "green", "yellow", "red"])
           var xScale = d3.scaleLinear().domain([0, 100]).range([0, 300])
@@ -582,7 +578,7 @@
 
           d3.select('#map-container').append('text').attr('class','legend-keys').text(max);
             
-          d3.select('#gradient').append('text').attr('class', 'totalCount').text("Total Number of Tickets: " + totalCount(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day)) 
+          d3.select('.totalTickets').append('text').attr('class', 'totalCount').text("Total Number of Tickets: " + totalCount(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day)) 
             
             }
         
@@ -602,8 +598,6 @@
 
           //need function to find highest number 
         var gradient = d3.scaleLinear().domain([0, maxGradient1 * 0.25, maxGradient1 * 0.50, maxGradient1 * 0.75, maxGradient1]).range(["LIGHT BLUE", "CYAN", "GREEN", "YELLOW", "RED"]);
-
-
 
 
           //clear polygons
@@ -843,7 +837,7 @@
         //#31
         kinardRearPoly = new google.maps.Polygon({
           paths: window.LatLng.kinardRearLatLng,
-           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "KINARD REAR RESIDENTIAL WEST", year, month, day)),
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "KINARD REAR", year, month, day)),
           fillOpacity: 0.95,
           strokeWeight: 0.6
         });
@@ -927,6 +921,58 @@
           strokeWeight: 0.6
         });
 
+        //#42 Farley Lamar
+        farleyLamarPoly = new google.maps.Polygon({
+          paths: window.LatLng.farleyLamarLatLng,
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "FARLEY/LAMAR LOT", year, month, day)),
+          fillOpacity: 0.95,
+          strokeWeight: 0.6
+        });
+
+        //#43 Khayat Law
+        khayatLawPoly = new google.maps.Polygon({
+          paths: window.LatLng.khayatLawLatLng,
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "KHAYAT LAW COMMUTER N W LOT", year, month, day)),
+          fillOpacity: 0.95,
+          strokeWeight: 0.6
+        });
+
+        //#44 Chiller
+        chillerPoly = new google.maps.Polygon({
+          paths: window.LatLng.chillerLatLng,
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "CHILLER PARKING LOT", year, month, day)),
+          fillOpacity: 0.95,
+          strokeWeight: 0.6
+        });
+
+        //#45 Sorority Circle
+        sororityCirclePoly = new google.maps.Polygon({
+          paths: window.LatLng.sororityCircleLatLng,
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "SORORITY CIRCLE", year, month, day)),
+          fillOpacity: 0.95,
+          strokeWeight: 0.6
+        });
+        
+
+
+
+
+        //#46 Guyton
+        guytonPoly = new google.maps.Polygon({
+          paths: window.LatLng.guytonLatLng,
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "GUYTON COMMUTER", year, month, day)),
+          fillOpacity: 0.95,
+          strokeWeight: 0.6
+        });
+
+        //#47 Luckyday
+        luckydayPoly = new google.maps.Polygon({
+          paths: [window.LatLng.luckydayLatLng1, window.LatLng.luckydayLatLng2],
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "LUCKYDAY EAST LOTS", year, month, day)),
+          fillOpacity: 0.95,
+          strokeWeight: 0.6
+        });
+
 
 
 
@@ -975,7 +1021,7 @@
           "SOUTH LOT" : new google.maps.LatLng(34.35723940805898, -89.53495860099792),
 
           //#31
-          "KINARD REAR RESIDENTIAL WEST" : new google.maps.LatLng(34.369032449857976, -89.54127252101898),
+          "KINARD REAR" : new google.maps.LatLng(34.369032449857976, -89.54127252101898),
           //no union lot anymore #32
           "SORORITY ROW" : new google.maps.LatLng(34.36973943358368, -89.53249499201775),
           "MARTINDALE METER" : new google.maps.LatLng(34.364310708975786, -89.53793451189995),
@@ -989,7 +1035,15 @@
           "WEST ROAD COMMUTER LOT" : new google.maps.LatLng(34.36536459983204, -89.5438702404499),
 
           //#41
-          "HILL DRIVE LOT" : new google.maps.LatLng(34.36035407185799, -89.5385567843914)
+          "HILL DRIVE LOT" : new google.maps.LatLng(34.36035407185799, -89.5385567843914),
+          "FARLEY/LAMAR LOT" : new google.maps.LatLng(34.367169025036205, -89.53180029988289),
+          "KHAYAT LAW COMMUTER N W LOT" : new google.maps.LatLng(34.36398081184497, -89.543437063694),
+          "CHILLER PARKING LOT" : new google.maps.LatLng(34.367285259683335, -89.53067041933537),
+          "SORORITY CIRCLE" : new google.maps.LatLng(34.36783764880203, -89.53239306807518),
+
+          //#46
+          "GUYTON COMMUTER" : new google.maps.LatLng(34.366522536056245, -89.5437066257),
+          "LUCKYDAY EAST LOTS" : new google.maps.LatLng(34.36790185411465, -89.52928707003593)
         }
 
 
@@ -1136,8 +1190,17 @@
         google.maps.event.addListener(fordCenterPoly, 'mouseout', function() {
         this.setOptions({strokeWeight: 0.6});
         });
+        
+        //#14 Kinard Rear
+        google.maps.event.addListener(kinardRearPoly, 'mouseover', function() {
+        addInfoWindow("KINARD REAR");
+        this.setOptions({strokeWeight: 1.6});
+        });
+        google.maps.event.addListener(kinardRearPoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
 
-        //#14 Circle
+        //#15 Circle
         google.maps.event.addListener(circlePoly, 'mouseover', function() {
           addInfoWindow("CIRCLE");
           this.setOptions({strokeWeight: 1.6});
@@ -1147,7 +1210,10 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#15 Old Athletics F/S
+
+
+
+        //#16 Old Athletics F/S
         google.maps.event.addListener(oldAthleticsPoly, 'mouseover', function() {
           addInfoWindow("OLD ATHLETICS F/S");
           this.setOptions({strokeWeight: 1.6});
@@ -1156,10 +1222,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-
-
-
-        //#16 Kincannon Hall
+        //#17 Kincannon Hall
         google.maps.event.addListener(kincannonPoly, 'mouseover', function() {
           addInfoWindow("KINCANNON  HALL PARKING LOT");
           this.setOptions({strokeWeight: 1.6});
@@ -1168,7 +1231,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
        
-        //#17 Womens Terrace- Lower Lot
+        //#18 Womens Terrace- Lower Lot
         google.maps.event.addListener(womensTerraceLowerPoly, 'mouseover', function() {
           addInfoWindow("WOMENS TERRACE-LOWER LOT");
           this.setOptions({strokeWeight: 1.6});
@@ -1177,7 +1240,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#18 HFL F/S
+        //#19 HFL F/S
         google.maps.event.addListener(hflFacultyPoly, 'mouseover', function() {
           addInfoWindow("HFL FACULTY/STAFF");
           this.setOptions({strokeWeight: 1.6});
@@ -1186,7 +1249,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#19 Old Athletics Meter
+        //#20 Old Athletics Meter
         google.maps.event.addListener(oldAthleticMeterPoly, 'mouseover', function() {
           addInfoWindow("OLD ATHLETICS METER");
           this.setOptions({strokeWeight: 1.6});
@@ -1195,7 +1258,10 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#20 Dorm Row North
+
+
+
+        //#21 Dorm Row North
         google.maps.event.addListener(dormRowNorthPoly, 'mouseover', function() {
         addInfoWindow("DORM ROW NORTH");
         this.setOptions({strokeWeight: 1.6});
@@ -1204,10 +1270,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-
-
-
-        //#21 Campus Walk
+        //#22 Campus Walk
         google.maps.event.addListener(campusWalkPoly, 'mouseover', function() {
         addInfoWindow("CAMPUS WALK APT. COMPLEX");
         this.setOptions({strokeWeight: 1.6});
@@ -1216,7 +1279,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#22 NCPA F/S
+        //#23 NCPA F/S
         google.maps.event.addListener(ncpaFacultyPoly, 'mouseover', function() {
         addInfoWindow("NCPA FACULTY/STAFF LOT");
         this.setOptions({strokeWeight: 1.6});
@@ -1225,7 +1288,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-       // //#23 All American Drive
+       // //#24 All American Drive
        //  google.maps.event.addListener(allAmericanPoly, 'mouseover', function() {
        //  addInfoWindow("ALL AMERICAN DR.");
        //  this.setOptions({strokeWeight: 1.6});
@@ -1234,7 +1297,7 @@
        //  this.setOptions({strokeWeight: 0.6});
        //  });
 
-        //#24 Coliseum West
+        //#25 Coliseum West
         google.maps.event.addListener(coliseumWestPoly, 'mouseover', function() {
         addInfoWindow("COLISEUM WEST LOT");
         this.setOptions({strokeWeight: 1.6});
@@ -1243,7 +1306,10 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#25 Womens Terrace- Upper Lot
+
+
+
+        //#26 Womens Terrace- Upper Lot
         google.maps.event.addListener(womensTerraceUpperPoly, 'mouseover', function() {
         addInfoWindow("WOMENS TERRACE-UPPER LOT");
         this.setOptions({strokeWeight: 1.6});
@@ -1252,10 +1318,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-
-
-
-        //#26 Turner Coliseum
+        //#27 Turner Coliseum
         google.maps.event.addListener(turnerColiseumPoly, 'mouseover', function() {
         addInfoWindow("TURNER COLISEUM LOT");
         this.setOptions({strokeWeight: 1.6});
@@ -1264,7 +1327,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#27 Frat Alley
+        //#28 Frat Alley
         google.maps.event.addListener(fratAlleyPoly, 'mouseover', function() {
         addInfoWindow("FRATERNITY ALLEY");
         this.setOptions({strokeWeight: 1.6});
@@ -1273,7 +1336,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#28 The Inn
+        //#29 The Inn
         google.maps.event.addListener(theInnPoly, 'mouseover', function() {
         addInfoWindow("THE INN AT OLE MISS");
         this.setOptions({strokeWeight: 1.6});
@@ -1282,7 +1345,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#29 Music Building
+        //#30 Music Building
          google.maps.event.addListener(musicBuildingPoly, 'mouseover', function() {
         addInfoWindow("MUSIC BUILDING WEST LOT");
         this.setOptions({strokeWeight: 1.6});
@@ -1291,24 +1354,15 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-       //#30 South Lot
+
+
+
+       //#31 South Lot
         google.maps.event.addListener(southLotPoly, 'mouseover', function() {
         addInfoWindow("SOUTH LOT");
         this.setOptions({strokeWeight: 1.6});
         });
         google.maps.event.addListener(southLotPoly, 'mouseout', function() {
-        this.setOptions({strokeWeight: 0.6});
-        });
-
-
-
-
-        //#31 Kinard Rear
-        google.maps.event.addListener(kinardRearPoly, 'mouseover', function() {
-        addInfoWindow("KINARD REAR RESIDENTIAL WEST");
-        this.setOptions({strokeWeight: 1.6});
-        });
-        google.maps.event.addListener(kinardRearPoly, 'mouseout', function() {
         this.setOptions({strokeWeight: 0.6});
         });
 
@@ -1401,6 +1455,63 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
+        //#42 Farley/Lamar
+        google.maps.event.addListener(farleyLamarPoly, 'mouseover', function() {
+        addInfoWindow("FARLEY/LAMAR LOT");
+        this.setOptions({strokeWeight: 1.6});
+        });
+        google.maps.event.addListener(farleyLamarPoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
+        //#43 Khayat Law
+        google.maps.event.addListener(khayatLawPoly, 'mouseover', function() {
+        addInfoWindow("KHAYAT LAW COMMUTER N W LOT");
+        this.setOptions({strokeWeight: 1.6});
+        });
+        google.maps.event.addListener(khayatLawPoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
+        //#44 Chiller 
+        google.maps.event.addListener(chillerPoly, 'mouseover', function() {
+        addInfoWindow("CHILLER PARKING LOT");
+        this.setOptions({strokeWeight: 1.6});
+        });
+        google.maps.event.addListener(chillerPoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
+        //#45 Sorority Circle
+        google.maps.event.addListener(sororityCirclePoly, 'mouseover', function() {
+        addInfoWindow("SORORITY CIRCLE");
+        this.setOptions({strokeWeight: 1.6});
+        });
+        google.maps.event.addListener(sororityCirclePoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
+
+
+
+        //#46 Guyton
+        google.maps.event.addListener(guytonPoly, 'mouseover', function() {
+        addInfoWindow("GUYTON COMMUTER");
+        this.setOptions({strokeWeight: 1.6});
+        });
+        google.maps.event.addListener(guytonPoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
+        //#47 Luckyday
+        google.maps.event.addListener(luckydayPoly, 'mouseover', function() {
+        addInfoWindow("LUCKYDAY EAST LOTS");
+        this.setOptions({strokeWeight: 1.6});
+        });
+        google.maps.event.addListener(luckydayPoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
 
 
 
@@ -1425,32 +1536,33 @@
         existingPolygons.push(meekPoly);
         existingPolygons.push(bishopPoly);
         existingPolygons.push(fordCenterPoly);
+        existingPolygons.push(kinardRearPoly);
         existingPolygons.push(circlePoly);
-        existingPolygons.push(oldAthleticsPoly);
         
         //#16
+        existingPolygons.push(oldAthleticsPoly);
         existingPolygons.push(kincannonPoly);
         existingPolygons.push(womensTerraceLowerPoly);
         existingPolygons.push(hflFacultyPoly);
         existingPolygons.push(oldAthleticMeterPoly);
-        existingPolygons.push(dormRowNorthPoly);
 
         //#21
+        existingPolygons.push(dormRowNorthPoly);
         existingPolygons.push(campusWalkPoly);
         existingPolygons.push(ncpaFacultyPoly);
         // existingPolygons.push(allAmericanPoly);
         existingPolygons.push(coliseumWestPoly);
-        existingPolygons.push(womensTerraceUpperPoly);
         
         //#26
+        existingPolygons.push(womensTerraceUpperPoly);
         existingPolygons.push(turnerColiseumPoly);
         existingPolygons.push(fratAlleyPoly);
         existingPolygons.push(theInnPoly);
         existingPolygons.push(musicBuildingPoly);
-        existingPolygons.push(southLotPoly);
+        
        
         //#31
-        existingPolygons.push(kinardRearPoly);
+        existingPolygons.push(southLotPoly);
         //no Union Lot anymore
         existingPolygons.push(sororityRowPoly);
         existingPolygons.push(martindaleMeterPoly);
@@ -1465,52 +1577,62 @@
         
         //#41
         existingPolygons.push(hillDrivePoly);
+        existingPolygons.push(farleyLamarPoly);
+        existingPolygons.push(khayatLawPoly);
+        existingPolygons.push(chillerPoly);
+        existingPolygons.push(sororityCirclePoly);
+
+        //#46
+        existingPolygons.push(guytonPoly);
+        existingPolygons.push(luckydayPoly);
 
         //bind polygons to map
         //#1
         jacksonAvePoly.setMap(map);
         sororityPoly.setMap(map);
         coliseumEastPoly.setMap(map);
+        stockardRearPoly.setMap(map);
         crosbyRearPoly.setMap(map);
-        manningCenterPoly.setMap(map);
 
         //#6
+        manningCenterPoly.setMap(map);
         residentialCollegePoly.setMap(map);
         magnoliaPoly.setMap(map);
-        meekPoly.setMap(map);
         stockardMartinFrontPoly.setMap(map);
         poolePoly.setMap(map);
 
         //#11
+        meekPoly.setMap(map);
         bishopPoly.setMap(map);
         fordCenterPoly.setMap(map);
+        kinardRearPoly.setMap(map);
         circlePoly.setMap(map);
-        stockardRearPoly.setMap(map);
-        oldAthleticsPoly.setMap(map);
-
+        
         //#16
+        oldAthleticsPoly.setMap(map);
         kincannonPoly.setMap(map);
         womensTerraceLowerPoly.setMap(map);
         hflFacultyPoly.setMap(map);
         oldAthleticMeterPoly.setMap(map);
-        dormRowNorthPoly.setMap(map);
-
+        
         //#21
+        dormRowNorthPoly.setMap(map);
         campusWalkPoly.setMap(map);
         ncpaFacultyPoly.setMap(map);
         // allAmericanPoly.setMap(map);
         coliseumWestPoly.setMap(map);
-        womensTerraceUpperPoly.setMap(map);
+        
 
         //#26
+        womensTerraceUpperPoly.setMap(map);
         turnerColiseumPoly.setMap(map);
         fratAlleyPoly.setMap(map);
         theInnPoly.setMap(map);
         musicBuildingPoly.setMap(map);
-        southLotPoly.setMap(map);
+        
 
         //#31
-        kinardRearPoly.setMap(map);
+        southLotPoly.setMap(map);
         //no Union Lot anymore
         sororityRowPoly.setMap(map);
         martindaleMeterPoly.setMap(map);
@@ -1525,6 +1647,15 @@
 
         //#41
         hillDrivePoly.setMap(map);
+        farleyLamarPoly.setMap(map);
+        khayatLawPoly.setMap(map);
+        chillerPoly.setMap(map);
+        sororityCirclePoly.setMap(map);
+
+        //#46
+        guytonPoly.setMap(map);
+        luckydayPoly.setMap(map);
+
         }
 
          //init with All
@@ -1538,6 +1669,7 @@
         </script>
         </div>
         <div id="gradient"></div>
+        <div class="totalTickets"></div>
         <div class="compareContainer">
         <p>paragraph introducing line graph</p>
         <div id="myButton">
