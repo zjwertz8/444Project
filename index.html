@@ -11,7 +11,12 @@
             <script src="https://maps.google.com/maps/api/js?sensor=True"></script>
           </head>
         <body>
-        <h1><img height="80" width="115" src="OleMiss.png" alt="Ole Miss"><span class="title">Parking Citation Visualization</span> </h1>
+        <div class="banner-top">
+          <img class="resize" src="stylesheets/2000px-Ole_Miss_Rebels_logo.svg.png"><br/>
+          <p class="no-padding-no-margins">
+            Parking Citation Visualization
+          </p>
+        </div>
 
         <script type="text/javascript" src="d3.min.js"></script>
         <script type="text/javascript" src="d3/d3.min.js"></script>
@@ -33,7 +38,7 @@
 
 
         d3.csv("FullDataRaw.csv", function(data) {
-         
+
           //rollup with parking lot
           var lotsRolledUp = d3.nest()
           .key(function(d) {return d.CLM_DESCRIPTION;})
@@ -46,7 +51,7 @@
           .key(function(d) {return d.Year;})
           .rollup(function(v) {return v.length;})
           .entries(data)
-          
+
           //rollup with parking lot and year and month
           var lotsRolledUpM = d3.nest()
           .key(function(d) {return d.CLM_DESCRIPTION;})
@@ -112,7 +117,7 @@
           "November" : 30,
           "December" : 31
         }
-       
+
       //label for year
         var yearSelectLabel = d3.select('#gradient')
           .append('label')
@@ -155,7 +160,7 @@
           .data(months).enter()
           .append('option')
           .text(function (d) { return d; });
-        
+
         //label for day
         var daySelectLabel = d3.select('#gradient')
           .append('label')
@@ -188,7 +193,7 @@
 
 
         //function for when drop down is changed
-        function onchange() 
+        function onchange()
         {
           selectYear = d3.select("#year").property("value");
           selectMonth = d3.select("#month").property("value");
@@ -200,7 +205,7 @@
           {
             infowindow.close();
           }
-          
+
           //if month is all, month and day is "All", disable day drop down
           if(selectYear == "All")
           {
@@ -215,11 +220,11 @@
           else if(selectYear == 2014)
           {
             if(selectMonth == "All")
-            { 
+            {
               selectMonth = "All";
               selectDay = "All";
               d3.select("#month").attr('disabled', null);
-              d3.select("#day").attr('disabled', 'disabled').property('value', 'All'); 
+              d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
               monthSelect.selectAll('option').remove();
               monthSelect.selectAll('option').data(months14).enter().append('option').text(function (d) { return d });
               d3.select("#month").property("value", selectMonth);
@@ -256,11 +261,11 @@
        else if (selectYear == 2015 || selectYear == 2016)
         {
           if(selectMonth == "All")
-          { 
+          {
             selectMonth = "All";
             selectDay = "All";
             d3.select("#month").attr('disabled', null);
-            d3.select("#day").attr('disabled', 'disabled').property('value', 'All'); 
+            d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
             monthSelect.selectAll('option').remove();
             monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
             d3.select("#month").property("value", selectMonth);
@@ -282,8 +287,8 @@
             yearSelect.selectAll('option').data(later).enter().append('option').text(function (d) { return d });
             d3.select("#month").property("value", selectMonth);
             d3.select("#year").property("value", selectYear);
-            
-   
+
+
             var newDays = ["All"];
             //push number of days to newDays array, depending on month
             for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
@@ -299,7 +304,7 @@
             //select day
             d3.select("#day").property("value", selectDay);
             }
-            else 
+            else
             {
             d3.select("#day").attr('disabled', null);
             d3.select("#month").attr('disabled', null);
@@ -309,8 +314,8 @@
             yearSelect.selectAll('option').data(early).enter().append('option').text(function (d) { return d });
             d3.select("#month").property("value", selectMonth);
             d3.select("#year").property("value", selectYear);
-            
-   
+
+
             var newDays = ["All"];
             //push number of days to newDays array, depending on month
             for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
@@ -331,11 +336,11 @@
         else //2017
           {
             if(selectMonth == "All")
-            { 
+            {
               selectMonth = "All";
               selectDay = "All";
               d3.select("#month").attr('disabled', null);
-              d3.select("#day").attr('disabled', 'disabled').property('value', 'All'); 
+              d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
               monthSelect.selectAll('option').remove();
               monthSelect.selectAll('option').data(months17).enter().append('option').text(function (d) { return d });
               d3.select("#month").property('value', selectMonth);
@@ -617,8 +622,8 @@
           {
           total = 0;
           for(i = 0; i < lotCount.length; i++)
-          { 
-            if(lotCount[i].key == lotName) 
+          {
+            if(lotCount[i].key == lotName)
             {
               for(j = 0; j < lotCount[i].values.length; j++)
                 {
@@ -642,20 +647,20 @@
                                         total += lotCount[i].values[j].values[k].values[l].value;
                                         }
                                       }
-                                   }  
-                                   else 
+                                   }
+                                   else
                                    {
                                      total = lotCount[i].values[j].values[k].value;
                                    }
                                 }
                             }
                         }
-                        else 
+                        else
                         {
                           total = lotCount[i].values[j].value;
                         }
-                    } 
-                } 
+                    }
+                }
             }
           }
           return total;
@@ -728,11 +733,11 @@
         {
          total = 0
           for(i = 0; i < lotCount.length; i++)
-          { 
+          {
             if(year == "All") {
-              
+
                 total += lotCount[i].value;
-                      
+
             }
             else {
               for(j = 0; j < lotCount[i].values.length; j++)
@@ -751,29 +756,29 @@
                                       {
                                         if (day == lotCount[i].values[j].values[k].values[l].key)
                                         {
-                                          
+
                                             total += lotCount[i].values[j].values[k].values[l].value;
-                              
+
 
                                         }
                                       }
-                                   }  
-                                   else 
+                                   }
+                                   else
                                    {
-                                     
+
                                       total += lotCount[i].values[j].values[k].value;
-                        
+
                                    }
                                 }
                             }
                         }
-                    else 
+                    else
                     {
-                          
+
                            total  += lotCount[i].values[j].value
-                                   
-                        } 
-                    } 
+
+                        }
+                    }
             }
           }
         }
@@ -791,7 +796,7 @@
             currentMax = 0;
           for(i = 0; i < lotCount.length; i++)
           { 
-  if(lotCount[i].key == "JACKSON AVENUE CENTER")
+           if(lotCount[i].key == "JACKSON AVENUE CENTER")
             {
               continue;
             }
@@ -824,7 +829,6 @@
                                           {
                                             currentMax = lotCount[i].values[j].values[k].values[l].value;
                                           }
-
                                         }
                                       }
                                    }  
@@ -887,8 +891,8 @@
 
                                         }
                                       }
-                                   }  
-                                   else 
+                                   }
+                                   else
                                    {
                                      if(lotCount[i].values[j].values[k].value > currentMax)
                                      {
@@ -898,14 +902,14 @@
                                 }
                             }
                         }
-                    else 
+                    else
                     {
                           if(lotCount[i].values[j].value > currentMax)
                           {
                             currentMax = lotCount[i].values[j].value
-                          }         
-                        } 
-                    } 
+                          }
+                        }
+                    }
             }
           }
         }
@@ -926,7 +930,7 @@
 
 
           var vis = d3.select('svg')
-           
+
           vis
           .attr('height', 40)
           .attr('transform', 'translate(0, 4)')
@@ -947,9 +951,16 @@
 
           d3.select('#map-container').append('text').attr('class','legend-keys').text(max);
             
-          d3.select('.totalTickets').append('text').attr('class', 'totalCount').text("Total Number of Tickets: " + totalCount(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day)) 
+            
+
+
+          d3.select('.totalTickets')
+                .append('text')
+                .attr('class', 'totalCount')
+                .text("Total Number of Tickets: " + totalCount(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day))
+                  .style('color', 'navy')
             }
-        
+
 
 
         //function to get rid of precious polygons and then add new ones
@@ -960,11 +971,11 @@
           yearAndMonth = day == "All";
 
             maxGradient1 = maxGradient(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day);
-          
-          buildLegend(maxGradient1, gradient, year, month, day);
-          
 
-          //need function to find highest number 
+          buildLegend(maxGradient1, gradient, year, month, day);
+
+
+          //need function to find highest number
         var gradient = d3.scaleLinear().domain([0, maxGradient1 * 0.25, maxGradient1 * 0.50, maxGradient1 * 0.75, maxGradient1]).range(["LIGHT BLUE", "CYAN", "GREEN", "YELLOW", "RED"]);
 
 
@@ -1032,7 +1043,7 @@
           fillOpacity: 0.95,
           strokeWeight: 0.6
         });
-       
+
        stockardMartinFrontPoly = new google.maps.Polygon({
           paths: window.LatLng.stockardMartinFrontLatLng,
           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "STOCKARD/MARTIN FRONT LOT", year, month, day)),
@@ -1046,7 +1057,7 @@
           fillOpacity: 0.95,
           strokeWeight: 0.6
         });
-          
+
 
 
 
@@ -1228,7 +1239,7 @@
           strokeWeight: 0.6
         });
 
-        //#35 Kincannon Field 
+        //#35 Kincannon Field
         kincannonFieldPoly = new google.maps.Polygon({
           paths: window.LatLng.kincannonFieldLatLng,
            fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "KINCANNON FIELD", year, month, day)),
@@ -1320,7 +1331,7 @@
           fillOpacity: 0.95,
           strokeWeight: 0.6
         });
-        
+
 
 
 
@@ -1352,7 +1363,7 @@
           "COLISEUM EAST LOT" : new google.maps.LatLng(34.36365903178182, -89.539475440979),
           "STOCKARD/MARTIN REAR LOT" : new google.maps.LatLng(34.37050618657293, -89.5378178358078),
           "CROSBY REAR LOT" : new google.maps.LatLng(34.37159984944055, -89.53448116779327),
-          
+
           //#6
           "MANNING CENTER EAST" : new google.maps.LatLng(34.36066700781123, -89.53498005867004),
           "RESIDENTIAL COLLEGE/ALUMN DR LOT" : new google.maps.LatLng(34.3679210419447, -89.52936619520187),
@@ -1421,12 +1432,12 @@
             {
               infowindow.close();
             }
-            
 
-            infowindow.setContent("<div id='iw-container'>" 
+
+            infowindow.setContent("<div id='iw-container'>"
               + "<div id='iw-title'>"
-              + "<span class='lot-name'>" + lotName + "</span>" 
-              + "</div>" 
+              + "<span class='lot-name'>" + lotName + "</span>"
+              + "</div>"
               + "<div class='ymd'>Year: " + year + " | Month: " + month + " | Day: " + day
               + "</div>"
               + "<div id='iw-content'>Tickets: <strong>" + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day) + "</strong></div></div>");
@@ -1462,7 +1473,7 @@
         google.maps.event.addListener(coliseumEastPoly, 'mouseout', function() {
         this.setOptions({strokeWeight: 0.6});
         });
-        
+
         //#4 Stockard/Martin Rear Lot
         google.maps.event.addListener(stockardRearPoly, 'mouseover', function() {
           addInfoWindow("STOCKARD/MARTIN REAR LOT");
@@ -1519,7 +1530,7 @@
         google.maps.event.addListener(stockardMartinFrontPoly, 'mouseout', function() {
         this.setOptions({strokeWeight: 0.6});
         });
-        
+
         //#10 Poole Drive
         google.maps.event.addListener(poolePoly, 'mouseover', function() {
         addInfoWindow("POOLE DRIVE");
@@ -1528,7 +1539,7 @@
         google.maps.event.addListener(poolePoly, 'mouseout', function() {
         this.setOptions({strokeWeight: 0.6});
         });
-       
+
 
 
 
@@ -1558,7 +1569,7 @@
         google.maps.event.addListener(fordCenterPoly, 'mouseout', function() {
         this.setOptions({strokeWeight: 0.6});
         });
-        
+
         //#14 Kinard Rear
         google.maps.event.addListener(kinardRearPoly, 'mouseover', function() {
         addInfoWindow("KINARD REAR");
@@ -1598,7 +1609,7 @@
         google.maps.event.addListener(kincannonPoly, 'mouseout', function() {
         this.setOptions({strokeWeight: 0.6});
         });
-       
+
         //#18 Womens Terrace- Lower Lot
         google.maps.event.addListener(womensTerraceLowerPoly, 'mouseover', function() {
           addInfoWindow("WOMENS TERRACE-LOWER LOT");
@@ -1793,7 +1804,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#39 Coliseum Circle 
+        //#39 Coliseum Circle
         google.maps.event.addListener(coliseumCirclePoly, 'mouseover', function() {
         addInfoWindow("COLISEUM CIRCLE");
         this.setOptions({strokeWeight: 1.6});
@@ -1802,7 +1813,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#40 West Road Commuter 
+        //#40 West Road Commuter
         google.maps.event.addListener(westRoadCommuterPoly, 'mouseover', function() {
         addInfoWindow("WEST ROAD COMMUTER LOT");
         this.setOptions({strokeWeight: 1.6});
@@ -1841,7 +1852,7 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
-        //#44 Chiller 
+        //#44 Chiller
         google.maps.event.addListener(chillerPoly, 'mouseover', function() {
         addInfoWindow("CHILLER PARKING LOT");
         this.setOptions({strokeWeight: 1.6});
@@ -1906,7 +1917,7 @@
         existingPolygons.push(fordCenterPoly);
         existingPolygons.push(kinardRearPoly);
         existingPolygons.push(circlePoly);
-        
+
         //#16
         existingPolygons.push(oldAthleticsPoly);
         existingPolygons.push(kincannonPoly);
@@ -1920,15 +1931,15 @@
         existingPolygons.push(ncpaFacultyPoly);
         // existingPolygons.push(allAmericanPoly);
         existingPolygons.push(coliseumWestPoly);
-        
+
         //#26
         existingPolygons.push(womensTerraceUpperPoly);
         existingPolygons.push(turnerColiseumPoly);
         existingPolygons.push(fratAlleyPoly);
         existingPolygons.push(theInnPoly);
         existingPolygons.push(musicBuildingPoly);
-        
-       
+
+
         //#31
         existingPolygons.push(southLotPoly);
         //no Union Lot anymore
@@ -1942,7 +1953,7 @@
         existingPolygons.push(dormRowWestPoly);
         existingPolygons.push(coliseumCirclePoly);
         existingPolygons.push(westRoadCommuterPoly);
-        
+
         //#41
         existingPolygons.push(hillDrivePoly);
         existingPolygons.push(farleyLamarPoly);
@@ -1975,21 +1986,21 @@
         fordCenterPoly.setMap(map);
         kinardRearPoly.setMap(map);
         circlePoly.setMap(map);
-        
+
         //#16
         oldAthleticsPoly.setMap(map);
         kincannonPoly.setMap(map);
         womensTerraceLowerPoly.setMap(map);
         hflFacultyPoly.setMap(map);
         oldAthleticMeterPoly.setMap(map);
-        
+
         //#21
         dormRowNorthPoly.setMap(map);
         campusWalkPoly.setMap(map);
         ncpaFacultyPoly.setMap(map);
         // allAmericanPoly.setMap(map);
         coliseumWestPoly.setMap(map);
-        
+
 
         //#26
         womensTerraceUpperPoly.setMap(map);
@@ -1997,7 +2008,7 @@
         fratAlleyPoly.setMap(map);
         theInnPoly.setMap(map);
         musicBuildingPoly.setMap(map);
-        
+
 
         //#31
         southLotPoly.setMap(map);
@@ -2036,21 +2047,16 @@
 
         </script>
         </div>
+    <div class="banner-bottom">
         <div id="gradient"></div>
         <div class="totalTickets"></div>
         <div class="compareContainer">
-        <p>paragraph introducing line graph</p>
-        <div id="myButton">
-        <a href="lineGraph.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" >Compare Parking lots</button></a>
+            <p>Click below for an interactive line graph comparison of the lots with the most citations</p>
+            <div id="myButton">
+                <a href="lineGraph.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Compare Parking lots</button></a>
+            </div>
         </div>
-      </div>
+    </div>
 
-          </body>
-
-
-        </html>
-
-
-
-
-
+  </body>
+</html>
