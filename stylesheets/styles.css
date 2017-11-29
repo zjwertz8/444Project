@@ -32,7 +32,8 @@ body
 h1 
 {
     text-align: center;
-    color: #C8102E;
+    font-weight: bold;
+    color: black;
 }
 
 
