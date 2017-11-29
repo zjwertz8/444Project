@@ -8,20 +8,25 @@
             <title>Ole Miss Parking Citation Visualization</title>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
             <link rel="stylesheet" href="stylesheets/styles.css">
+            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
             <script src="https://maps.google.com/maps/api/js?sensor=True"></script>
           </head>
         <body>
+          <script type="text/javascript" src="d3.min.js"></script>
+          <script type="text/javascript" src="d3/d3.min.js"></script>
+          <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+          <script type="text/javascript" src="scripts/globalLatLng.js"></script>
+
+        <p></p>
         <div class="banner-top">
           <img class="resize" src="stylesheets/2000px-Ole_Miss_Rebels_logo.svg.png"><br/>
-          <p class="no-padding-no-margins">
+          <p class="no-padding-no-margins headline">
             Parking Citation Visualization
           </p>
         </div>
 
-        <script type="text/javascript" src="d3.min.js"></script>
-        <script type="text/javascript" src="d3/d3.min.js"></script>
-        <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-        <script type="text/javascript" src="scripts/globalLatLng.js"></script>
+
         <div id="map-container">
         <div id="map"></div>
         <script>
@@ -123,7 +128,7 @@
           .append('label')
           .attr('class', 'select-label')
           .attr('for', 'year')
-          .text('Year:')
+          .text('Year:').style('color','#C8102E').style('font-family','Roboto, sans-serif')
 
         //year drop down
         var yearSelect = d3.select('#gradient')
@@ -145,7 +150,7 @@
           .attr('class', 'select-label')
           .attr('id', 'monthSelect')
           .attr('for', 'month')
-          .text('Month:')
+          .text('Month:').style('color','#C8102E').style('font-family','Roboto, sans-serif')
 
         //month drop down
         var monthSelect = d3.select('#gradient')
@@ -166,7 +171,7 @@
           .append('label')
           .attr('class', 'select-label')
           .attr('for', 'day')
-          .text('Day:')
+          .text('Day:').style('color','#C8102E').style('font-family','Roboto, sans-serif')
 
         //day drop down
         var daySelect = d3.select('#gradient')
@@ -184,6 +189,7 @@
           .text(function (d) { return d; });
 
 
+
         var jacksonCheckLabel = d3.select(".totalTickets")
         .append('label')
         .attr('class', 'check-label')
@@ -196,8 +202,6 @@
         .attr('id', 'jacksonToggle')
         .attr('type', 'checkbox')
         .on('change', onchange)
-
-
 
 
         //function for when drop down is changed
@@ -394,7 +398,7 @@
           {
             infowindow.close();
           }
-          
+
           //if month is all, month and day is "All", disable day drop down
           if(selectYear == "All")
           {
@@ -409,11 +413,11 @@
           else if(selectYear == 2014)
           {
             if(selectMonth == "All")
-            { 
+            {
               selectMonth = "All";
               selectDay = "All";
               d3.select("#month").attr('disabled', null);
-              d3.select("#day").attr('disabled', 'disabled').property('value', 'All'); 
+              d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
               monthSelect.selectAll('option').remove();
               monthSelect.selectAll('option').data(months14).enter().append('option').text(function (d) { return d });
               d3.select("#month").property("value", selectMonth);
@@ -450,11 +454,11 @@
        else if (selectYear == 2015 || selectYear == 2016)
         {
           if(selectMonth == "All")
-          { 
+          {
             selectMonth = "All";
             selectDay = "All";
             d3.select("#month").attr('disabled', null);
-            d3.select("#day").attr('disabled', 'disabled').property('value', 'All'); 
+            d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
             monthSelect.selectAll('option').remove();
             monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
             d3.select("#month").property("value", selectMonth);
@@ -476,8 +480,8 @@
             yearSelect.selectAll('option').data(later).enter().append('option').text(function (d) { return d });
             d3.select("#month").property("value", selectMonth);
             d3.select("#year").property("value", selectYear);
-            
-   
+
+
             var newDays = ["All"];
             //push number of days to newDays array, depending on month
             for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
@@ -493,7 +497,7 @@
             //select day
             d3.select("#day").property("value", selectDay);
             }
-            else 
+            else
             {
             d3.select("#day").attr('disabled', null);
             d3.select("#month").attr('disabled', null);
@@ -503,8 +507,8 @@
             yearSelect.selectAll('option').data(early).enter().append('option').text(function (d) { return d });
             d3.select("#month").property("value", selectMonth);
             d3.select("#year").property("value", selectYear);
-            
-   
+
+
             var newDays = ["All"];
             //push number of days to newDays array, depending on month
             for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
@@ -525,11 +529,11 @@
         else //2017
           {
             if(selectMonth == "All")
-            { 
+            {
               selectMonth = "All";
               selectDay = "All";
               d3.select("#month").attr('disabled', null);
-              d3.select("#day").attr('disabled', 'disabled').property('value', 'All'); 
+              d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
               monthSelect.selectAll('option').remove();
               monthSelect.selectAll('option').data(months17).enter().append('option').text(function (d) { return d });
               d3.select("#month").property('value', selectMonth);
@@ -565,6 +569,180 @@
             }
           }
 
+          if(infowindow)
+          {
+            infowindow.close();
+          }
+
+          //if month is all, month and day is "All", disable day drop down
+          if(selectYear == "All")
+          {
+            selectYear = "All";
+            selectMonth = "All";
+            selectDay = "All";
+            d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
+            d3.select("#month").attr('disabled', 'disabled').property('value', 'All');
+            yearSelect.selectAll('option').remove();
+            yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
+          }
+          else if(selectYear == 2014)
+          {
+            if(selectMonth == "All")
+            {
+              selectMonth = "All";
+              selectDay = "All";
+              d3.select("#month").attr('disabled', null);
+              d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
+              monthSelect.selectAll('option').remove();
+              monthSelect.selectAll('option').data(months14).enter().append('option').text(function (d) { return d });
+              d3.select("#month").property("value", selectMonth);
+              yearSelect.selectAll('option').remove();
+              yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
+              d3.select("#year").property('value', selectYear);
+            }
+            else
+            {
+              d3.select("#day").attr('disabled', null);
+              d3.select("#month").attr('disabled', null);
+              yearSelect.selectAll('option').remove();
+              yearSelect.selectAll('option').data(early).enter().append('option').text(function (d) { return d });
+              monthSelect.selectAll('option').remove();
+              monthSelect.selectAll('option').data(months14).enter().append('option').text(function (d) { return d });
+              d3.select("#month").property("value", selectMonth);
+              d3.select("#year").property("value", selectYear);
+              var newDays = ["All"];
+                //push number of days to newDays array, depending on month
+                for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
+                {
+                  newDays.push(i);
+                }
+                //change spelt out month with corresponding number
+                selectMonth = monthDict[selectMonth];
+                //remove previous options
+                daySelect.selectAll('option').remove()
+                //replace new options
+                daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
+                //select day
+                d3.select("#day").property("value", selectDay);
+            }
+          }
+       else if (selectYear == 2015 || selectYear == 2016)
+        {
+          if(selectMonth == "All")
+          {
+            selectMonth = "All";
+            selectDay = "All";
+            d3.select("#month").attr('disabled', null);
+            d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
+            monthSelect.selectAll('option').remove();
+            monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
+            d3.select("#month").property("value", selectMonth);
+            d3.select("#day").property("value", "All");
+            yearSelect.selectAll('option').remove();
+            yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
+              d3.select("#year").property('value', selectYear);
+          }
+          else
+          {
+            if(selectMonth == "January" || selectMonth == "February" || selectMonth == "March" || selectMonth == "April" || selectMonth == "May" || selectMonth == "June")
+            {
+
+            d3.select("#day").attr('disabled', null);
+            d3.select("#month").attr('disabled', null);
+            monthSelect.selectAll('option').remove();
+            monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
+            yearSelect.selectAll('option').remove();
+            yearSelect.selectAll('option').data(later).enter().append('option').text(function (d) { return d });
+            d3.select("#month").property("value", selectMonth);
+            d3.select("#year").property("value", selectYear);
+
+
+            var newDays = ["All"];
+            //push number of days to newDays array, depending on month
+            for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
+            {
+              newDays.push(i);
+            }
+            //change spelt out month with corresponding number
+            selectMonth = monthDict[selectMonth];
+            //remove previous options
+            daySelect.selectAll('option').remove()
+            //replace new options
+            daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
+            //select day
+            d3.select("#day").property("value", selectDay);
+            }
+            else
+            {
+            d3.select("#day").attr('disabled', null);
+            d3.select("#month").attr('disabled', null);
+            monthSelect.selectAll('option').remove();
+            monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
+            yearSelect.selectAll('option').remove();
+            yearSelect.selectAll('option').data(early).enter().append('option').text(function (d) { return d });
+            d3.select("#month").property("value", selectMonth);
+            d3.select("#year").property("value", selectYear);
+
+
+            var newDays = ["All"];
+            //push number of days to newDays array, depending on month
+            for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
+            {
+              newDays.push(i);
+            }
+            //change spelt out month with corresponding number
+            selectMonth = monthDict[selectMonth];
+            //remove previous options
+            daySelect.selectAll('option').remove()
+            //replace new options
+            daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
+            //select day
+            d3.select("#day").property("value", selectDay);
+            }
+          }
+        }
+        else //2017
+          {
+            if(selectMonth == "All")
+            {
+              selectMonth = "All";
+              selectDay = "All";
+              d3.select("#month").attr('disabled', null);
+              d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
+              monthSelect.selectAll('option').remove();
+              monthSelect.selectAll('option').data(months17).enter().append('option').text(function (d) { return d });
+              d3.select("#month").property('value', selectMonth);
+              yearSelect.selectAll('option').remove();
+              yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
+              console.log(selectYear);
+              d3.select("#year").property('value', selectYear);
+            }
+            else
+             {
+              d3.select("#day").attr('disabled', null);
+              d3.select("#month").attr('disabled', null);
+              yearSelect.selectAll('option').remove();
+              yearSelect.selectAll('option').data(later).enter().append('option').text(function (d) { return d });
+              monthSelect.selectAll('option').remove();
+              monthSelect.selectAll('option').data(months17).enter().append('option').text(function (d) { return d });
+              d3.select("#month").property("value", selectMonth);
+              d3.select("#year").property("value", selectYear);
+              var newDays = ["All"];
+              //push number of days to newDays array, depending on month
+              for(var i = 1; i <= monthMaxDayDict[selectMonth]; i++)
+              {
+                newDays.push(i);
+              }
+              //change spelt out month with corresponding number
+              selectMonth = monthDict[selectMonth];
+              //remove previous options
+              daySelect.selectAll('option').remove()
+              //replace new options
+              daySelect.selectAll('option').data(newDays).enter().append('option').text(function (d) { return d; });
+              //select day
+              d3.select("#day").property("value", selectDay);
+            }
+          }
 
           buildHeatmap(selectYear,selectMonth, selectDay);
         }
@@ -579,12 +757,12 @@
           {
             total = 0;
           for(i = 0; i < lotCount.length; i++)
-          { 
+          {
             if(lotCount[i].key == "JACKSON AVENUE CENTER")
             {
               continue;
             }
-            if(lotCount[i].key == lotName) 
+            if(lotCount[i].key == lotName)
             {
               for(j = 0; j < lotCount[i].values.length; j++)
                 {
@@ -608,20 +786,20 @@
                                         total += lotCount[i].values[j].values[k].values[l].value;
                                         }
                                       }
-                                   }  
-                                   else 
+                                   }
+                                   else
                                    {
                                      total = lotCount[i].values[j].values[k].value;
                                    }
                                 }
                             }
                         }
-                        else 
+                        else
                         {
                           total = lotCount[i].values[j].value;
                         }
-                    } 
-                } 
+                    }
+                }
             }
           }
           return total;
@@ -682,15 +860,15 @@
           {
             total = 0
           for(i = 0; i < lotCount.length; i++)
-          { 
+          {
             if(lotCount[i].key == "JACKSON AVENUE CENTER")
             {
               continue;
             }
             if(year == "All") {
-              
+
                 total += lotCount[i].value;
-                      
+
             }
             else {
               for(j = 0; j < lotCount[i].values.length; j++)
@@ -709,29 +887,29 @@
                                       {
                                         if (day == lotCount[i].values[j].values[k].values[l].key)
                                         {
-                                          
+
                                             total += lotCount[i].values[j].values[k].values[l].value;
-                              
+
 
                                         }
                                       }
-                                   }  
-                                   else 
+                                   }
+                                   else
                                    {
-                                     
+
                                       total += lotCount[i].values[j].values[k].value;
-                        
+
                                    }
                                 }
                             }
                         }
-                    else 
+                    else
                     {
-                          
+
                            total  += lotCount[i].values[j].value
-                                   
-                        } 
-                    } 
+
+                        }
+                    }
             }
           }
         }
@@ -797,18 +975,18 @@
 
         function maxGradient(lotCount, year, month, day)
         {
-          
+
           //console.log(jacksonCheck._groups[0][0].checked)
           if(jacksonCheck._groups[0][0].checked)
           {
             currentMax = 0;
           for(i = 0; i < lotCount.length; i++)
-          { 
+          {
            if(lotCount[i].key == "JACKSON AVENUE CENTER")
             {
               continue;
             }
-            if(year == "All") 
+            if(year == "All")
             {
 
                if(lotCount[i].value > currentMax)
@@ -839,8 +1017,8 @@
                                           }
                                         }
                                       }
-                                   }  
-                                   else 
+                                   }
+                                   else
                                    {
                                      if(lotCount[i].values[j].values[k].value > currentMax)
                                      {
@@ -850,14 +1028,14 @@
                                 }
                             }
                         }
-                    else 
+                    else
                     {
                           if(lotCount[i].values[j].value > currentMax)
                           {
                             currentMax = lotCount[i].values[j].value
-                          }         
-                        } 
-                    } 
+                          }
+                        }
+                    }
             }
           }
         }
@@ -867,8 +1045,8 @@
           {
           currentMax = 0;
           for(i = 0; i < lotCount.length; i++)
-          { 
-            if(year == "All") 
+          {
+            if(year == "All")
             {
                if(lotCount[i].value > currentMax)
                           {
@@ -962,15 +1140,15 @@
 
 
           d3.select('#map-container').append('text').attr('class','legend-keys').text(max);
-            
-            
+
+
 
 
           d3.select('.totalTickets')
                 .append('text')
                 .attr('class', 'totalCount')
                 .text("Total Number of Tickets: " + totalCount(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day))
-                  .style('color', 'navy')
+                  .style('color', '#13294B')
             }
 
 
@@ -2063,12 +2241,11 @@
         <div id="gradient"></div>
         <div class="totalTickets"></div>
         <div class="compareContainer">
-            <p>Click below for an interactive line graph comparison of the lots with the most citations</p>
             <div id="myButton">
-                <a href="lineGraph.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Compare Parking lots</button></a>
+                <a href="lineGraph.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Line Graph Comparison</button></a>
             </div>
         </div>
     </div>
-
+    <div class="buffer-big"></div>
   </body>
 </html>

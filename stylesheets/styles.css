@@ -1,3 +1,19 @@
+/*
+OFFICIAL COLOR CODES FOR OLE MISS'S SHADE OF RED AND BLUE:
+
+Red
+Hex Color: #C8102E;
+RGB: (200, 16, 46)
+PANTONE: PMS 186 C
+
+Navy Blue
+Hex Color: #13294B; 
+RGB: (19,41,75)
+PANTONE: PMS 2767
+
+*/
+
+
 /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
 #map
@@ -8,20 +24,29 @@
         padding: 0;
 }
 /* Optional: Makes the sample page fill the window. */
-html, body
+html, body, main
 {
         height: 100%;
         margin: 0;
         padding: 0;
+        font-family: 'Roboto Condensed', sans-serif;
+}
+
+html {
+  background: url(vaught.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 p {
-  color: navy;
+  color: #13294B;
 }
 
 .banner-top
 {
-color: rgb(204, 0, 0);
+color: (200, 16, 46);
 font-size: 50px;
 background-color: rgb(240, 240, 240);
 text-shadow: rgb(0, 0, 0) 2px -1px 2px;
@@ -36,8 +61,8 @@ margin: 0;
 {
 background-color: rgb(240, 240, 240);
 color: rgb(240, 240, 240);
-border-top:10px solid navy;
-border-bottom: 5px solid navy;
+border-top:10px solid #13294B;
+border-bottom: 5px solid #13294B;
 margin: 0;
 padding-bottom: 5px;
 }
@@ -53,6 +78,10 @@ padding-bottom: 5px;
     margin-top: .5%;
 }
 
+.headline {
+  color: rgb(200, 16, 46);
+}
+
 body
 {
     background-color: #fff;
@@ -65,14 +94,6 @@ body
         text-align: center;
         display: inline-block;
 }
-
-h1
-{
-    text-align: center;
-    color: #C8102E;
-}
-
-
 
 .lot-name {
     font-weight: bold;
@@ -156,11 +177,11 @@ select.select {
 
 select {
     color: white;
-    font-family: "Bookman";
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .btn {
-    font-family: "Bookman";
+    font-family: "Roboto", sans-serif;
 }
 
 .totalTickets {
@@ -176,6 +197,10 @@ select {
     margin-right: 20px;
 }
 
+<<<<<<< HEAD
+.buffer-big {
+  height:200px;
+=======
 .check-label {
     color: navy;
     font-family: "Bookman";
@@ -185,4 +210,5 @@ select {
 #jacksonToggle {
     margin-left: 4px;
     margin-right: 15px;
+>>>>>>> 4637afc5c40abb891b39671092d9bb5189c58a4d
 }
