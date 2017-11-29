@@ -189,7 +189,7 @@
         .attr('class', 'check-label')
         .attr('for', 'jacksonToggle')
         .text('Toggle Jackson Avenue:')
-        
+
         //Jackson Ave Toggle
         var jacksonCheck = d3.select('.totalTickets')
         .append('input')
@@ -936,12 +936,16 @@
           d3.select('#map-container').append('text').attr('class', 'legend-keys').text('0');
           d3.select('#map-container').append('svg');
 
+          // var text = d3.select('text')
+
+          // text
+          // .attr('transform', 'translate(0, -4)')
 
           var vis = d3.select('svg')
 
           vis
           .attr('height', 40)
-          .attr('transform', 'translate(0, 4)')
+          .attr('transform', 'translate(0, -5)')
 
            var colorScale = d3.scaleLinear().domain([0, 25, 50, 75, 100])
              .range(["light blue", "cyan", "green", "yellow", "red"])
