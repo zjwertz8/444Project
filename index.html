@@ -184,12 +184,20 @@
           .text(function (d) { return d; });
 
 
+        var jacksonCheckLabel = d3.select(".totalTickets")
+        .append('label')
+        .attr('class', 'check-label')
+        .attr('for', 'jacksonToggle')
+        .text('Toggle Jackson Avenue:')
+        
         //Jackson Ave Toggle
         var jacksonCheck = d3.select('.totalTickets')
         .append('input')
         .attr('id', 'jacksonToggle')
         .attr('type', 'checkbox')
         .on('change', onchange)
+
+
 
 
         //function for when drop down is changed
