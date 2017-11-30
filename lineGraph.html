@@ -16,6 +16,7 @@
   </p>
 </div>
 <h1 style="text-align: center;">Select or De-select Parking lots by clicking on the legends at the bottom</h1>
+<h4 style="text-align: center">Compare and contrast the top 10 most densely cited parking lots.</h4>
 <script>
 
 // Set the dimensions of the canvas / graph
@@ -34,6 +35,7 @@ var y = d3.scaleLinear().range([height, 0]);
 var priceline = d3.line()
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.price); });
+
 
 
 // Adds the svg canvas
