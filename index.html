@@ -79,6 +79,10 @@
           content: ''
         });
 
+        var infowindow2 = new google.maps.InfoWindow({
+          content: ''
+        })
+
         var years = ["All", "2014", "2015", "2016", "2017"];
         var days = ["All"];
         var later = ["All", "2015", "2016", "2017"];
@@ -422,7 +426,17 @@
             }
           }
 
-
+          if (zoneCheck._groups[0][0].checked)
+        {
+          buildZoneOverlay();
+        }
+        else
+        {
+          //clear polygons
+          for(var i = 0; i < existingZones.length; i++){
+              existingZones[i].setMap(null);
+          }
+        }
           buildHeatmap(selectYear,selectMonth, selectDay);
           }
           //if jackson toggle is not checked
@@ -612,22 +626,23 @@
 
           buildHeatmap(selectYear,selectMonth, selectDay);
         }
-        if(zoneCheck._groups[0][0].checked == true)
+
+        if (zoneCheck._groups[0][0].checked)
         {
           buildZoneOverlay();
         }
         else
         {
           //clear polygons
-          for(var i = 0; i < existingZones.length; i++){
+          for(var i = 0; i < existingZones.length; i++)
+          {
               existingZones[i].setMap(null);
           }
         }
         };
-
-
-        function buildZoneOverlay()
+         function buildZoneOverlay()
         {
+          
           //clear polygons
           for(var i = 0; i < existingZones.length; i++){
               existingZones[i].setMap(null);
@@ -675,6 +690,7 @@
         residentialCentralPoly.setMap(map);
         residentialSouthPoly.setMap(map);
         commuterPoly.setMap(map);
+
         }
 
 
@@ -1103,6 +1119,11 @@
               infowindow.close();
             }
 
+            if(infowindow2) 
+            {
+              infowindow2.close();
+            }
+
 
             infowindow.setContent("<div id='iw-container'>"
               + "<div id='iw-title'>"
@@ -1405,7 +1426,7 @@
 
         //#38 Dorm Row West
         dormRowWestPoly = new google.maps.Polygon({
-          paths: [window.LatLng.dormRowWestLatLng1, window.LatLng.dormRowWestLatLng2, window.LatLng.dormRowWestLatLng3],
+          paths: window.LatLng.dormRowWestLatLng,
            fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "DORM ROW WEST", year, month, day)),
           fillOpacity: 0.95,
           strokeWeight: 0.6
@@ -1506,7 +1527,13 @@
           strokeWeight: 0.6
         });
 
-        //#50 
+        // //#50 North Lane
+        northLanePoly = new google.maps.Polygon({
+          paths: window.LatLng.northLaneLatLng,
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "NORTH LANE", year, month, day)),
+          fillOpacity: 0.95,
+          strokeWeight: 0.6
+        });
 
 
         lotAndLatLngDict = {
@@ -1578,7 +1605,8 @@
           "GUYTON COMMUTER" : new google.maps.LatLng(34.366522536056245, -89.5437066257),
           "LUCKYDAY EAST LOTS" : new google.maps.LatLng(34.36790185411465, -89.52928707003593),
           "TURNER CENTER EAST LOT" : new google.maps.LatLng(34.36375608251882, -89.53655518591404),
-          "REBEL DRIVE" : new google.maps.LatLng(34.36729743663703, -89.53948751091957)
+          "REBEL DRIVE" : new google.maps.LatLng(34.36729743663703, -89.53948751091957),
+          "NORTH LANE" : new google.maps.LatLng()
         }
 
         
@@ -2045,6 +2073,15 @@
         this.setOptions({strokeWeight: 0.6});
         });
 
+        //#50 North Lane
+        google.maps.event.addListener(northLanePoly, 'mouseover', function() {
+        addInfoWindow("NORTH LANE");
+        this.setOptions({strokeWeight: 1.6});
+        });
+        google.maps.event.addListener(northLanePoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
 
 
 
@@ -2119,7 +2156,8 @@
         existingPolygons.push(guytonPoly);
         existingPolygons.push(luckydayPoly);
         existingPolygons.push(turnerEastPoly);
-        existingPolygons.push(rebelDrivePoly)
+        existingPolygons.push(rebelDrivePoly);
+        existingPolygons.push(northLanePoly);
 
         //bind polygons to map
         //#1
@@ -2192,6 +2230,7 @@
         luckydayPoly.setMap(map);
         turnerEastPoly.setMap(map);
         rebelDrivePoly.setMap(map);
+        northLanePoly.setMap(map);
 
         }
 
