@@ -626,8 +626,7 @@
 
           buildHeatmap(selectYear,selectMonth, selectDay);
         }
-
-        if (zoneCheck._groups[0][0].checked)
+      if (zoneCheck._groups[0][0].checked)
         {
           buildZoneOverlay();
         }
@@ -639,10 +638,46 @@
               existingZones[i].setMap(null);
           }
         }
+        
+        
         };
+         
          function buildZoneOverlay()
         {
           
+          lotAndLatLngDictZ = 
+          {
+            "RESIDENTIAL EAST ZONE": new google.maps.LatLng(34.36921030338676, -89.53345119953156),
+            "RESIDENTIAL CENTRAL ZONE": new google.maps.LatLng(34.371689880464444, -89.53582763671875),
+            "RESIDENTIAL SOUTH ZONE": new google.maps.LatLng(34.36515426553087, -89.54214692115784),
+            "COMMUTER ZONE": new google.maps.LatLng(34.363648699327484, -89.54376697540283)
+
+
+
+          }
+
+          function addInfoWindow(lotName) {
+            if(infowindow)
+            {
+              infowindow.close();
+            }
+
+
+            if(infowindow2) 
+            {
+              infowindow2.close();
+            }
+
+            infowindow2.setContent("<div id='iw-container'>"
+              + "<div id='iw-title'>"
+              + "<span class='lot-name'>" + lotName + "</span>"
+              + "</div>"
+              + "</div>");
+
+            infowindow2.setPosition(lotAndLatLngDictZ[lotName]);
+            infowindow2.open(map);
+          }
+
           //clear polygons
           for(var i = 0; i < existingZones.length; i++){
               existingZones[i].setMap(null);
@@ -690,6 +725,42 @@
         residentialCentralPoly.setMap(map);
         residentialSouthPoly.setMap(map);
         commuterPoly.setMap(map);
+
+
+        google.maps.event.addListener(residentialEastPoly, 'click', function() {
+          addInfoWindow("RESIDENTIAL EAST ZONE");
+          this.setOptions({strokeWeight: 1.6});
+        })
+        google.maps.event.addListener(residentialEastPoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
+         google.maps.event.addListener(residentialCentralPoly, 'click', function() {
+          addInfoWindow("RESIDENTIAL CENTRAL ZONE");
+          this.setOptions({strokeWeight: 1.6});
+        })
+        google.maps.event.addListener(residentialCentralPoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
+
+        google.maps.event.addListener(residentialSouthPoly, 'click', function() {
+          addInfoWindow("RESIDENTIAL SOUTH ZONE");
+          this.setOptions({strokeWeight: 1.6});
+        })
+        google.maps.event.addListener(residentialSouthPoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
+
+        google.maps.event.addListener(commuterPoly, 'click', function() {
+          addInfoWindow("COMMUTER ZONE");
+          this.setOptions({strokeWeight: 1.6});
+        })
+        google.maps.event.addListener(commuterPoly, 'mouseout', function() {
+        this.setOptions({strokeWeight: 0.6});
+        });
+
 
         }
 
@@ -1118,6 +1189,7 @@
             {
               infowindow.close();
             }
+
 
             if(infowindow2) 
             {
@@ -1606,7 +1678,7 @@
           "LUCKYDAY EAST LOTS" : new google.maps.LatLng(34.36790185411465, -89.52928707003593),
           "TURNER CENTER EAST LOT" : new google.maps.LatLng(34.36375608251882, -89.53655518591404),
           "REBEL DRIVE" : new google.maps.LatLng(34.36729743663703, -89.53948751091957),
-          "NORTH LANE" : new google.maps.LatLng()
+          "NORTH LANE" : new google.maps.LatLng(34.36921030338676, -89.53345119953156)
         }
 
         
