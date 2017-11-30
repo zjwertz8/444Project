@@ -131,18 +131,21 @@ select.select {
 }
 
 
-.number {
+.number 
+{
     font-weight: bold;
     color: rgb(40, 96, 144);
 }
-.compareContainer {
+
+.compareContainer 
+{
     text-align: center;
     margin-top: 10px;
 }
 
 .legend-keys {
     font-weight: bold;
-    color: #C8102E;
+    color: white;
     font-size: 18px;
     font-family: "Roboto", sans-serif;
 

@@ -211,7 +211,8 @@
           selectYear = d3.select("#year").property("value");
           selectMonth = d3.select("#month").property("value");
           selectDay = d3.select("#day").property("value");
-
+          
+          //if Jackson toggle is checked
           if(jacksonCheck._groups[0][0].checked == true)
           {
             if(infowindow)
@@ -231,29 +232,39 @@
             yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
 
           }
+          //break down into years
           else if(selectYear == 2014)
-          {
+          { 
             if(selectMonth == "All")
             {
               selectMonth = "All";
               selectDay = "All";
+              //enable month drop down, not day
               d3.select("#month").attr('disabled', null);
               d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
+              //based on 2014 selection, remove months and add months available for that year
               monthSelect.selectAll('option').remove();
               monthSelect.selectAll('option').data(months14).enter().append('option').text(function (d) { return d });
-              d3.select("#month").property("value", selectMonth);
+              //based on 2014 selection, remove years and add years available for all (all of them)
               yearSelect.selectAll('option').remove();
               yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
+              //select month and year
+              d3.select("#month").property("value", selectMonth);
               d3.select("#year").property('value', selectYear);
             }
+            //they selected a month
             else
-            {
+            { 
+              //enable month and day dropdown
               d3.select("#day").attr('disabled', null);
               d3.select("#month").attr('disabled', null);
-              yearSelect.selectAll('option').remove();
-              yearSelect.selectAll('option').data(early).enter().append('option').text(function (d) { return d });
+              //based on 2014 selection, remove months and add months available for that year
               monthSelect.selectAll('option').remove();
               monthSelect.selectAll('option').data(months14).enter().append('option').text(function (d) { return d });
+              //based on 2014 selection, remove years and add years available for those months
+              yearSelect.selectAll('option').remove();
+              yearSelect.selectAll('option').data(early).enter().append('option').text(function (d) { return d });
+              //select month and year
               d3.select("#month").property("value", selectMonth);
               d3.select("#year").property("value", selectYear);
               var newDays = ["All"];
@@ -271,7 +282,7 @@
                 //select day
                 d3.select("#day").property("value", selectDay);
             }
-          }
+          } //end if year = 2014
        else if (selectYear == 2015 || selectYear == 2016)
         {
           if(selectMonth == "All")
@@ -289,14 +300,17 @@
               d3.select("#year").property('value', selectYear);
           }
           else
-          {
+          { 
+            //if these months, they have different yearSelect than 7-12
             if(selectMonth == "January" || selectMonth == "February" || selectMonth == "March" || selectMonth == "April" || selectMonth == "May" || selectMonth == "June")
             {
-
+            //enable month and day dropdown
             d3.select("#day").attr('disabled', null);
             d3.select("#month").attr('disabled', null);
+            //based on 2015 or 2016 selection, remove months and add months available for these years
             monthSelect.selectAll('option').remove();
             monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
+           //based on 2015 or 2016 selection, remove years and add years available for those months (1-6)
             yearSelect.selectAll('option').remove();
             yearSelect.selectAll('option').data(later).enter().append('option').text(function (d) { return d });
             d3.select("#month").property("value", selectMonth);
@@ -317,12 +331,16 @@
             //select day
             d3.select("#day").property("value", selectDay);
             }
+            //month between 7-12 was selected 
             else
             {
+              //enable month and day dropdown
             d3.select("#day").attr('disabled', null);
             d3.select("#month").attr('disabled', null);
+            //based on 2015 or 2016 selection, remove months and add months available for these years
             monthSelect.selectAll('option').remove();
             monthSelect.selectAll('option').data(months).enter().append('option').text(function (d) { return d });
+            //based on 2015 or 2016 selection, remove years and add years available for those months (7-12)
             yearSelect.selectAll('option').remove();
             yearSelect.selectAll('option').data(early).enter().append('option').text(function (d) { return d });
             d3.select("#month").property("value", selectMonth);
@@ -345,7 +363,7 @@
             d3.select("#day").property("value", selectDay);
             }
           }
-        }
+        } //end year = 2015 or 2016
         else //2017
           {
             if(selectMonth == "All")
@@ -392,6 +410,7 @@
 
           buildHeatmap(selectYear,selectMonth, selectDay);
           }
+          //if jackson toggle is not checked
           else if(jacksonCheck._groups[0][0].checked == false)
           //toggle not checked
           {
@@ -873,6 +892,7 @@
         }
           return currentMax;
           }
+
           else
           {
           currentMax = 0;
@@ -933,7 +953,6 @@
         }
           return currentMax;
         }
-
         }
 
         function buildLegend(max, newgradient, year, month, day)
@@ -942,6 +961,7 @@
           d3.select('svg').remove();
           d3.selectAll('.legend-keys').remove();
           d3.selectAll('.totalCount').remove();
+
 
           d3.select('#map-container').append('text').attr('class', 'legend-keys').text('0');
           d3.select('#map-container').append('svg');
@@ -957,6 +977,8 @@
           .attr('height', 40)
           .attr('transform', 'translate(0, -5)')
 
+
+          
            var colorScale = d3.scaleLinear().domain([0, 25, 50, 75, 100])
              .range(["light blue", "cyan", "green", "yellow", "red"])
           var xScale = d3.scaleLinear().domain([0, 100]).range([0, 300])
@@ -974,15 +996,12 @@
           d3.select('#map-container').append('text').attr('class','legend-keys').text(max).style('transform','translateY(-50px)');
 
 
-
-
           d3.select('.totalTickets')
                 .append('text')
                 .attr('class', 'totalCount')
                 .text("Total Number of Tickets: " + totalCount(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day))
                   .style('color', '#13294B')
             }
-
 
 
         //function to get rid of precious polygons and then add new ones
@@ -999,7 +1018,26 @@
 
           //need function to find highest number
         var gradient = d3.scaleLinear().domain([0, maxGradient1 * 0.25, maxGradient1 * 0.50, maxGradient1 * 0.75, maxGradient1]).range(["LIGHT BLUE", "CYAN", "GREEN", "YELLOW", "RED"]);
+        
+        //infoWindows for polygons
+        function addInfoWindow(lotName) {
+            if(infowindow)
+            {
+              infowindow.close();
+            }
 
+
+            infowindow.setContent("<div id='iw-container'>"
+              + "<div id='iw-title'>"
+              + "<span class='lot-name'>" + lotName + "</span>"
+              + "</div>"
+              + "<div class='ymd'>Year: " + year + " | Month: " + month + " | Day: " + day
+              + "</div>"
+              + "<div id='iw-content'>Tickets: <strong>" + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day) + "</strong></div></div>");
+
+            infowindow.setPosition(lotAndLatLngDict[lotName]);
+            infowindow.open(map);
+        }
 
           //clear polygons
           for(var i = 0; i < existingPolygons.length; i++){
@@ -1105,6 +1143,13 @@
           strokeWeight: 0.6
         });
 
+         kinardRearPoly = new google.maps.Polygon({
+          paths: window.LatLng.kinardRearLatLng,
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "KINARD REAR", year, month, day)),
+          fillOpacity: 0.95,
+          strokeWeight: 0.6
+        });
+
         circlePoly = new google.maps.Polygon({
           paths: [window.LatLng.outerCircleLatLng, window.LatLng.innerCircleLatLng],
           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "CIRCLE", year, month, day)),
@@ -1112,6 +1157,9 @@
           strokeWeight: 0.6
         });
 
+
+
+        //#16
         oldAthleticsPoly = new google.maps.Polygon({
           paths: window.LatLng.oldAthleticsLatLng,
           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "OLD ATHLETICS F/S", year, month, day)),
@@ -1119,9 +1167,6 @@
           strokeWeight: 0.6
         });
 
-
-
-        //#16
         kincannonPoly = new google.maps.Polygon({
           paths: window.LatLng.kincannonLatLng,
           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "KINCANNON  HALL PARKING LOT", year, month, day)),
@@ -1151,6 +1196,9 @@
         });
 
 
+
+
+        //#21
         dormRowNorthPoly = new google.maps.Polygon({
           paths: [window.LatLng.dormRowNorthLatLng1, window.LatLng.dormRowNorthLatLng2, window.LatLng.dormRowNorthLatLng3],
           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "DORM ROW NORTH", year, month, day)),
@@ -1158,11 +1206,8 @@
           strokeWeight: 0.6
         });
 
-
-
-        //#21
         campusWalkPoly = new google.maps.Polygon({
-          paths: [window.LatLng.campusWalkLatLng, window.LatLng.campusWalkHoleLatLng1, window.LatLng.campusWalkHoleLatLng2, window.LatLng.campusWalkHoleLatLng3, window.LatLng.campusWalkHoleLatLng4, window.LatLng.campusWalkHoleLatLng5],
+          paths: window.LatLng.campusWalkLatLng,
            fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "CAMPUS WALK APT. COMPLEX", year, month, day)),
           fillOpacity: 0.95,
           strokeWeight: 0.6
@@ -1183,12 +1228,15 @@
         // });
 
         coliseumWestPoly = new google.maps.Polygon({
-          paths: [window.LatLng.coliseumWestLatLng1, window.LatLng.coliseumWestLatLng2, window.LatLng.coliseumWestLatLng3, window.LatLng.coliseumWestLatLng4],
+          paths: window.LatLng.coliseumWestLatLng1,
            fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "COLISEUM WEST LOT", year, month, day)),
           fillOpacity: 0.95,
           strokeWeight: 0.6
         });
 
+
+
+        //#26
         womensTerraceUpperPoly = new google.maps.Polygon({
           paths: window.LatLng.womensTerraceUpperLatLng,
            fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "WOMENS TERRACE-UPPER LOT", year, month, day)),
@@ -1196,8 +1244,6 @@
           strokeWeight: 0.6
         });
 
-
-        //#26
         turnerColiseumPoly = new google.maps.Polygon({
           paths: window.LatLng.turnerColiseumLatLng,
            fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "TURNER COLISEUM LOT", year, month, day)),
@@ -1226,19 +1272,12 @@
           strokeWeight: 0.6
         });
 
-        southLotPoly = new google.maps.Polygon({
-          paths: window.LatLng.southLotLatLng,
-           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "SOUTH LOT", year, month, day)),
-          fillOpacity: 0.95,
-          strokeWeight: 0.6
-        });
-
 
 
         //#31
-        kinardRearPoly = new google.maps.Polygon({
-          paths: window.LatLng.kinardRearLatLng,
-           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "KINARD REAR", year, month, day)),
+        southLotPoly = new google.maps.Polygon({
+          paths: window.LatLng.southLotLatLng,
+           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "SOUTH LOT", year, month, day)),
           fillOpacity: 0.95,
           strokeWeight: 0.6
         });
@@ -1368,7 +1407,7 @@
 
         //#47 Luckyday
         luckydayPoly = new google.maps.Polygon({
-          paths: [window.LatLng.luckydayLatLng1, window.LatLng.luckydayLatLng2],
+          paths: window.LatLng.luckydayLatLng1,
            fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "LUCKYDAY EAST LOTS", year, month, day)),
           fillOpacity: 0.95,
           strokeWeight: 0.6
@@ -1412,32 +1451,33 @@
           "MEEK LOT" : new google.maps.LatLng(34.3674288001151, -89.53739404678345),
           "BISHOP LOT" : new google.maps.LatLng(34.365564601387156, -89.53974902629852),
           "FORD CENTER LOT" : new google.maps.LatLng(34.36741994416282, -89.5282906293869),
+          "KINARD REAR" : new google.maps.LatLng(34.369032449857976, -89.54127252101898),
           "CIRCLE" : new google.maps.LatLng(34.3660295477764, -89.53502297401428),
-          "OLD ATHLETICS F/S" : new google.maps.LatLng(34.36398819206313, -89.53863859176636),
 
           //#16
+          "OLD ATHLETICS F/S" : new google.maps.LatLng(34.36398819206313, -89.53863859176636),
           "KINCANNON  HALL PARKING LOT" : new google.maps.LatLng(34.36960364607053, -89.53856885433197),
           "WOMENS TERRACE-LOWER LOT" : new google.maps.LatLng(34.368850906327204, -89.53476279973984),
           "HFL FACULTY/STAFF" : new google.maps.LatLng(34.36704208934999, -89.53857153654099),
           "OLD ATHLETICS METER" : new google.maps.LatLng(34.364292258415695, -89.53848570585251),
-          "DORM ROW NORTH" : new google.maps.LatLng(34.36702511524971, -89.5376904308796),
 
           //#21
+          "DORM ROW NORTH" : new google.maps.LatLng(34.36702511524971, -89.5376904308796),
           "CAMPUS WALK APT. COMPLEX" : new google.maps.LatLng(34.364366060716115, -89.54769641160965),
           "NCPA FACULTY/STAFF LOT" : new google.maps.LatLng(34.36204273213624, -89.54077363014221),
           // "ALL AMERICAN DR." : new google.maps.LatLng(34.364382666231094, -89.53818965703249),
           "COLISEUM WEST LOT" : new google.maps.LatLng(34.363375037542795, -89.54072856955463),
-          "WOMENS TERRACE-UPPER LOT" : new google.maps.LatLng(34.368250923426345, -89.53442215919495),
 
           //#26
+          "WOMENS TERRACE-UPPER LOT" : new google.maps.LatLng(34.368250923426345, -89.53442215919495),
           "TURNER COLISEUM LOT" : new google.maps.LatLng(34.3626006913775, -89.53744769096375),
           "FRATERNITY ALLEY" : new google.maps.LatLng(34.36462141636153, -89.54166948795319),
           "THE INN AT OLE MISS" : new google.maps.LatLng(34.3674184679905, -89.52908992767334),
           "MUSIC BUILDING WEST LOT": new google.maps.LatLng(34.36443691089038, -89.53004479408264),
-          "SOUTH LOT" : new google.maps.LatLng(34.35723940805898, -89.53495860099792),
 
+          
           //#31
-          "KINARD REAR" : new google.maps.LatLng(34.369032449857976, -89.54127252101898),
+          "SOUTH LOT" : new google.maps.LatLng(34.35723940805898, -89.53495860099792),
           //no union lot anymore #32
           "SORORITY ROW" : new google.maps.LatLng(34.36973943358368, -89.53249499201775),
           "MARTINDALE METER" : new google.maps.LatLng(34.364310708975786, -89.53793451189995),
@@ -1464,27 +1504,7 @@
           "REBEL DRIVE" : new google.maps.LatLng(34.36729743663703, -89.53948751091957)
         }
 
-
-
-        function addInfoWindow(lotName) {
-            if(infowindow)
-            {
-              infowindow.close();
-            }
-
-
-            infowindow.setContent("<div id='iw-container'>"
-              + "<div id='iw-title'>"
-              + "<span class='lot-name'>" + lotName + "</span>"
-              + "</div>"
-              + "<div class='ymd'>Year: " + year + " | Month: " + month + " | Day: " + day
-              + "</div>"
-              + "<div id='iw-content'>Tickets: <strong>" + fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), lotName, year, month, day) + "</strong></div></div>");
-
-            infowindow.setPosition(lotAndLatLngDict[lotName]);
-            infowindow.open(map);
-        }
-
+        
         //Info Window event listeners, every polygon
         //#1 Jackson Ave
         google.maps.event.addListener(jacksonAvePoly, 'mouseover', function() {
