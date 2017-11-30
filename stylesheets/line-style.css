@@ -52,11 +52,14 @@ html, body, main
 }
 
 html {
+  /*
   background: url(vaught.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  */
+  background-color:white;
 }
 
 p {
