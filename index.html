@@ -636,14 +636,45 @@
           //#top right zone
           residentialEastPoly = new google.maps.Polygon({
           paths: window.LatLng.residentialEast,
-          fillColor: "Green",
-          fillOpacity: 0.30,
+          fillColor: "#00FFCC",
+          fillOpacity: 0.50,
+          strokeWeight: 0.6
+        });
+
+          //#top middle zone
+          residentialCentralPoly = new google.maps.Polygon({
+          paths: window.LatLng.residentialCentral,
+          fillColor: "#885511",
+          fillOpacity: 0.50,
+          strokeWeight: 0.6
+        });
+
+          //#left middle zone
+          residentialSouthPoly = new google.maps.Polygon({
+          paths: window.LatLng.residentialSouth,
+          fillColor: "#FF4422",
+          fillOpacity: 0.50,
+          strokeWeight: 0.6
+        });
+
+          //#commuter
+          commuterPoly = new google.maps.Polygon({
+          paths: [window.LatLng.commuter1, window.LatLng.commuter2],
+          fillColor: "#005511",
+          fillOpacity: 0.50,
           strokeWeight: 0.6
         });
 
 
         existingZones.push(residentialEastPoly);
+        existingZones.push(residentialCentralPoly);
+        existingZones.push(residentialSouthPoly);
+        existingZones.push(commuterPoly);
+
         residentialEastPoly.setMap(map);
+        residentialCentralPoly.setMap(map);
+        residentialSouthPoly.setMap(map);
+        commuterPoly.setMap(map);
         }
 
 
@@ -1021,7 +1052,7 @@
 
           vis
           .attr('height', 40)
-          .attr('transform', 'translate(0, -5)')
+          .attr('transform', 'translate(0, 2)')
 
 
           
@@ -1453,7 +1484,7 @@
 
         //#47 Luckyday
         luckydayPoly = new google.maps.Polygon({
-          paths: window.LatLng.luckydayLatLng1,
+          paths: window.LatLng.luckydayLatLng,
            fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "LUCKYDAY EAST LOTS", year, month, day)),
           fillOpacity: 0.95,
           strokeWeight: 0.6
