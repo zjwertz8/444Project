@@ -3,61 +3,24 @@
 <head>
     <!-- <link rel="stylesheet" href="stylesheets/line-style.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/pie-styles.css">
 </head>
-<style>
 
-body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  width: 960px;
-  height: 500px;
-  position: relative;
-}
-
-svg {
-	width: 100%;
-	height: 100%;
-}
-
-path.slice{
-	stroke-width:2px;
-}
-
-polyline{
-	opacity: .3;
-	stroke: black;
-	stroke-width: 2px;
-	fill: none;
-}
-
-.labelValue
-{
-	font-size: 50%;
-	opacity: .5;
-	
-}
-
-.toolTip {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    position: absolute;
-    display: none;
-    width: auto;
-    height: auto;
-    background: none repeat scroll 0 0 white;
-    border: 0 none;
-    border-radius: 8px 8px 8px 8px;
-    box-shadow: -3px 3px 15px #888888;
-    color: black;
-    font: 12px sans-serif;
-    padding: 5px;
-    text-align: center;
-}
-text {
-  font: 12px sans-serif;
-}
-</style>
 <body>
+
+  <p></p>
+  <div class="banner-top">
+    <img class="resize" src="stylesheets/2000px-Ole_Miss_Rebels_logo.svg.png"><br/>
+    <p class="no-padding-no-margins headline">
+      Number of Citations Per Day of the Week Analysis
+    </p>
+  </div>
+<div>
+  <br />
+  <a href="index.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Back to Main</button></a>
+  <br />
+</div>
 <form>
-    <h1>Number of Citations Per Day of the Week Analysis</h1>
 <label><input type="radio" name="dataset" id="dataset" value="total" checked> Total</label>
 <label><input type="radio" name="dataset" id="dataset" value="option1"> 2014</label>
 <label><input type="radio" name="dataset" id="dataset" value="option2"> 2015</label>
@@ -116,8 +79,8 @@ var color = d3.scale.ordinal()
 
 
 datasetTotal = [
-		{label:"Monday", value:21.7}, 
-        {label:"Tuesday", value:22.0}, 
+		{label:"Monday", value:21.7},
+        {label:"Tuesday", value:22.0},
         {label:"Wednesday", value:21.1},
         {label:"Thursday", value:19.7},
         {label:"Friday", value:15.0},
@@ -128,15 +91,15 @@ datasetOption1 = [
         {label:"Thursday", value:20.5},
         {label:"Friday", value:11.7},
         {label:"Weekend", value:0.6},
-		{label:"Monday", value:23.2}, 
-        {label:"Tuesday", value:21.6}, 
+		{label:"Monday", value:23.2},
+        {label:"Tuesday", value:21.6},
         {label:"Wednesday", value:22.1},
-             
+
         ];
 
 datasetOption2 = [
-		{label:"Monday", value:21.6}, 
-        {label:"Tuesday", value:22.6}, 
+		{label:"Monday", value:21.6},
+        {label:"Tuesday", value:22.6},
         {label:"Wednesday", value:21.3},
         {label:"Thursday", value:19.3},
         {label:"Friday", value:14.5},
@@ -147,27 +110,27 @@ datasetOption3 = [
         {label:"Thursday", value:19.6},
         {label:"Friday", value:15.6},
         {label:"Weekend", value:0.3},
-        {label:"Monday", value:21.3}, 
-        {label:"Tuesday", value:21.8}, 
+        {label:"Monday", value:21.3},
+        {label:"Tuesday", value:21.8},
         {label:"Wednesday", value:21.2},
-      
+
         ];
 
 datasetOption4 = [
-        {label:"Monday", value:21.2}, 
-        {label:"Tuesday", value:21.2}, 
+        {label:"Monday", value:21.2},
+        {label:"Tuesday", value:21.2},
         {label:"Wednesday", value:19.1},
         {label:"Thursday", value:20.1},
         {label:"Friday", value:18.0},
         {label:"Weekend", value:0.3},
-        ];                
+        ];
 
 change(datasetTotal);
 
 
 d3.selectAll("input")
 	.on("change", selectDataset);
-	
+
 function selectDataset()
 {
 	var value = this.value;
@@ -326,13 +289,15 @@ function change(data) {
 
 
 </script>
-<div class="banner-bottom">
+<!--<div class="banner-bottom">
     <div id="gradient"></div>
     <div class="totalTickets"></div>
     <div class="compareContainer">
-        <div id="myButton">
-            <a href="index.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Back to Main</button></a>
-        </div>
+        <div id="myButton">-->
+            <!--<a href="index.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Back to Main</button></a>-->
+        <!--</div>
     </div>
 </div>
+<div class="buffer-big"></div>-->
 </body>
+</html>
