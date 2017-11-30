@@ -39,6 +39,7 @@
 
         //array of existing polygons
         var existingPolygons = [];
+        var existingZones = [];
 
 
 
@@ -189,7 +190,18 @@
           .append('option')
           .text(function (d) { return d; });
 
+        var zoneCheckLabel = d3.select(".totalTickets")
+        .append('label')
+        .attr('class', 'check-label')
+        .attr('for', 'zoneToggle')
+        .text('Toggle Parking Zones:')
 
+        //Zone Toggle
+        var zoneCheck = d3.select('.totalTickets')
+        .append('input')
+        .attr('id', 'zoneToggle')
+        .attr('type', 'checkbox')
+        .on('change', onchange)
 
         var jacksonCheckLabel = d3.select(".totalTickets")
         .append('label')
@@ -203,6 +215,8 @@
         .attr('id', 'jacksonToggle')
         .attr('type', 'checkbox')
         .on('change', onchange)
+
+
 
 
         //function for when drop down is changed
@@ -363,6 +377,7 @@
             d3.select("#day").property("value", selectDay);
             }
           }
+
         } //end year = 2015 or 2016
         else //2017
           {
@@ -597,8 +612,39 @@
 
           buildHeatmap(selectYear,selectMonth, selectDay);
         }
+        if(zoneCheck._groups[0][0].checked == true)
+        {
+          buildZoneOverlay();
+        }
+        else
+        {
+          //clear polygons
+          for(var i = 0; i < existingZones.length; i++){
+              existingZones[i].setMap(null);
+          }
+        }
         };
 
+
+        function buildZoneOverlay()
+        {
+          //clear polygons
+          for(var i = 0; i < existingZones.length; i++){
+              existingZones[i].setMap(null);
+          }
+
+          //#top right zone
+          residentialEastPoly = new google.maps.Polygon({
+          paths: window.LatLng.residentialEast,
+          fillColor: "Green",
+          fillOpacity: 0.30,
+          strokeWeight: 0.6
+        });
+
+
+        existingZones.push(residentialEastPoly);
+        residentialEastPoly.setMap(map);
+        }
 
 
         // function to find key in array, give correct fill color
@@ -1112,7 +1158,7 @@
         });
 
           poolePoly = new google.maps.Polygon({
-          paths: [window.LatLng.pooleLatLng1, window.LatLng.pooleLatLng2, window.LatLng.pooleLatLng3, window.LatLng.pooleLatLng4, window.LatLng.pooleLatLng5, window.LatLng.pooleLatLng6, window.LatLng.pooleLatLng7, window.LatLng.pooleLatLng8, window.LatLng.pooleLatLng9, window.LatLng.pooleLatLng10, window.LatLng.pooleLatLng11],
+          paths: window.LatLng.pooleLatLng,
           fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "POOLE DRIVE", year, month, day)),
           fillOpacity: 0.95,
           strokeWeight: 0.6
@@ -1286,7 +1332,7 @@
 
         //#33 Sorority Row
         sororityRowPoly = new google.maps.Polygon({
-          paths: [window.LatLng.sororityRowLatLng1, window.LatLng.sororityRowLatLng2, window.LatLng.sororityRowLatLng3, window.LatLng.sororityRowLatLng4, window.LatLng.sororityRowLatLng5, window.LatLng.sororityRowLatLng6, window.LatLng.sororityRowLatLng7],
+          paths: window.LatLng.sororityRowLatLng,
            fillColor: gradient(fillColor(yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD), "SORORITY ROW", year, month, day)),
           fillOpacity: 0.95,
           strokeWeight: 0.6
