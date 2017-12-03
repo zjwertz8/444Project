@@ -75,6 +75,7 @@
           .rollup(function(v) {return v.length;})
           .entries(data)
 
+        //Info Windows for labels
         var infowindow = new google.maps.InfoWindow({
           content: ''
         });
@@ -83,6 +84,7 @@
           content: ''
         })
 
+        //different arrays for populating lists, depends on selection
         var years = ["All", "2014", "2015", "2016", "2017"];
         var days = ["All"];
         var later = ["All", "2015", "2016", "2017"];
@@ -194,6 +196,7 @@
           .append('option')
           .text(function (d) { return d; });
 
+        //label for check zone
         var zoneCheckLabel = d3.select(".totalTickets")
         .append('label')
         .attr('class', 'check-label')
@@ -207,6 +210,7 @@
         .attr('type', 'checkbox')
         .on('change', onchange)
 
+        //label for jackson toggle
         var jacksonCheckLabel = d3.select(".totalTickets")
         .append('label')
         .attr('class', 'check-label')
@@ -241,11 +245,14 @@
           //if month is all, month and day is "All", disable day drop down
           if(selectYear == "All")
           {
+            //set all options to all
             selectYear = "All";
             selectMonth = "All";
             selectDay = "All";
+            //disable month and day drop downs
             d3.select("#day").attr('disabled', 'disabled').property('value', 'All');
             d3.select("#month").attr('disabled', 'disabled').property('value', 'All');
+            //remove previous options and replace with new ones
             yearSelect.selectAll('option').remove();
             yearSelect.selectAll('option').data(years).enter().append('option').text(function (d) { return d });
 
@@ -1144,7 +1151,7 @@
 
           
            var colorScale = d3.scaleLinear().domain([0, 25, 50, 75, 100])
-             .range(["light blue", "cyan", "green", "yellow", "red"])
+             .range(["#FDBB2D", "#C6BC52", "#8FBE78", "#58BF9D", "#22C1C3"])
           var xScale = d3.scaleLinear().domain([0, 100]).range([0, 300])
 
           var arr = d3.range(101);
@@ -1181,7 +1188,7 @@
 
 
           //need function to find highest number
-        var gradient = d3.scaleLinear().domain([0, maxGradient1 * 0.25, maxGradient1 * 0.50, maxGradient1 * 0.75, maxGradient1]).range(["LIGHT BLUE", "CYAN", "GREEN", "YELLOW", "RED"]);
+        var gradient = d3.scaleLinear().domain([0, maxGradient1 * 0.25, maxGradient1 * 0.50, maxGradient1 * 0.75, maxGradient1]).range(["#FDBB2D", "#C6BC52", "#8FBE78", "#58BF9D", "#22C1C3"]);
         
         //infoWindows for polygons
         function addInfoWindow(lotName) {
