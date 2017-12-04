@@ -775,6 +775,7 @@
         // function to find key in array, give correct fill color
         function fillColor(lotCount, lotName, year, month="All", day="All")
         {
+          //if jackson ave toggle clicked
           if(jacksonCheck._groups[0][0].checked)
           {
             total = 0;
@@ -1133,15 +1134,11 @@
           d3.selectAll('.legend-keys').remove();
           d3.selectAll('.totalCount').remove();
 
-
+          //create 0 label, gradient svg
           d3.select('#map-container').append('text').attr('class', 'legend-keys').text('0');
           d3.select('#map-container').append('svg');
 
-          // var text = d3.select('text')
-
-          // text
-          // .attr('transform', 'translate(0, -4)')
-
+          //set svg height and lower it slightly
           var vis = d3.select('svg')
 
           vis
@@ -1149,11 +1146,12 @@
           .attr('transform', 'translate(0, 2)')
 
 
-          
+          //create gradient
            var colorScale = d3.scaleLinear().domain([0, 25, 50, 75, 100])
              .range(["#FDBB2D", "#C6BC52", "#8FBE78", "#58BF9D", "#22C1C3"])
           var xScale = d3.scaleLinear().domain([0, 100]).range([0, 300])
 
+          //create 100 rectangles, set first color to 0 and increase every rect
           var arr = d3.range(101);
           vis.selectAll('rect').data(arr).enter()
           .append('rect')
@@ -1163,10 +1161,10 @@
                 .attr('width', 5)
                 .attr('fill', function(d) { return colorScale(d) })
 
-
+          //add max label
           d3.select('#map-container').append('text').attr('class','legend-keys').text(max).style('transform','translateY(-50px)');
 
-
+          //display total amount of tickets
           d3.select('.totalTickets')
                 .append('text')
                 .attr('class', 'totalCount')
@@ -1183,15 +1181,15 @@
           yearAndMonth = day == "All";
 
             maxGradient1 = maxGradient(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day);
-
+          //create legend based off of selection
           buildLegend(maxGradient1, gradient, year, month, day);
 
-
-          //need function to find highest number
+        //separate domain into five equal bins, with respective colors
         var gradient = d3.scaleLinear().domain([0, maxGradient1 * 0.25, maxGradient1 * 0.50, maxGradient1 * 0.75, maxGradient1]).range(["#FDBB2D", "#C6BC52", "#8FBE78", "#58BF9D", "#22C1C3"]);
         
         //infoWindows for polygons
         function addInfoWindow(lotName) {
+          //close any open windows
             if(infowindow)
             {
               infowindow.close();
@@ -1203,7 +1201,7 @@
               infowindow2.close();
             }
 
-
+            //fill label with info
             infowindow.setContent("<div id='iw-container'>"
               + "<div id='iw-title'>"
               + "<span class='lot-name'>" + lotName + "</span>"
