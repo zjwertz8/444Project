@@ -46,7 +46,13 @@ The Data
 </h1>
 <p>
 Due to privacy concerns, Parking and Transportation Services had to redact some of the data. We received 179284 tickets from 2014 to October 5th, 2017. Many of the tickets were voided and not considered.
-The full data set is avaiable <strong>here</strong>.
+The full data set is avaiable below. Warning - the raw data sets are very large.
+
+<p><h3>Data Sets</h3></p>
+<p><a href="download.php?file=FullDataRaw.xlsx" download="FullDataRaw.xlsx">FullDataRaw.xlsx</a> - Raw data saved as an excel sheet</p>
+<p><a href="download.php?file=FullDataRaw.csv" download="FullDataRaw.csv">FullDataRaw.csv</a> - Raw data saved as a CSV file</p>
+<p><a href="download.php?file=data.csv" download="data.csv">data.csv</a> - Formatted data saved as a CSV file</p>
+
 </p>
 <p>
 In our representation of the data, we used the location by parking lot of each ticket as well as its date to create our visualizations.
@@ -73,8 +79,8 @@ Our application allows the user to view a heatmap representing the density of pa
 <p><a href="download.php?file=stylesheets/documentation.css" download="documentation.css">documentation.css</a> - Stylesheet for documentation page</p>
 <p><a href="download.php?file=stylesheets/2000px-Ole_Miss_Rebels_logo.svg.png" download="2000px-Ole_Miss_Rebels_logo.svg.png">2000px-Ole_Miss_Rebels_logo.svg.png</a> - Ole Miss logo for header</p>
 <p><h3>Scripts</h3></p>
-<p><a href="download.php?file=scripts/globalLatLng.js" download="globalLAtLng.js">globalLatLng.js</a> - Purpose</p>
-<p><a href="download.php?file=scripts/download.php" download="download.php">download.php</a> - Script to support file download on older browsers</p>
+<p><a href="download.php?file=scripts/globalLatLng.js" download="globalLAtLng.js">globalLatLng.js</a> - The plotted latitude and longitude coordinates for the heatmap's polygons</p>
+<p><a href="download.php?file=download.php" download="download.php">download.php</a> - Script to support file download on older browsers</p>
 <p><h3>Latitude & Longitude Reformatting</h3></p>
 <p><a href="download.php?file=LongLatReformat/LatLongGenerator.xlsx" download="LatLongGenerator.xlsx">LatLongGenerator.xlsx</a> - Excel sheet for converting the lat/long of a google map polygon in to the format we needed for our script</p>
 <p><a href="download.php?file=LongLatReformat/LongLatReformatter.java" download="LongLatReformatter.java">LongLatReformatter.java</a> - Java program for converting the lat/long of a google map polygon in to the format we needed for our script</p>
@@ -85,41 +91,45 @@ Our application allows the user to view a heatmap representing the density of pa
 <h2>Milestones</h2>
 </p>
 <p>
-  <strong>Milestone 1 - </strong>Format the raw data.
+  <strong>Milestone 1 - Format the raw data.</strong>
 </p>
-  <p class="indent">Description / Details</a>
+  <p class="indent">Successful separation of excel data, able to retrieve lot name, 2014-2017 for year, 1-12 for month, 1-31 for day. Found in the file data.csv</p>
   <p>
-  <strong>Milestone 2 - </strong>Combine d3 with google maps.
+  <strong>Milestone 2 - Configured d3.js to interact with Google Maps and our data.</strong>
 </p>
-<p class="indent">Description / Details</a>
+<p class="indent">When using lot name, year, month, and day as the keys in thd3 rollup function, it creates an array of objects with keys and values. These values just so happen to be other arrays of objects with keys and values. This nest has four layers. </p>
+<p class="indent">So with a little patience, and some intricate for loops, we are able to track each ticket to a parking lot regardless of what the date is.</p>
+<p class="indent">The page now opens with google maps centered on campus. D3 functionality now works over the map.</p>
+</p>
   <p>
-  <strong>Milestone 3 - </strong>Make polygons fill color with the data.
+  <strong>Milestone 3 - Make polygons fill color with the data.</strong>
 </p>
-<p class="indent">Description / Details</a>
+<p class="indent">We drew polygons over each of the individual parking lots. The value for the number of tickets per parking lot is listed by individual lots over very specific spaces; there are over 200 lots and we needed the parking department to draw out the boundaries of each one.</p>
+<p class="indent">We used a tool called <a href="https://www.doogal.co.uk/polylines.php">Google Maps and KML shapes generator</a> to draw the polygons. This tool also exported the raw latitude and longitude values for each of the points on our polygons. We took that data and put it into one of our reformatting tools (excel sheet and java program) to quickly convert it into the format needed in javascript to plot the polygon.</p>
   <p>
-<strong>Milestone 4 - </strong>Adding selectors to change data.
+<strong>Milestone 4 - Adding selectors to change data.</strong>
 </p>
-<p class="indent">Description / Details</a>
+<p class="indent">Custom FillColor function returns correct value based on parameters. Have drop down list for year, program correctly stores drop down selection</p>
   <p>
-  <strong>Milestone 5 - </strong>Adding color scale and perfect color gradient.
+  <strong>Milestone 5 - Adding color scale and perfect color gradient.</strong>
 </p>
-<p class="indent">Description / Details</a>
+<p class="indent">Implemented use of a color gradient represents a luminosity transition and color transition that is friendly to users with color deficiencies.</p>
   <p>
-  <strong>Milestone 6 - </strong>Toggle the outlier JAC to avoid misleading visualization.
+  <strong>Milestone 6 - Toggle the outlier JAC to avoid misleading visualization.</strong>
 </p>
-<p class="indent">Description / Details</a>
+<p class="indent">Because the JAC lot has twice as many tickets as any other lot, we added a toggle button to view the trends across campus excluding the JAC.</p>
   <p>
-  <strong>Milestone 7 - </strong>Line Graph to visualize the trend.
+  <strong>Milestone 7 -Line Graph to visualize the trend.</strong>
 </p>
-<p class="indent">Description / Details</a>
+<p class="indent">Included a line graph that plots the quantity of parking tickets for the top 10 lots across all available years. </p>
   <p>
-  <strong>Milestone 8 - </strong>Pie chart for Day comparison.
+  <strong>Milestone 8 - Pie chart for Day comparison.</strong>
 </p>
-<p class="indent">Description / Details</a>
+<p class="indent">Included a pie chart that compares the quantity of tickets per weekday over all available years.</p>
   <p>
-  <strong>Milestone 9 - </strong>Adding zones to the whole map, and selector.
+  <strong>Milestone 9 - Adding zones to the whole map, and selector.</strong>
 </p>
-<p class="indent">Description / Details</a>
+<p class="indent">While the tickets identify the location of the ticket by individual days, the parking administration is more familiar with the tickets in terms of parking zones. We began implementation on a toggle for parking zones.</p>
 
 <h1>Challenges we ran into</h1>
 <p>
@@ -192,9 +202,20 @@ HTML, CSS, d3.js, Google Maps
 </p>
 
 <h1>Meeting Schedule</h1>
-
 <p>
-Blah
+  Oct. 4th - Pick Topic/Find dataset
+  Oct. 12 - Comb through data
+  Oct. 16 - GitHub setup
+  Oct. 22 - Plotted first points for heatmap
+  Oct. 29 - Got polygons working for parking lots
+  Nov. 2 - Color of lot mapped to amount of lots, more lots added
+  Nov. 5 - More lots added
+  Nov. 12 - Rollup function to separate year,  month,  day,  dropdown selections added
+  Nov. 23 - Labels for polygons, basic styling of labels
+  Nov. 25 - Graph refresh upon dropdown selection
+  Nov. 26 - Max gradient color is function of highest ticketed lot available based on  selection
+  Nov. 27 - add line graph for comparison button
+  Nov. 28 - add lots 30-50
 </p>
 
 <br />
