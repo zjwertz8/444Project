@@ -780,15 +780,18 @@
           {
             total = 0;
           for(i = 0; i < lotCount.length; i++)
-          {
+          { 
+            //skip jackson ave because button is clicked
             if(lotCount[i].key == "JACKSON AVENUE CENTER")
             {
               continue;
             }
+            //match parking lot name
             if(lotCount[i].key == lotName)
             {
               for(j = 0; j < lotCount[i].values.length; j++)
-                {
+                {   
+                    //if year is all accumulate values of year rollup data
                     if(year == "All"){
                         total += lotCount[i].values[j].value;
                     }
@@ -797,28 +800,34 @@
                         if(month != "All")
                         {
                             for(k = 0; k < lotCount[i].values[j].values.length; k++)
-                            {
+                            {   
+                                //go through years and find correct month
                                 if (month == lotCount[i].values[j].values[k].key)
                                 {
                                    if(day != "All")
-                                   {
+                                   {  
+                                      //go through years and months and days
                                       for(l = 0; l < lotCount[i].values[j].values[k].values.length; l++)
-                                      {
+                                      { 
+                                        //if correct day
                                         if (day == lotCount[i].values[j].values[k].values[l].key)
                                         {
+                                        //total up day value based off year and month in day rollup data
                                         total += lotCount[i].values[j].values[k].values[l].value;
                                         }
                                       }
                                    }
                                    else
                                    {
+                                     //get value of correct year and month based off month rollup data
                                      total = lotCount[i].values[j].values[k].value;
                                    }
                                 }
                             }
                         }
                         else
-                        {
+                        {  
+                          //total equals selected years value in year rollup data
                           total = lotCount[i].values[j].value;
                         }
                     }
