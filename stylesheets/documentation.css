@@ -1,3 +1,5 @@
+
+
 /*
 OFFICIAL COLOR CODES FOR OLE MISS'S SHADE OF RED AND BLUE:
 
@@ -41,12 +43,7 @@ html {
 }
 
 p {
-  color: #13294B;
-  width: auto;
-  /*margin-left: 25%;
-  margin-right: 25%;*/
-  line-height: 130%;
-  margin-bottom: 5px;
+  color: #282828;
 }
 
 .banner-top
@@ -242,6 +239,10 @@ p.body-content {
     margin-bottom: 5px;
 }
 
+p.indent {
+  margin-left: 25px;
+}
+
 .documentation {
   padding-top: 10px;
   padding-left: 25%;
@@ -256,7 +257,7 @@ h1 {
   color: #C8102E;
   font-family: 'Roboto', sans-serif;
   margin-bottom: 6px;
-  font-size: 1.4em;
+  font-size: 2.0em;
   font-weight: bold;
 }
 
@@ -267,6 +268,13 @@ h2 {
   font-size: 1.2em;
   margin-top: 2px;
   margin-bottom: 4px;
+}
+
+h3 {
+  font-family: 'Roboto Condensed', sans-serif;
+  color: #282828;
+  font-weight: bold;
+  font-size:1.1em;
 }
 
 a {

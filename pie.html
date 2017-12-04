@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<head>
+<html>
+    <head>
     <!-- <link rel="stylesheet" href="stylesheets/line-style.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+
 </head>
 <style>
 
@@ -125,12 +127,13 @@ datasetTotal = [
         ];
 
 datasetOption1 = [
+        {label:"Monday", value:23.2}, 
+        {label:"Tuesday", value:21.6}, 
+        {label:"Wednesday", value:22.1},
         {label:"Thursday", value:20.5},
         {label:"Friday", value:11.7},
         {label:"Weekend", value:0.6},
-        {label:"Monday", value:23.2}, 
-        {label:"Tuesday", value:21.6}, 
-        {label:"Wednesday", value:22.1},     
+            
 
              
         ];
@@ -145,12 +148,13 @@ datasetOption2 = [
         ];
 
 datasetOption3 = [
-        {label:"Thursday", value:19.6},
-        {label:"Friday", value:15.6},
-        {label:"Weekend", value:0.3},
         {label:"Monday", value:21.3}, 
         {label:"Tuesday", value:21.8}, 
         {label:"Wednesday", value:21.2},
+        {label:"Thursday", value:19.6},
+        {label:"Friday", value:15.6},
+        {label:"Weekend", value:0.3},
+      
         
         ];
 
@@ -333,7 +337,43 @@ function change(data) {
     <div class="compareContainer">
         <div id="myButton">
             <a href="index.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Back to Main</button></a>
+
+    <link rel="stylesheet" href="stylesheets/pie-styles.css">
+    </head>
+
+    <body>
+        <script type="text/javascript" src="d3/d3.min.js"></script>
+        <script type="text/javascript" src="d3/d3.js"></script>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+        <p></p>
+        <div class="banner-top">
+            <img class="resize" src="stylesheets/2000px-Ole_Miss_Rebels_logo.svg.png"><br/>
+            <p class="no-padding-no-margins headline">Number of Citations Per Day of the Week Analysis</p>
         </div>
-    </div>
-</div>
-</body>
+        <div>
+          <center>
+              <br /><a href="index.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Back to Main</button></a><br />
+          </center>
+        </div>
+        <center>
+        <form>
+            <label><input type="radio" name="dataset" id="dataset" value="total" checked> Total</label>
+            <label><input type="radio" name="dataset" id="dataset" value="option1"> 2014</label>
+            <label><input type="radio" name="dataset" id="dataset" value="option2"> 2015</label>
+            <label><input type="radio" name="dataset" id="dataset" value="option3"> 2016</label>
+            <label><input type="radio" name="dataset" id="dataset" value="option4"> 2017</label>
+        </form>
+      </center>
+        <script type="text/javascript" src="scripts/pie.js"></script>
+        <!--
+        <div class="compareContainer">
+            <div id="myButton">
+                <p></p><center><br>
+                <a href="index.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Back to Main</button></a>
+              </center>
+            </div>
+>>>>>>> c19f7de53e36c370b8de6ca3ede648da546dc0fb
+        </div>
+        <div class="buffer-big"></div>-->
+    </body>
+</html>
