@@ -1181,6 +1181,7 @@
           //did they select a year and a month?
           yearAndMonth = day == "All";
 
+            //ternary function to determine which dataset should be used for max gradient
             maxGradient1 = maxGradient(year == "All" ? lotsRolledUp : (yearOnly?lotsRolledUpY:(yearAndMonth?lotsRolledUpM:lotsRolledUpD)), year, month, day);
           //create legend based off of selection
           buildLegend(maxGradient1, gradient, year, month, day);
