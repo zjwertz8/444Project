@@ -22,7 +22,7 @@
         <div class="banner-top">
           <img class="resize" src="stylesheets/2000px-Ole_Miss_Rebels_logo.svg.png"><br/>
           <p class="no-padding-no-margins headline">
-            Parking Citation Visualization
+            Parking Citation Visualization Tool
           </p>
         </div>
         <div class="documentation">
@@ -58,9 +58,10 @@ The full data set is avaiable below. Warning - the raw data sets are very large.
 In our representation of the data, we used the location by parking lot of each ticket as well as its date to create our visualizations.
 </p>
 <h1>What it does</h1>
-<p>
-Our application allows the user to view a heatmap representing the density of parking tickets across campus.
-</p>
+<p>Our application allows the user to view a heatmap representing the density of parking tickets across campus. By default, the map shows all of the available ticket data. The user can narrow or expand the range of data from the dropdown meu. There is an option to toggle the parking zones on and off as well as toggle the JAC's data (as the JAC skews the representation of the rest of the data). </p>
+<p>The line graph shows the quantity of tickets across the ten most ticket-dense lots over the full dataset. The user must select which dots to view using the legend at the bottom.</p>
+<p>The pie chart shows the comparison of the quantity of tickets across the different days of the week over the full data set or over multiple years.</p>
+
 
 <h1>How We Built It</h1>
 <p>
@@ -68,27 +69,30 @@ Our application allows the user to view a heatmap representing the density of pa
 </p>
 <p>Below is a list to all files used for this project. Click on the file names to download the file.</p>
 <p><h3>HTML Files</h3></p>
-<p><a href="download.php?file=index.html" download="index.html">index.html</a> - HTML for the landing/index page</p>
-<p><a href="download.php?file=pie.html" download="pie.html">pie.html</a> - HTML for pie chart page</p>
-<p><a href="download.php?file=lineGraph.html" download="lineGraph.html">lineGraph.html</a> - HTML for line graph page</p>
-<p><a href="download.php?file=documentation.html" download="documentation.html">documentation.html</a> - HTML for documentation page</p>
+<p class="indent"><a href="download.php?file=index.html" download="index.html">index.html</a> - HTML for the landing/index page</p>
+<p class="indent"><a href="download.php?file=pie.html" download="pie.html">pie.html</a> - HTML for pie chart page</p>
+<p class="indent"><a href="download.php?file=lineGraph.html" download="lineGraph.html">lineGraph.html</a> - HTML for line graph page</p>
+<p class="indent"><a href="download.php?file=documentation.html" download="documentation.html">documentation.html</a> - HTML for documentation page</p>
 <p><h3>CSS Files</h3></p>
-<p><a href="download.php?file=stylesheets/styles.css" download="styles.css">styles.css</a> - Master stylesheet</p>
-<p><a href="download.php?file=stylesheets/pie-styles.css" download="pie-styles.css">pie-styles.css</a> - Pie chart specific stylesheet</p>
-<p><a href="download.php?file=stylesheets/line-style.css" download="line-style.css">line-style.css</a> - Line Graph Specific Stylesheet</p>
-<p><a href="download.php?file=stylesheets/documentation.css" download="documentation.css">documentation.css</a> - Stylesheet for documentation page</p>
-<p><a href="download.php?file=stylesheets/2000px-Ole_Miss_Rebels_logo.svg.png" download="2000px-Ole_Miss_Rebels_logo.svg.png">2000px-Ole_Miss_Rebels_logo.svg.png</a> - Ole Miss logo for header</p>
+<p class="indent"><a href="download.php?file=stylesheets/styles.css" download="styles.css">styles.css</a> - Master stylesheet</p>
+<p class="indent"><a href="download.php?file=stylesheets/pie-styles.css" download="pie-styles.css">pie-styles.css</a> - Pie chart specific stylesheet</p>
+<p class="indent"><a href="download.php?file=stylesheets/line-style.css" download="line-style.css">line-style.css</a> - Line Graph Specific Stylesheet</p>
+<p class="indent"><a href="download.php?file=stylesheets/documentation.css" download="documentation.css">documentation.css</a> - Stylesheet for documentation page</p>
+<p class="indent"><a href="download.php?file=stylesheets/2000px-Ole_Miss_Rebels_logo.svg.png" download="2000px-Ole_Miss_Rebels_logo.svg.png">2000px-Ole_Miss_Rebels_logo.svg.png</a> - Ole Miss logo for header</p>
 <p><h3>Scripts</h3></p>
-<p><a href="download.php?file=scripts/globalLatLng.js" download="globalLAtLng.js">globalLatLng.js</a> - The plotted latitude and longitude coordinates for the heatmap's polygons</p>
-<p><a href="download.php?file=download.php" download="download.php">download.php</a> - Script to support file download on older browsers</p>
+<p class="indent"><a href="download.php?file=scripts/globalLatLng.js" download="globalLAtLng.js">globalLatLng.js</a> - The plotted latitude and longitude coordinates for the heatmap's polygons</p>
+<p class="indent"><a href="download.php?file=download.php" download="download.php">download.php</a> - Script to support file download on older browsers</p>
 <p><h3>Latitude & Longitude Reformatting</h3></p>
-<p><a href="download.php?file=LongLatReformat/LatLongGenerator.xlsx" download="LatLongGenerator.xlsx">LatLongGenerator.xlsx</a> - Excel sheet for converting the lat/long of a google map polygon in to the format we needed for our script</p>
-<p><a href="download.php?file=LongLatReformat/LongLatReformatter.java" download="LongLatReformatter.java">LongLatReformatter.java</a> - Java program for converting the lat/long of a google map polygon in to the format we needed for our script</p>
-<p><a href="download.php?file=LongLatReformat/LongLat.java" download="LongLat.java">LongLat.java</a> - Supporting java class for the above program</p>
+<p class="indent"><a href="download.php?file=LongLatReformat/LatLongGenerator.xlsx" download="LatLongGenerator.xlsx">LatLongGenerator.xlsx</a> - Excel sheet for converting the lat/long of a google map polygon in to the format we needed for our script</p>
+<p class="indent"><a href="download.php?file=LongLatReformat/LongLatReformatter.java" download="LongLatReformatter.java">LongLatReformatter.java</a> - Java program for converting the lat/long of a google map polygon in to the format we needed for our script</p>
+<p class="indent"><a href="download.php?file=LongLatReformat/LongLat.java" download="LongLat.java">LongLat.java</a> - Supporting java class for the above program</p>
 </p>
 <br>
+<p><h3>Download All</h3></p>
+<p><a href="download.php?file=" download="CSCI444-complete-project-bunnies">CSCI444-complete-project-bunnies.zip</a> - Download the Complete Project (filesize)</p>
+<br>
 <p>
-<h2>Milestones</h2>
+<h2>Significant Milestones</h2>
 </p>
 <p>
   <strong>Milestone 1 - Format the raw data.</strong>
@@ -156,26 +160,21 @@ Our application allows the user to view a heatmap representing the density of pa
   A Pie chart to show percentage of citations from MON -SUN
 </p>
 
-<h1>Accomplishments</h1>
-<p>
-Blah
-</p>
-
 <h1>What's Next</h1>
-<p>
-Blah
-</p>
+<p>We had a couple more tasks we would have preferred to implement as well as some tidying up we did not get to. </p>
+<p class="indent">thing</p>
+<p class="indent">thing</p>
+
+<p>Parking and Transportation Services wants to continue working with students in the CS department to implement more features of the project. Some of the possibilities mentioned include the following.</p>
+<p class="indent">thing</p>
+<p class="indent">thing</p>
 
 <h1>Built With</h1>
-
-<p>
-HTML, CSS, d3.js, Google Maps
-</p>
-
+<p>HTML/CSS, d3.js, Google Maps, Google Maps and KML shapes generator, php</p>
+<br>
 <p>
 <h2 style="text-align: center">Course-Specific Information</h2>
 </p>
-
 <h1>Team - Bunnies</h1>
 
 <p>
@@ -192,30 +191,43 @@ HTML, CSS, d3.js, Google Maps
 </p>
 
 <h1>Validation</h1>
-
+<p>Project Client/Sponsor:</p>
 <p>
-  Liked UI<br>
-  Many ideas for more features<br>
-  Will be extremely useful in lobbying for changes in the university<br>
-  Wants to sponsor a senior project so the visualization can be expanded
+  <strong>Mike Harris</strong>, MBA,CPP,CAPP <br>
+  Director of Parking and Transportation<br>
+  The University of Mississippi<br>
+  Department of Parking and Transportation<br><br>
+  Lester 120<br>
+  P.O. Box 1848<br>
+  University, MS 38677<br>
+  U.S.A.<br><br>
+  O: (662) 915-5450: F:(662) 915-5863
+</p>
+<br>
+<p><strong>Parking & Transportation Services Department's Feedback</strong></p>
+
+<p>Will be extremely useful in lobbying for changes in the university - use the data visualization to back up proposals with the university administration in order to receive approval</p>
+<p>Liked UI - felt it was very intuitive</p>
+<p>Many ideas for more features that would be useful</p>
+<p>Wants to sponsor a senior project so the visualization can be expanded</p>
 
 </p>
 
 <h1>Meeting Schedule</h1>
 <p>
-  Oct. 4th - Pick Topic/Find dataset
-  Oct. 12 - Comb through data
-  Oct. 16 - GitHub setup
-  Oct. 22 - Plotted first points for heatmap
-  Oct. 29 - Got polygons working for parking lots
-  Nov. 2 - Color of lot mapped to amount of lots, more lots added
-  Nov. 5 - More lots added
-  Nov. 12 - Rollup function to separate year,  month,  day,  dropdown selections added
-  Nov. 23 - Labels for polygons, basic styling of labels
-  Nov. 25 - Graph refresh upon dropdown selection
-  Nov. 26 - Max gradient color is function of highest ticketed lot available based on  selection
-  Nov. 27 - add line graph for comparison button
-  Nov. 28 - add lots 30-50
+  Oct. 4th - Pick Topic/Find dataset<br>
+  Oct. 12 - Comb through data<br>
+  Oct. 16 - GitHub setup<br>
+  Oct. 22 - Plotted first points for heatmap<br>
+  Oct. 29 - Got polygons working for parking lots<br>
+  Nov. 2 - Color of lot mapped to amount of lots, more lots added<br>
+  Nov. 5 - More lots added<br>
+  Nov. 12 - Rollup function to separate year,  month,  day,  dropdown selections added<br>
+  Nov. 23 - Labels for polygons, basic styling of labels<br>
+  Nov. 25 - Graph refresh upon dropdown selection<br>
+  Nov. 26 - Max gradient color is function of highest ticketed lot available based on  selection<br>
+  Nov. 27 - add line graph for comparison button<br>
+  Nov. 28 - add lots 30-50<br>
 </p>
 
 <br />
