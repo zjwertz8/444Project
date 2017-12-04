@@ -97,7 +97,7 @@
         var months30 = ["All", ]
         var noFeb = ["All", "January", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         var no30 = ["All", "January", "March", "May", "July", "August", "October", "December"];
-        
+
 
         //dictionary for corresponding month day
         var monthDict = {
@@ -233,7 +233,7 @@
           selectYear = d3.select("#year").property("value");
           selectMonth = d3.select("#month").property("value");
           selectDay = d3.select("#day").property("value");
-          
+
           //if Jackson toggle is checked
           if(jacksonCheck._groups[0][0].checked == true)
           {
@@ -259,7 +259,7 @@
           }
           //break down into years
           else if(selectYear == 2014)
-          { 
+          {
             if(selectMonth == "All")
             {
               selectMonth = "All";
@@ -279,7 +279,7 @@
             }
             //they selected a month
             else
-            { 
+            {
               //enable month and day dropdown
               d3.select("#day").attr('disabled', null);
               d3.select("#month").attr('disabled', null);
@@ -325,7 +325,7 @@
               d3.select("#year").property('value', selectYear);
           }
           else
-          { 
+          {
             //if these months, they have different yearSelect than 7-12
             if(selectMonth == "January" || selectMonth == "February" || selectMonth == "March" || selectMonth == "April" || selectMonth == "May" || selectMonth == "June")
             {
@@ -356,7 +356,7 @@
             //select day
             d3.select("#day").property("value", selectDay);
             }
-            //month between 7-12 was selected 
+            //month between 7-12 was selected
             else
             {
               //enable month and day dropdown
@@ -645,14 +645,14 @@
               existingZones[i].setMap(null);
           }
         }
-        
-        
+
+
         };
-         
+
          function buildZoneOverlay()
         {
-          
-          lotAndLatLngDictZ = 
+
+          lotAndLatLngDictZ =
           {
             "RESIDENTIAL EAST ZONE": new google.maps.LatLng(34.36921030338676, -89.53345119953156),
             "RESIDENTIAL CENTRAL ZONE": new google.maps.LatLng(34.371689880464444, -89.53582763671875),
@@ -670,7 +670,7 @@
             }
 
 
-            if(infowindow2) 
+            if(infowindow2)
             {
               infowindow2.close();
             }
@@ -1147,6 +1147,7 @@
 
 
           //create gradient
+
            var colorScale = d3.scaleLinear().domain([0, 25, 50, 75, 100])
              .range(["#FDBB2D", "#C6BC52", "#8FBE78", "#58BF9D", "#22C1C3"])
           var xScale = d3.scaleLinear().domain([0, 100]).range([0, 300])
@@ -1186,7 +1187,7 @@
 
         //separate domain into five equal bins, with respective colors
         var gradient = d3.scaleLinear().domain([0, maxGradient1 * 0.25, maxGradient1 * 0.50, maxGradient1 * 0.75, maxGradient1]).range(["#FDBB2D", "#C6BC52", "#8FBE78", "#58BF9D", "#22C1C3"]);
-        
+
         //infoWindows for polygons
         function addInfoWindow(lotName) {
           //close any open windows
@@ -1196,7 +1197,7 @@
             }
 
 
-            if(infowindow2) 
+            if(infowindow2)
             {
               infowindow2.close();
             }
@@ -1656,7 +1657,7 @@
           "THE INN AT OLE MISS" : new google.maps.LatLng(34.3674184679905, -89.52908992767334),
           "MUSIC BUILDING WEST LOT": new google.maps.LatLng(34.36443691089038, -89.53004479408264),
 
-          
+
           //#31
           "SOUTH LOT" : new google.maps.LatLng(34.35723940805898, -89.53495860099792),
           //no union lot anymore #32
@@ -1686,7 +1687,7 @@
           "NORTH LANE" : new google.maps.LatLng(34.36921030338676, -89.53345119953156)
         }
 
-        
+
         //Info Window event listeners, every polygon
         //#1 Jackson Ave
         google.maps.event.addListener(jacksonAvePoly, 'mouseover', function() {
@@ -2329,9 +2330,14 @@
                 <a href="lineGraph.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Line Graph Comparison</button></a>
                 <a href="pie.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Pie Chart Day-to-Day Comparison</button></a>
             </div>
-            
-                
-           
+            <br>
+            <div id="myButton">
+                <a href="documentation.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Documentation</button></a>
+            </div>
+            <br>
+
+
+
         </div>
     </div>
     <div class="buffer-big"></div>

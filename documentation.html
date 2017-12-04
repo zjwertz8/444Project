@@ -1,0 +1,169 @@
+
+
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Ole Miss Parking Citation Visualization</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+            <link rel="stylesheet" href="stylesheets/styles.css">
+            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+            <script src="https://maps.google.com/maps/api/js?sensor=True"></script>
+          </head>
+        <body>
+          <script type="text/javascript" src="d3.min.js"></script>
+          <script type="text/javascript" src="d3/d3.min.js"></script>
+          <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+          <script type="text/javascript" src="scripts/globalLatLng.js"></script>
+
+        <p></p>
+        <div class="banner-top">
+          <img class="resize" src="stylesheets/2000px-Ole_Miss_Rebels_logo.svg.png"><br/>
+          <p class="no-padding-no-margins headline">
+            Parking Citation Visualization
+          </p>
+        </div>
+        <div class="documentation">
+          <br>
+          <p class="body-content" style="text-align: center">
+          <strong>Project Documentation</strong>
+          </p>
+
+            <h1>Inspiration</h1>
+
+<p class="body-content">
+Our team approached this topic with two goals in mind - create something that is genuinely useful to solve a problem, and have that problem be local. We were worried that if we chose a problem first, we would end up looking for a corresponding data set that would be predisposed to supporting our hypothesis. Consequently, we decided we wanted to try and find a dataset large enough to be an accurate representation of the population first. Then, we would use what we’ve learned about information visualization to see if we could bring to light any trends among that data that were not already obvious.
+</p>
+
+<p class="body-content">
+We traversed campus, speaking to multiple different departments and programs to explain our project. Ultimately, we received a dataset of parking tickets from the Parking and Transportation Services department.
+</p>
+
+<h1>
+The Data
+</h1>
+<p class="body-content">
+Due to privacy concerns, Parking and Transportation Services had to redact some of the data. We received 179284 tickets from 2014 to October 5th, 2017. Many of the tickets were voided and not considered.
+The full data set is avaiable <strong>here</strong>.
+</p>
+<p class="body-content">
+In our representation of the data, we used the location by parking lot of each ticket as well as its date to create our visualizations.
+</p>
+<h1>What it does</h1>
+<p class="body-content">
+Our application allows the user to view a heatmap representing the density of parking tickets across campus.
+</p>
+
+<h1>How We Built It</h1>
+<p class="body-content">
+<strong>Filename - </strong> Purpose
+<br>
+<strong>Filename - </strong> Purpose
+<br><strong>Filename - </strong> Purpose
+<br><strong>Filename - </strong> Purpose
+<br><strong>Filename - </strong> Purpose
+<br><strong>Filename - </strong> Purpose
+<br><strong>Filename - </strong> Purpose
+<br>
+</p>
+
+<h1>Challenges we ran into</h1>
+<p class="body-content">
+  <h2>Data Collection</h2>
+  Some data unusable (roughly 6,000 out of 180,000 or 3.33%)<br>
+  Data had to be parsed in order to be used
+</p>
+
+  <p class="body-content">
+  <h2>Construction</h2>
+  Made some parking lots difficult to plot (Union lot)<br>
+  Some lots are smaller than previously, some larger, had to use most recent Google Maps D3 and Google Maps
+</p>
+
+  <p class="body-content">
+  <h2>Jackson Avenue Center</h2>
+  Over that past 3 school years, possesses a 2:1 ratio over the second most cited lot
+  Skews the heatmap trends when comparing to other lots
+</p>
+
+  <p class="body-content">
+  <h2>Adding different visuals to visualize the dataset</h2>
+  A line graph for top 10 parking lots to compare the trends for 4 year
+  A Pie chart to show percentage of citations from MON -SUN
+</p>
+
+<h1>Accomplishments</h1>
+<p class="body-content">
+Blah
+</p>
+
+<h1>What's Next</h1>
+<p class="body-content">
+Blah
+</p>
+
+<h1>Built With</h1>
+
+<p class="body-content">
+HTML, CSS, d3.js, Google Maps
+</p>
+
+<p class="body-content" style="text-align: center">
+<strong>Course-Specific Information</strong>
+</p>
+
+<h1>Team - Bunnies</h1>
+
+<p class="body-content">
+Blah
+</p>
+
+<h1>Meeting Schedule</h1>
+
+<p class="body-content">
+Blah
+</p>
+
+<h1>Milestones</h1>
+
+<p class="body-content">
+  <strong>Milestone 1 - </strong>Format the raw data.
+</p>
+  <p class="body-content">
+  <strong>Milestone 2 - </strong>Combine d3 with google maps.
+</p>
+  <p class="body-content">
+  <strong>Milestone 3 - </strong>Make polygons fill color with the data.
+</p>
+  <p class="body-content">
+<strong>Milestone 4 - </strong>Adding selectors to change data.
+</p>
+  <p class="body-content">
+  <strong>Milestone 5 - </strong>Adding color scale and perfect color gradient.
+</p>
+  <p class="body-content">
+  <strong>Milestone 6 - </strong>Toggle the outlier JAC to avoid misleading visualization.
+</p>
+  <p class="body-content">
+  <strong>Milestone 7 - </strong>Line Graph to visualize the trend.
+</p>
+  <p class="body-content">
+  <strong>Milestone 8 - </strong>Pie chart for Day comparison.
+</p>
+  <p class="body-content">
+  <strong>Milestone 9 - </strong>Adding zones to the whole map, and selector.
+</p>
+
+<br />
+<div id="myButton">
+  <center>
+    <a href="index.html"><button type="button" class="btn btn-primary btn-lg active" id="myButton" style="margin: 0px 4px 0px 4px;">Return to Main</button></a><br/>
+  </center>
+</div>
+</div>
+<div><br><br><br><br></div>
+
+  </body>
+</html>
